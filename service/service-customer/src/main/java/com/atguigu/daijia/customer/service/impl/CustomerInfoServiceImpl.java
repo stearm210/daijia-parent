@@ -54,6 +54,7 @@ public class CustomerInfoServiceImpl extends ServiceImpl<CustomerInfoMapper, Cus
         //2 根据openid查询数据库表，判断是否第一次登录
         //如果openid不存在返回null，如果存在返回一条记录
         //select * from customer_info ci where ci.wx_open_id = ''
+        //数据库查询操作
         LambdaQueryWrapper<CustomerInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(CustomerInfo::getWxOpenId,openid);
         CustomerInfo customerInfo = customerInfoMapper.selectOne(wrapper);

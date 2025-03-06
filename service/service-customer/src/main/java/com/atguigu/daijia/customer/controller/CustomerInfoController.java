@@ -30,6 +30,7 @@ public class CustomerInfoController {
 	//微信小程序登录接口
 	@Operation(summary = "小程序授权登录")
 	@GetMapping("/login/{code}")
+	//login传入临时的票据，最后返回openid(用户的id值)
 	public Result<Long> login(@PathVariable String code) {
 		return Result.ok(customerInfoService.login(code));
 	}
