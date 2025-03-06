@@ -63,7 +63,9 @@ public class CustomerInfoServiceImpl extends ServiceImpl<CustomerInfoMapper, Cus
         //3 如果第一次登录，添加信息到用户表
         if(customerInfo == null) {
             customerInfo = new CustomerInfo();
+            //添加默认昵称
             customerInfo.setNickname(String.valueOf(System.currentTimeMillis()));
+            //添加头像
             customerInfo.setAvatarUrl("https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg");
             customerInfo.setWxOpenId(openid);
             customerInfoMapper.insert(customerInfo);
