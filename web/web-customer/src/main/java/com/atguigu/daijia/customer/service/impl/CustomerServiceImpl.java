@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String login(String code) {
         //1 拿着code进行远程调用，返回用户id
-        //远程调用操作
+        //远程调用操作,将返回值封装到Result<Long>
         Result<Long> loginResult = client.login(code);
 
         //2 判断如果返回失败了，返回错误提示
