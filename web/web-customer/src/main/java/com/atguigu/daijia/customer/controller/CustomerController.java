@@ -66,6 +66,8 @@ public class CustomerController {
         return Result.ok(customerInfoService.login(code));
     }
 
+
+
     @Operation(summary = "更新用户微信手机号")
     @GuiguLogin
     @PostMapping("/updateWxPhone")
