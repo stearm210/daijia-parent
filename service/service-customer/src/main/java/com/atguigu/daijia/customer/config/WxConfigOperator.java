@@ -21,6 +21,7 @@ public class WxConfigOperator {
       * @Params:
       * @Return: null
       * @Description: 专门用于针对微信小程序操作
+      * 创建微信工具包对象
       */
     @Bean
     public WxMaService wxMaService() {
