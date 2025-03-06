@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(value = "service-customer")
 public interface CustomerInfoFeignClient {
 
+    //登录操作的接口
     @GetMapping("/customer/info/login/{code}")
     public Result<Long> login(@PathVariable String code);
 
