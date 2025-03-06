@@ -56,6 +56,7 @@ public class CustomerInfoServiceImpl extends ServiceImpl<CustomerInfoMapper, Cus
         //select * from customer_info ci where ci.wx_open_id = ''
         //数据库查询操作
         LambdaQueryWrapper<CustomerInfo> wrapper = new LambdaQueryWrapper<>();
+        //查询表中的WxOpenId是否等于传入的openid
         wrapper.eq(CustomerInfo::getWxOpenId,openid);
         CustomerInfo customerInfo = customerInfoMapper.selectOne(wrapper);
 
