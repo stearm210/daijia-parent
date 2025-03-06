@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+//指定了远程调用接口的名字
+//这里指定调用service-customer服务
 @FeignClient(value = "service-customer")
 public interface CustomerInfoFeignClient {
 
