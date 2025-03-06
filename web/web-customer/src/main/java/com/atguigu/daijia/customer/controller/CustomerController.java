@@ -19,6 +19,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+//乘客接口开发
+//乘客接口模块，乘客调用入口
 @Slf4j
 @Tag(name = "客户API接口管理")
 @RestController
