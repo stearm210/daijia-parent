@@ -53,6 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         //5 生成token字符串
+        //这里去除了横杆
         String token = UUID.randomUUID().toString().replaceAll("-","");
 
         //6 把用户id放到Redis，设置过期时间
