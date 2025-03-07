@@ -14,6 +14,4 @@ public class WebCustomerApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebCustomerApplication.class, args);
     }
-
-
 }
