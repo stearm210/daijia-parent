@@ -20,6 +20,14 @@ public class CustomerInfoController {
 	private CustomerInfoService customerInfoService;
 
 
+	 /*
+	  * @Title: getCustomerLoginInfo
+	  * @Author: pyzxW
+	  * @Date: 2025-03-08 15:02:08
+	  * @Params:
+	  * @Return: null
+	  * @Description: 获取用户对应的信息
+	  */
 	@Operation(summary = "获取客户登录信息")
 	@GetMapping("/getCustomerLoginInfo/{customerId}")
 	public Result<CustomerLoginVo> getCustomerLoginInfo(@PathVariable Long customerId) {
