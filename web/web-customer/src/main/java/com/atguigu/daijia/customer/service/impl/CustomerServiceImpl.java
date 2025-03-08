@@ -86,12 +86,12 @@ public class CustomerServiceImpl implements CustomerService {
         //4 根据用户id进行远程调用 得到用户信息
         Result<CustomerLoginVo> customerLoginVoResult =
                 customerInfoFeignClient.getCustomerLoginInfo(Long.parseLong(customerId));
-
+        //判断service的返回码code
         Integer code = customerLoginVoResult.getCode();
         if(code != 200) {
             throw new GuiguException(ResultCodeEnum.DATA_ERROR);
         }
-
+        //判断用户信息是否为空
         CustomerLoginVo customerLoginVo = customerLoginVoResult.getData();
         if(customerLoginVo == null) {
             throw new GuiguException(ResultCodeEnum.DATA_ERROR);
