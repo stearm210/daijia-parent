@@ -34,40 +34,55 @@ public class CustomerController {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @Operation(summary = "获取客户登录信息")
-    @GetMapping("/getCustomerLoginInfo")
-    public Result<CustomerLoginVo> getCustomerLoginInfo(@RequestHeader(value = "token") String token) {
-        //1.从请求头中获取token字符串
-
-        //2.根据token查询redis
-        //3.查询token在redis里面对应用户id
-        String customerId = (String)redisTemplate.opsForValue().get(RedisConstant.USER_LOGIN_KEY_PREFIX + token);
-        //判断操作,id是否存在？
-        if (!StringUtils.hasText(customerId)){
-            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
-        }
-
-        //4.根据用户id进行远程调用 得到用户信息
-
-
-        //5.返回用户信息
-        return Result.ok(customerInfoService.getCustomerLoginInfo(customerId));
-    }
+    @Autowired
+    private CustomerInfoFeignClient customerInfoFeignClient;
 
 //    @Operation(summary = "获取客户登录信息")
-//    @GuiguLogin
 //    @GetMapping("/getCustomerLoginInfo")
-//    public Result<CustomerLoginVo> getCustomerLoginInfo() {
+//    public Result<CustomerLoginVo> getCustomerLoginInfo(@RequestHeader(value = "token") String token) {
+//        //1.从请求头中获取token字符串
 //
-//        //1 从ThreadLocal获取用户id
-//        Long customerId = AuthContextHolder.getUserId();
+//        //2.根据token查询redis
+//        //3.查询token在redis里面对应用户id
+//        String customerId = (String)redisTemplate.opsForValue().get(RedisConstant.USER_LOGIN_KEY_PREFIX + token);
+//        //判断操作,id是否存在？
+//        if (!StringUtils.hasText(customerId)){
+//            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+//        }
 //
-//        //调用service
-//        CustomerLoginVo customerLoginVo = customerInfoService.getCustomerInfo(customerId);
+//        //4.根据用户id进行远程调用 得到用户信息
+//        Result<CustomerLoginVo> customerLoginVoResult = customerInfoFeignClient.getCustomerLoginInfo(Long.parseLong(customerId));
+//        //判断service的返回码code
+//        Integer code = customerLoginVoResult.getCode();
+//        //如果code不为200则调用失败
+//        if(code != 200) {
+//            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+//        }
 //
-//        //返回用户信息
+//        //判断用户信息是否为空
+//        CustomerLoginVo customerLoginVo = customerLoginVoResult.getData();
+//        if (customerLoginVo == null){
+//            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+//        }
+//
+//        //5.返回用户信息
 //        return Result.ok(customerLoginVo);
 //    }
+
+    @Operation(summary = "获取客户登录信息")
+    @GuiguLogin
+    @GetMapping("/getCustomerLoginInfo")
+    public Result<CustomerLoginVo> getCustomerLoginInfo() {
+
+        //1 从ThreadLocal获取用户id
+        Long customerId = AuthContextHolder.getUserId();
+
+        //调用service
+        CustomerLoginVo customerLoginVo = customerInfoService.getCustomerInfo(customerId);
+
+        //返回用户信息
+        return Result.ok(customerLoginVo);
+    }
 
 //    @Operation(summary = "获取客户登录信息")
 //    @GetMapping("/getCustomerLoginInfo")
