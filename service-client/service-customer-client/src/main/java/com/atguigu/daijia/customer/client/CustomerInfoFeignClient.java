@@ -18,6 +18,7 @@ public interface CustomerInfoFeignClient {
     @GetMapping("/customer/info/login/{code}")
     public Result<Long> login(@PathVariable String code);
 
+    //获取用户登录信息操作
     @GetMapping("/customer/info/getCustomerLoginInfo/{customerId}")
     Result<CustomerLoginVo> getCustomerLoginInfo(@PathVariable("customerId") Long customerId);
 
