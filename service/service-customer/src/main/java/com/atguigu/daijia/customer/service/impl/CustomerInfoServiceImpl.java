@@ -85,6 +85,7 @@ public class CustomerInfoServiceImpl extends ServiceImpl<CustomerInfoMapper, Cus
     @Override
     public CustomerLoginVo getCustomerInfo(Long customerId) {
         //1 根据用户id查询用户信息
+        //调用mp中查询的方法
         CustomerInfo customerInfo = customerInfoMapper.selectById(customerId);
 
         //2 封装到CustomerLoginVo
