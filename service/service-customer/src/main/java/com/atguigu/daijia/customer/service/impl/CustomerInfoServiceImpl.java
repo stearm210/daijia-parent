@@ -93,6 +93,7 @@ public class CustomerInfoServiceImpl extends ServiceImpl<CustomerInfoMapper, Cus
         //customerLoginVo.setNickname(customerInfo.getNickname());
         BeanUtils.copyProperties(customerInfo,customerLoginVo);
 
+        //判断是否需要绑定手机号
         //@Schema(description = "是否绑定手机号码")
         //    private Boolean isBindPhone;
         String phone = customerInfo.getPhone();
