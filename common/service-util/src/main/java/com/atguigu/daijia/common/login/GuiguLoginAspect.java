@@ -16,6 +16,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+//交于spring进行管理
 @Component
 @Aspect  //切面类
 public class GuiguLoginAspect {
@@ -25,6 +26,7 @@ public class GuiguLoginAspect {
 
     //环绕通知，登录判断
     //切入点表达式：指定对哪些规则的方法进行增强
+    //对这个controller包下的所有方法，并且在执行之前、拥有这个注解的，都进行增强
     @Around("execution(* com.atguigu.daijia.*.controller.*.*(..)) && @annotation(guiguLogin)")
     public Object login(ProceedingJoinPoint proceedingJoinPoint,GuiguLogin guiguLogin)  throws Throwable {
 
