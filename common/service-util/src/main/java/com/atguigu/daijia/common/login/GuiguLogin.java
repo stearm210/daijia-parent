@@ -5,6 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+//自定义注解
 //登录判断
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
