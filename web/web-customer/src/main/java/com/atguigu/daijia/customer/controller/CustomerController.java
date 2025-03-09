@@ -70,6 +70,7 @@ public class CustomerController {
 //    }
 
     @Operation(summary = "获取客户登录信息")
+    //已经调用了自定义注解方法，因此可以使用q直接获取对应的id操作
     @GuiguLogin
     @GetMapping("/getCustomerLoginInfo")
     public Result<CustomerLoginVo> getCustomerLoginInfo() {

@@ -109,6 +109,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customerInfoFeignClient.getCustomerLoginInfo(customerId);
 
         Integer code = customerLoginVoResult.getCode();
+        //下面进行值的判断
         if(code != 200) {
             throw new GuiguException(ResultCodeEnum.DATA_ERROR);
         }
