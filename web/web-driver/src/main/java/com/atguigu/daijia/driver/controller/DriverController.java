@@ -39,6 +39,7 @@ public class DriverController {
     @Operation(summary = "小程序授权登录")
     @GetMapping("/login/{code}")
     public Result<String> login(@PathVariable String code) {
+        //返回的信息是token，可以用于后续的操作
         return Result.ok(driverService.login(code));
     }
 
