@@ -74,10 +74,45 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
             //获取openid
             String openid = sessionInfo.getOpenid();
 
+            //根据openid查询是否第一次登录
+            LambdaQueryWrapper<DriverInfo> wrapper = new LambdaQueryWrapper<>();
+            //在数据库中进行对比,确实有在这个信息则拿出来
+            wrapper.eq(DriverInfo::getWxOpenId,openid);
+            DriverInfo driverInfo = driverInfoMapper.selectOne(wrapper);
+            //如果是第一次登录，添加司机基本信息
+            if(driverInfo == null) {
+                //1.添加司机基本信息
+                driverInfo = new DriverInfo();
+                driverInfo.setNickname(String.valueOf(System.currentTimeMillis()));
+                driverInfo.setAvatarUrl("https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg");
+                driverInfo.setWxOpenId(openid);
+                driverInfoMapper.insert(driverInfo);
+
+                //2.初始化司机设置
+                DriverSet driverSet = new DriverSet();
+                driverSet.setDriverId(driverInfo.getId());
+                driverSet.setOrderDistance(new BigDecimal(0));//0：无限制
+                driverSet.setAcceptDistance(new BigDecimal(SystemConstant.ACCEPT_DISTANCE));//默认接单范围：5公里
+                driverSet.setIsAutoAccept(0);//0：否 1：是 //自动接单操作
+                //调用mapper中的插入操作进行添加
+                driverSetMapper.insert(driverSet);
+
+                //3.初始化司机账户信系
+                DriverAccount driverAccount = new DriverAccount();
+                driverAccount.setDriverId(driverInfo.getId());
+                driverAccountMapper.insert(driverAccount);
+            }
+            //记录司机的登录信息
+            DriverLoginLog driverLoginLog = new DriverLoginLog();
+            driverLoginLog.setDriverId(driverInfo.getId());
+            driverLoginLog.setMsg("小程序登录");
+            driverLoginLogMapper.insert(driverLoginLog);
+
+            //返回司机的id
+            return driverInfo.getId();
         } catch (WxErrorException e) {
-            throw new RuntimeException(e);
+            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
         }
-        return null;
     }
 
 
