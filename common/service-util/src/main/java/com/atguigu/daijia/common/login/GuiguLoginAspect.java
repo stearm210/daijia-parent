@@ -34,6 +34,7 @@ public class GuiguLoginAspect {
         //获取对应的请求头
         RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes)attributes;
+        //请求头获得
         HttpServletRequest request = sra.getRequest();
 
         //2 从请求头获取token
