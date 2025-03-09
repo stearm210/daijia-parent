@@ -28,12 +28,28 @@ public class DriverController {
     @Autowired
     private DriverInfoFeignClient driverInfoFeignClient;
 
+     /*
+      * @Title: login
+      * @Author: pyzxW
+      * @Date: 2025-03-09 20:16:29
+      * @Params:
+      * @Return: null
+      * @Description: 司机登录操作
+      */
     @Operation(summary = "小程序授权登录")
     @GetMapping("/login/{code}")
     public Result<String> login(@PathVariable String code) {
         return Result.ok(driverService.login(code));
     }
 
+     /*
+      * @Title: getDriverLoginInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-09 20:16:48
+      * @Params:  
+      * @Return: null
+      * @Description: 获取对应的司机登录数据
+      */
     @Operation(summary = "获取司机登录信息")
     @GuiguLogin
     @GetMapping("/getDriverLoginInfo")
