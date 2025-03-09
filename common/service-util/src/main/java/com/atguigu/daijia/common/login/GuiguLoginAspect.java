@@ -31,6 +31,7 @@ public class GuiguLoginAspect {
     public Object login(ProceedingJoinPoint proceedingJoinPoint,GuiguLogin guiguLogin)  throws Throwable {
 
         //1 获取request对象
+        //获取对应的请求头
         RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes)attributes;
         HttpServletRequest request = sra.getRequest();
