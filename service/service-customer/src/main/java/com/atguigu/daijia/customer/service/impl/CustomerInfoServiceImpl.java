@@ -122,8 +122,9 @@ public class CustomerInfoServiceImpl extends ServiceImpl<CustomerInfoMapper, Cus
             CustomerInfo customerInfo = customerInfoMapper.selectById(customerId);
             //更新对应的数据库中的用户手机号码
             customerInfo.setPhone(phoneNumber);
+            //更新操作
             customerInfoMapper.updateById(customerInfo);
-
+            //返回正确更新
             return true;
         } catch (WxErrorException e) {
             throw new GuiguException(ResultCodeEnum.DATA_ERROR);
