@@ -106,8 +106,14 @@ public class CustomerController {
         return Result.ok(customerInfoService.login(code));
     }
 
-
-
+     /*
+      * @Title: updateWxPhone
+      * @Author: pyzxW
+      * @Date: 2025-03-09 15:20:12
+      * @Params:
+      * @Return: null
+      * @Description: 更新用户手机号
+      */
     @Operation(summary = "更新用户微信手机号")
     @GuiguLogin
     @PostMapping("/updateWxPhone")
