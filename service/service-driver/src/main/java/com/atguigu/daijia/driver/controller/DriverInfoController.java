@@ -24,9 +24,18 @@ public class DriverInfoController {
     @Autowired
     private DriverInfoService driverInfoService;
 
+     /*
+      * @Title: login
+      * @Author: pyzxW
+      * @Date: 2025-03-09 16:15:05
+      * @Params:
+      * @Return: null
+      * @Description: 小程序之登录操作
+      */
     @Operation(summary = "小程序授权登录")
     @GetMapping("/login/{code}")
     public Result<Long> login(@PathVariable String code) {
+        //一般来说是进行返回用户ID操作
         return Result.ok(driverInfoService.login(code));
     }
 
