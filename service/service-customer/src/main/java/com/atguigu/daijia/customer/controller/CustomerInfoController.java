@@ -43,6 +43,14 @@ public class CustomerInfoController {
 		return Result.ok(customerInfoService.login(code));
 	}
 
+	 /*
+	  * @Title: updateWxPhoneNumber
+	  * @Author: pyzxW
+	  * @Date: 2025-03-09 15:10:25
+	  * @Params:
+	  * @Return: null
+	  * @Description: 微信号码之更新，方便进行操作
+	  */
 	@Operation(summary = "更新客户微信手机号码")
 	@PostMapping("/updateWxPhoneNumber")
 	public Result<Boolean> updateWxPhoneNumber(@RequestBody UpdateWxPhoneForm updateWxPhoneForm) {

@@ -109,13 +109,18 @@ public class CustomerInfoServiceImpl extends ServiceImpl<CustomerInfoMapper, Cus
     public Boolean updateWxPhoneNumber(UpdateWxPhoneForm updateWxPhoneForm) {
         //1 根据code值获取微信绑定手机号码
         try {
+            //调用微信方法
             WxMaPhoneNumberInfo phoneNoInfo =
                     wxMaService.getUserService().getPhoneNoInfo(updateWxPhoneForm.getCode());
+            //获取对应的手机号
             String phoneNumber = phoneNoInfo.getPhoneNumber();
 
             //更新用户信息
+            //获取用户之id
             Long customerId = updateWxPhoneForm.getCustomerId();
+            //查询id对应的数据库信息
             CustomerInfo customerInfo = customerInfoMapper.selectById(customerId);
+            //更新对应的数据库中的用户手机号码
             customerInfo.setPhone(phoneNumber);
             customerInfoMapper.updateById(customerInfo);
 
