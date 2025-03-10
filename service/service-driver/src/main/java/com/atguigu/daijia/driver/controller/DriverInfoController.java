@@ -39,9 +39,18 @@ public class DriverInfoController {
         return Result.ok(driverInfoService.login(code));
     }
 
+     /*
+      * @Title: getDriverInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-10 14:34:33
+      * @Params:
+      * @Return: null
+      * @Description: 获取司机登录信息
+      */
     @Operation(summary = "获取司机登录信息")
     @GetMapping("/getDriverLoginInfo/{driverId}")
     public Result<DriverLoginVo> getDriverInfo(@PathVariable Long driverId) {
+        //根据司机的ID进行查询操作
         DriverLoginVo driverLoginVo = driverInfoService.getDriverInfo(driverId);
         return Result.ok(driverLoginVo);
     }
@@ -93,6 +102,7 @@ public class DriverInfoController {
     public Result<Boolean> updateServiceStatus(@PathVariable Long driverId, @PathVariable Integer status) {
         return Result.ok(driverInfoService.updateServiceStatus(driverId, status));
     }
+
 
     @Operation(summary = "获取司机基本信息")
     @GetMapping("/getDriverInfo/{driverId}")
