@@ -55,10 +55,11 @@ public class DriverController {
     @GuiguLogin
     @GetMapping("/getDriverLoginInfo")
     public Result<DriverLoginVo> getDriverLoginInfo() {
-        //1 获取用户id
+        //1 获取用户id, 线程中获取对应的id
         Long driverId = AuthContextHolder.getUserId();
         //2 远程调用获取司机信息
         Result<DriverLoginVo> loginVoResult = driverInfoFeignClient.getDriverLoginInfo(driverId);
+        //从result中获得对应的driverLogVo
         DriverLoginVo driverLoginVo = loginVoResult.getData();
         return Result.ok(driverLoginVo);
     }
