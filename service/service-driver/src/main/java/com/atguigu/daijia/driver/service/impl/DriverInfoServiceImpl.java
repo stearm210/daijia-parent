@@ -166,37 +166,37 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
 
 
     //获取司机登录信息
-    @Override
-    public DriverLoginVo getDriverInfo(Long driverId) {
-        //根据司机的ID获取司机的信息
-        DriverInfo driverInfo = driverInfoMapper.selectById(driverId);
-        //为了返回DriverLoginVo对象，使用批量赋值操作
-        DriverLoginVo driverLoginVo = new DriverLoginVo();
-        BeanUtils.copyProperties(driverInfo,driverLoginVo);
-
-        //判断是否需要建档人脸识别
-        String faceModelId = driverInfo.getFaceModelId();
-        boolean isArchiveFace = StringUtils.hasText(faceModelId);
-        driverLoginVo.setIsArchiveFace(isArchiveFace);
-        //返回信息
-        return driverLoginVo;
-    }
-
 //    @Override
 //    public DriverLoginVo getDriverInfo(Long driverId) {
-//        //根据司机id获取司机信息
+//        //根据司机的ID获取司机的信息
 //        DriverInfo driverInfo = driverInfoMapper.selectById(driverId);
-//
-//        //driverInfo -- DriverLoginVo
+//        //为了返回DriverLoginVo对象，使用批量赋值操作
 //        DriverLoginVo driverLoginVo = new DriverLoginVo();
 //        BeanUtils.copyProperties(driverInfo,driverLoginVo);
 //
-//        //是否建档人脸识别
+//        //判断是否需要建档人脸识别
 //        String faceModelId = driverInfo.getFaceModelId();
 //        boolean isArchiveFace = StringUtils.hasText(faceModelId);
 //        driverLoginVo.setIsArchiveFace(isArchiveFace);
+//        //返回信息
 //        return driverLoginVo;
 //    }
+
+    @Override
+    public DriverLoginVo getDriverInfo(Long driverId) {
+        //根据司机id获取司机信息
+        DriverInfo driverInfo = driverInfoMapper.selectById(driverId);
+
+        //driverInfo -- DriverLoginVo
+        DriverLoginVo driverLoginVo = new DriverLoginVo();
+        BeanUtils.copyProperties(driverInfo,driverLoginVo);
+
+        //是否建档人脸识别
+        String faceModelId = driverInfo.getFaceModelId();
+        boolean isArchiveFace = StringUtils.hasText(faceModelId);
+        driverLoginVo.setIsArchiveFace(isArchiveFace);
+        return driverLoginVo;
+    }
 
     //获取司机认证信息
     @Override
