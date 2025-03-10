@@ -43,9 +43,9 @@ public class DriverServiceImpl implements DriverService {
         //远程调用，得到司机id
         Result<Long> longResult = driverInfoFeignClient.login(code);
         //TODO 判断
-        if(longResult.getCode() != ResultCodeEnum.SUCCESS.getCode()) {
-            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
-        }
+//        if(longResult.getCode() != ResultCodeEnum.SUCCESS.getCode()) {
+//            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+//        }
         //这里获得了对应的司机ID
         Long driverId = longResult.getData();
 
