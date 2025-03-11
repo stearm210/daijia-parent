@@ -8,11 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "tencent.cloud")
 public class TencentCloudProperties {
-
+    //秘钥ID
     private String secretId;
+    //秘钥
     private String secretKey;
+    //地域
     private String region;
+    //存储桶名字
     private String bucketPrivate;
-
     private String persionGroupId;
 }
