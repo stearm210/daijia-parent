@@ -37,6 +37,14 @@ public class OcrServiceImpl implements OcrService {
     @Autowired
     private CosService cosService;
     //身份证识别
+     /*
+      * @Title: idCardOcr
+      * @Author: pyzxW
+      * @Date: 2025-03-11 16:02:41
+      * @Params: [file]
+      * @Return: IdCardOcrVo
+      * @Description: 身份证识别，腾讯云源代码
+      */
     @Override
     public IdCardOcrVo idCardOcr(MultipartFile file) {
         try{
