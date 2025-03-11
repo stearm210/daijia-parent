@@ -25,6 +25,7 @@ public class CosController {
     public Result<CosUploadVo> upload(@RequestPart("file") MultipartFile file,
                                       @RequestParam("path") String path) {
         CosUploadVo cosUploadVo = cosService.upload(file,path);
+        //最终返回VO对象
         return Result.ok(cosUploadVo);
     }
 
