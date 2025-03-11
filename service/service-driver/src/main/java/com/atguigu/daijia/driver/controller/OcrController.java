@@ -24,6 +24,14 @@ public class OcrController {
     @Autowired
     private OcrService ocrService;
 
+     /*
+      * @Title: idCardOcr
+      * @Author: pyzxW
+      * @Date: 2025-03-11 16:00:33
+      * @Params:
+      * @Return: null
+      * @Description: 身份证识别操作
+      */
     @Operation(summary = "身份证识别")
     @PostMapping("/idCardOcr")
     public Result<IdCardOcrVo> idCardOcr(@RequestPart("file") MultipartFile file) {
