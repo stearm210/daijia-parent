@@ -47,17 +47,8 @@ public class CosServiceImpl implements CosService {
       */
      @Override
      public CosUploadVo upload(MultipartFile file, String path) {
-         // 1 初始化用户身份信息（secretId, secretKey）。
-         String secretId = tencentCloudProperties.getSecretId();
-         String secretKey = tencentCloudProperties.getSecretKey();
-         COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
-         // 2 设置 bucket 的地域, COS 地域
-         Region region = new Region(tencentCloudProperties.getRegion());
-         ClientConfig clientConfig = new ClientConfig(region);
-         // 这里建议设置使用 https 协议
-         clientConfig.setHttpProtocol(HttpProtocol.https);
-         // 3 生成 cos 客户端。
-         COSClient cosClient = new COSClient(cred, clientConfig);
+         //获取cosClient对象
+         COSClient cosClient = this.getCosClient();
 
          //文件上传
          //元数据信息
@@ -89,8 +80,9 @@ public class CosServiceImpl implements CosService {
          //返回vo对象
          CosUploadVo cosUploadVo = new CosUploadVo();
          cosUploadVo.setUrl(uploadPath);
-         //TODO 图片临时访问url，回显使用
-         cosUploadVo.setShowUrl("");
+         //图片临时访问url，回显使用
+         String imageUrl = this.getImageUrl(uploadPath);
+         cosUploadVo.setShowUrl(imageUrl);
          return cosUploadVo;
      }
 //    @Override
@@ -142,6 +134,14 @@ public class CosServiceImpl implements CosService {
 //        return cosUploadVo;
 //    }
 
+     /*
+      * @Title: getCosClient
+      * @Author: pyzxW
+      * @Date: 2025-03-11 15:22:08
+      * @Params:
+      * @Return: null
+      * @Description: 抽取的方法，主要方便于调用
+      */
     public COSClient getCosClient() {
         String secretId = tencentCloudProperties.getSecretId();
         String secretKey = tencentCloudProperties.getSecretKey();
@@ -169,9 +169,10 @@ public class CosServiceImpl implements CosService {
         //设置临时URL有效期为15分钟
         Date date = new DateTime().plusMinutes(15).toDate();
         request.setExpiration(date);
-        //调用方法获取
+        //调用方法获取地址
         URL url = cosClient.generatePresignedUrl(request);
         cosClient.shutdown();
+        //返回临时地址
         return url.toString();
     }
 }
