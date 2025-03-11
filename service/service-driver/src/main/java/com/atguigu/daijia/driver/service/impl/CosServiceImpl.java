@@ -60,6 +60,7 @@ public class CosServiceImpl implements CosService {
         String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")); //文件后缀名
         String uploadPath = "/driver/" + path + "/" + UUID.randomUUID().toString().replaceAll("-", "") + fileType;
         // 01.jpg
+        //这里生成的是随机的文件路径
         // /driver/auth/0o98754.jpg
         PutObjectRequest putObjectRequest = null;
         try {
