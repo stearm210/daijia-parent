@@ -37,6 +37,14 @@ public class CosServiceImpl implements CosService {
     @Autowired
     private CiService ciService;
 
+     /*
+      * @Title: upload
+      * @Author: pyzxW
+      * @Date: 2025-03-11 14:26:05
+      * @Params:
+      * @Return: null
+      * @Description: 腾讯云上传操作
+      */
     @Override
     public CosUploadVo upload(MultipartFile file, String path) {
         //获取cosClient对象
