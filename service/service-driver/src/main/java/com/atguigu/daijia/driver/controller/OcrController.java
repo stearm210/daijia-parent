@@ -39,6 +39,14 @@ public class OcrController {
         return Result.ok(idCardOcrVo);
     }
 
+     /*
+      * @Title: driverLicenseOcr
+      * @Author: pyzxW
+      * @Date: 2025-03-12 15:04:45
+      * @Params:
+      * @Return: null
+      * @Description: 驾驶证识别
+      */
     @Operation(summary = "驾驶证识别")
     @PostMapping("/driverLicenseOcr")
     public Result<DriverLicenseOcrVo> driverLicenseOcr(@RequestPart("file") MultipartFile file) {

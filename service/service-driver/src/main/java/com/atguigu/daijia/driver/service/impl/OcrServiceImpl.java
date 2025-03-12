@@ -103,6 +103,14 @@ public class OcrServiceImpl implements OcrService {
     }
 
     ////驾驶证识别
+     /*
+      * @Title: driverLicenseOcr
+      * @Author: pyzxW
+      * @Date: 2025-03-12 15:09:10
+      * @Params: [file]
+      * @Return: DriverLicenseOcrVo
+      * @Description: 驾驶证识别
+      */
     @Override
     public DriverLicenseOcrVo driverLicenseOcr(MultipartFile file) {
         try{
