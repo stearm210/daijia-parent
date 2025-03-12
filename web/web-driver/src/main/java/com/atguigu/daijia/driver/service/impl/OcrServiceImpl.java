@@ -34,6 +34,14 @@ public class OcrServiceImpl implements OcrService {
         return idCardOcrVo;
     }
 
+     /*
+      * @Title: driverLicenseOcr
+      * @Author: pyzxW
+      * @Date: 2025-03-12 15:34:54
+      * @Params:
+      * @Return: null
+      * @Description: 驾驶证识别
+      */
     //驾驶证识别
     @Override
     public DriverLicenseOcrVo driverLicenseOcr(MultipartFile file) {

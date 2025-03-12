@@ -40,6 +40,14 @@ public class OcrController {
         return Result.ok(ocrService.idCardOcr(file));
     }
 
+     /*
+      * @Title: driverLicenseOcr
+      * @Author: pyzxW
+      * @Date: 2025-03-12 15:33:04
+      * @Params:
+      * @Return: null
+      * @Description: 驾驶证识别
+      */
     @Operation(summary = "驾驶证识别")
     //@GuiguLogin
     @PostMapping("/driverLicenseOcr")
