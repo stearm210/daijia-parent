@@ -45,6 +45,7 @@ public class OcrServiceImpl implements OcrService {
     //驾驶证识别
     @Override
     public DriverLicenseOcrVo driverLicenseOcr(MultipartFile file) {
+        // 调用远程接口
         Result<DriverLicenseOcrVo> driverLicenseOcrVoResult = ocrFeignClient.driverLicenseOcr(file);
         DriverLicenseOcrVo driverLicenseOcrVo = driverLicenseOcrVoResult.getData();
         return driverLicenseOcrVo;
