@@ -25,6 +25,14 @@ public class OcrController {
     @Autowired
     private OcrService ocrService;
 
+     /*
+      * @Title: uploadDriverLicenseOcr
+      * @Author: pyzxW
+      * @Date: 2025-03-12 14:50:37
+      * @Params:
+      * @Return: null
+      * @Description: 身份证识别操作
+      */
     @Operation(summary = "身份证识别")
     //@GuiguLogin
     @PostMapping("/idCardOcr")

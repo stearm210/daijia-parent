@@ -18,6 +18,14 @@ public class OcrServiceImpl implements OcrService {
     @Autowired
     private OcrFeignClient ocrFeignClient;
 
+     /*
+      * @Title: idCardOcr
+      * @Author: pyzxW
+      * @Date: 2025-03-12 14:55:40
+      * @Params:  
+      * @Return: null
+      * @Description: 身份证识别操作
+      */
     //身份证识别
     @Override
     public IdCardOcrVo idCardOcr(MultipartFile file) {
