@@ -165,5 +165,6 @@ public class OcrServiceImpl implements OcrService {
             e.printStackTrace();
             throw new GuiguException(ResultCodeEnum.DATA_ERROR);
         }
+
     }
 }
