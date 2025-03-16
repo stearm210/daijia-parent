@@ -67,12 +67,27 @@ public class DriverInfoController {
 //    }
 
     //更新司机认证信息
+     /*
+      * @Title: updateDriverAuthInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-16 15:57:24
+      * @Params: [updateDriverAuthInfoForm]
+      * @Return: Result<Boolean>
+      * @Description: 更新司机认证信息
+      */
     @Operation(summary = "更新司机认证信息")
     @PostMapping("/updateDriverAuthInfo")
-    public Result<Boolean> updateDriverAuthInfo(@RequestBody UpdateDriverAuthInfoForm updateDriverAuthInfoForm) {
+    public Result<Boolean> updateDriverAuthInfo(@RequestBody UpdateDriverAuthInfoForm updateDriverAuthInfoForm){
         Boolean isSuccess = driverInfoService.updateDriverAuthInfo(updateDriverAuthInfoForm);
         return Result.ok(isSuccess);
     }
+
+//    @Operation(summary = "更新司机认证信息")
+//    @PostMapping("/updateDriverAuthInfo")
+//    public Result<Boolean> updateDriverAuthInfo(@RequestBody UpdateDriverAuthInfoForm updateDriverAuthInfoForm) {
+//        Boolean isSuccess = driverInfoService.updateDriverAuthInfo(updateDriverAuthInfoForm);
+//        return Result.ok(isSuccess);
+//    }
 
     //创建司机人脸模型
     @Operation(summary = "创建司机人脸模型")
