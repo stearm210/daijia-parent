@@ -57,10 +57,14 @@ public class DriverInfoController {
 
     @Operation(summary = "获取司机认证信息")
     @GetMapping("/getDriverAuthInfo/{driverId}")
-    public Result<DriverAuthInfoVo> getDriverAuthInfo(@PathVariable Long driverId) {
+    public Result<DriverAuthInfoVo> getDriverAuthInfo(@PathVariable Long driverId){
         DriverAuthInfoVo driverAuthInfoVo = driverInfoService.getDriverAuthInfo(driverId);
         return Result.ok(driverAuthInfoVo);
     }
+//    public Result<DriverAuthInfoVo> getDriverAuthInfo(@PathVariable Long driverId) {
+//        DriverAuthInfoVo driverAuthInfoVo = driverInfoService.getDriverAuthInfo(driverId);
+//        return Result.ok(driverAuthInfoVo);
+//    }
 
     //更新司机认证信息
     @Operation(summary = "更新司机认证信息")
