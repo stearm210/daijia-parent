@@ -88,6 +88,7 @@ public class DriverServiceImpl implements DriverService {
     public Boolean updateDriverAuthInfo(UpdateDriverAuthInfoForm updateDriverAuthInfoForm) {
         Result<Boolean> booleanResult = driverInfoFeignClient.UpdateDriverAuthInfo(updateDriverAuthInfoForm);
         Boolean data = booleanResult.getData();
+        //返回是否认证成功？
         return data;
     }
 
