@@ -231,7 +231,16 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
 //        return driverAuthInfoVo;
 //    }
 
+
     //更新司机认证信息
+     /*
+      * @Title: updateDriverAuthInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-16 15:58:11
+      * @Params: [updateDriverAuthInfoForm]
+      * @Return: Boolean
+      * @Description: 更新司机认证信息
+      */
     @Override
     public Boolean updateDriverAuthInfo(UpdateDriverAuthInfoForm updateDriverAuthInfoForm) {
         //获取司机id
