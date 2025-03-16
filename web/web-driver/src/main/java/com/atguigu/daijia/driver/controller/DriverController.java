@@ -93,7 +93,7 @@ public class DriverController {
     @GuiguLogin
     @PostMapping("/updateDriverAuthInfo")
     public Result<Boolean> updateDriverAuthInfo(@RequestBody UpdateDriverAuthInfoForm updateDriverAuthInfoForm) {
-        //设置司机的id
+        //获取司机id, 线程中获取对应的id
         updateDriverAuthInfoForm.setDriverId(AuthContextHolder.getUserId());
         return Result.ok(driverService.updateDriverAuthInfo(updateDriverAuthInfoForm));
     }
