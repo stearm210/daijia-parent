@@ -253,6 +253,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         BeanUtils.copyProperties(updateDriverAuthInfoForm,driverInfo);
 
 //        int i = driverInfoMapper.updateById(driverInfo);
+        //布尔值
         boolean update = this.updateById(driverInfo);
         return update;
     }
