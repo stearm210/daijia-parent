@@ -76,6 +76,14 @@ public class DriverServiceImpl implements DriverService {
     }
 
     //更新司机认证信息
+     /*
+      * @Title: updateDriverAuthInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-16 16:15:28
+      * @Params: [updateDriverAuthInfoForm]
+      * @Return: Boolean
+      * @Description: 更新司机认证信息
+      */
     @Override
     public Boolean updateDriverAuthInfo(UpdateDriverAuthInfoForm updateDriverAuthInfoForm) {
         Result<Boolean> booleanResult = driverInfoFeignClient.UpdateDriverAuthInfo(updateDriverAuthInfoForm);

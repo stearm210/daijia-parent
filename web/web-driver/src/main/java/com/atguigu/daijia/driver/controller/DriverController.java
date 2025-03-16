@@ -81,10 +81,19 @@ public class DriverController {
         return Result.ok(driverService.getDriverAuthInfo(driverId));
     }
 
+     /*
+      * @Title: updateDriverAuthInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-16 16:13:58
+      * @Params:
+      * @Return: null
+      * @Description: 更新操作
+      */
     @Operation(summary = "更新司机认证信息")
     @GuiguLogin
     @PostMapping("/updateDriverAuthInfo")
     public Result<Boolean> updateDriverAuthInfo(@RequestBody UpdateDriverAuthInfoForm updateDriverAuthInfoForm) {
+        //设置司机的id
         updateDriverAuthInfoForm.setDriverId(AuthContextHolder.getUserId());
         return Result.ok(driverService.updateDriverAuthInfo(updateDriverAuthInfoForm));
     }
