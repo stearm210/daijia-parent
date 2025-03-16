@@ -249,6 +249,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         //修改操作
         DriverInfo driverInfo = new DriverInfo();
         driverInfo.setId(driverId);
+        //这里的copy操作必须有id进行识别操作，才方便进行复制
         BeanUtils.copyProperties(updateDriverAuthInfoForm,driverInfo);
 
 //        int i = driverInfoMapper.updateById(driverInfo);
