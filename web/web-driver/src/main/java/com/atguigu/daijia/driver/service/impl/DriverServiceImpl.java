@@ -60,6 +60,14 @@ public class DriverServiceImpl implements DriverService {
     }
 
     //司机认证信息
+     /*
+      * @Title: getDriverAuthInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-16 15:32:08
+      * @Params: [driverId] 
+      * @Return: DriverAuthInfoVo
+      * @Description: 司机之认证信息
+      */
     @Override
     public DriverAuthInfoVo getDriverAuthInfo(Long driverId) {
         Result<DriverAuthInfoVo> authInfoVoResult = driverInfoFeignClient.getDriverAuthInfo(driverId);
