@@ -202,18 +202,34 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
     @Override
     public DriverAuthInfoVo getDriverAuthInfo(Long driverId) {
         DriverInfo driverInfo = driverInfoMapper.selectById(driverId);
+        //赋值新vo
         DriverAuthInfoVo driverAuthInfoVo = new DriverAuthInfoVo();
         BeanUtils.copyProperties(driverInfo,driverAuthInfoVo);
 
+        //图片地址生成,临时地址
         driverAuthInfoVo.setIdcardBackShowUrl(cosService.getImageUrl(driverAuthInfoVo.getIdcardBackUrl()));
         driverAuthInfoVo.setIdcardFrontShowUrl(cosService.getImageUrl(driverAuthInfoVo.getIdcardFrontUrl()));
         driverAuthInfoVo.setIdcardHandShowUrl(cosService.getImageUrl(driverAuthInfoVo.getIdcardHandUrl()));
         driverAuthInfoVo.setDriverLicenseFrontShowUrl(cosService.getImageUrl(driverAuthInfoVo.getDriverLicenseFrontUrl()));
         driverAuthInfoVo.setDriverLicenseBackShowUrl(cosService.getImageUrl(driverAuthInfoVo.getDriverLicenseBackUrl()));
         driverAuthInfoVo.setDriverLicenseHandShowUrl(cosService.getImageUrl(driverAuthInfoVo.getDriverLicenseHandUrl()));
-
         return driverAuthInfoVo;
     }
+//    @Override
+//    public DriverAuthInfoVo getDriverAuthInfo(Long driverId) {
+//        DriverInfo driverInfo = driverInfoMapper.selectById(driverId);
+//        DriverAuthInfoVo driverAuthInfoVo = new DriverAuthInfoVo();
+//        BeanUtils.copyProperties(driverInfo,driverAuthInfoVo);
+//
+//        driverAuthInfoVo.setIdcardBackShowUrl(cosService.getImageUrl(driverAuthInfoVo.getIdcardBackUrl()));
+//        driverAuthInfoVo.setIdcardFrontShowUrl(cosService.getImageUrl(driverAuthInfoVo.getIdcardFrontUrl()));
+//        driverAuthInfoVo.setIdcardHandShowUrl(cosService.getImageUrl(driverAuthInfoVo.getIdcardHandUrl()));
+//        driverAuthInfoVo.setDriverLicenseFrontShowUrl(cosService.getImageUrl(driverAuthInfoVo.getDriverLicenseFrontUrl()));
+//        driverAuthInfoVo.setDriverLicenseBackShowUrl(cosService.getImageUrl(driverAuthInfoVo.getDriverLicenseBackUrl()));
+//        driverAuthInfoVo.setDriverLicenseHandShowUrl(cosService.getImageUrl(driverAuthInfoVo.getDriverLicenseHandUrl()));
+//
+//        return driverAuthInfoVo;
+//    }
 
     //更新司机认证信息
     @Override

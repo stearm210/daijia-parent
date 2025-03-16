@@ -64,6 +64,14 @@ public class DriverController {
         return Result.ok(driverLoginVo);
     }
 
+     /*
+      * @Title: getDriverAuthInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-16 15:30:26
+      * @Params:
+      * @Return: null
+      * @Description: 获取司机之认证信息
+      */
     @Operation(summary = "获取司机认证信息")
     @GuiguLogin
     @GetMapping("/getDriverAuthInfo")
