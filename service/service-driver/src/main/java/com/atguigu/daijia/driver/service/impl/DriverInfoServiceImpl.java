@@ -270,6 +270,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
     @Override
     public Boolean creatDriverFaceModel(DriverFaceModelForm driverFaceModelForm) {
         //根据司机id获取司机信息
+        //直接可以从传入的参数中获取对应的值
         DriverInfo driverInfo =
                 driverInfoMapper.selectById(driverFaceModelForm.getDriverId());
         try{
@@ -308,6 +309,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
             // 输出json格式的字符串回包
             System.out.println(AbstractModel.toJsonString(resp));
             String faceId = resp.getFaceId();
+            //值不为空则进行更新
             if(StringUtils.hasText(faceId)) {
                 driverInfo.setFaceModelId(faceId);
                 driverInfoMapper.updateById(driverInfo);
