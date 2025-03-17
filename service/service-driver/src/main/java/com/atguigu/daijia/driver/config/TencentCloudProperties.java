@@ -16,5 +16,6 @@ public class TencentCloudProperties {
     private String region;
     //存储桶名字
     private String bucketPrivate;
+    //人脸识别操作ID
     private String persionGroupId;
 }
