@@ -93,6 +93,15 @@ public class DriverServiceImpl implements DriverService {
     }
 
     //创建司机人脸模型
+     /*
+      * @Title: creatDriverFaceModel
+      * @Author: pyzxW
+      * @Date: 2025-03-17 15:34:48
+      * @Params: [driverFaceModelForm]
+      * @Return: Boolean
+      * @Description:
+      * @Description: 创建司机人脸模型
+      */
     @Override
     public Boolean creatDriverFaceModel(DriverFaceModelForm driverFaceModelForm) {
         Result<Boolean> booleanResult = driverInfoFeignClient.creatDriverFaceModel(driverFaceModelForm);
