@@ -104,6 +104,7 @@ public class DriverServiceImpl implements DriverService {
       */
     @Override
     public Boolean creatDriverFaceModel(DriverFaceModelForm driverFaceModelForm) {
+        //远程调用Service
         Result<Boolean> booleanResult = driverInfoFeignClient.creatDriverFaceModel(driverFaceModelForm);
         return booleanResult.getData();
     }
