@@ -98,6 +98,14 @@ public class DriverController {
         return Result.ok(driverService.updateDriverAuthInfo(updateDriverAuthInfoForm));
     }
 
+     /*
+      * @Title: creatDriverFaceModel
+      * @Author: pyzxW
+      * @Date: 2025-03-17 15:31:15
+      * @Params:
+      * @Return: null
+      * @Description: 创建司机人脸模型
+      */
     @Operation(summary = "创建司机人脸模型")
     @GuiguLogin
     @PostMapping("/creatDriverFaceModel")
@@ -105,6 +113,7 @@ public class DriverController {
         driverFaceModelForm.setDriverId(AuthContextHolder.getUserId());
         return Result.ok(driverService.creatDriverFaceModel(driverFaceModelForm));
     }
+
 
     @Operation(summary = "判断司机当日是否进行过人脸识别")
     @GuiguLogin
