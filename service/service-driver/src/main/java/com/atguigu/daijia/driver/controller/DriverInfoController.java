@@ -90,6 +90,14 @@ public class DriverInfoController {
 //    }
 
     //创建司机人脸模型
+     /*
+      * @Title: creatDriverFaceModel
+      * @Author: pyzxW
+      * @Date: 2025-03-17 15:29:07
+      * @Params: [driverFaceModelForm]
+      * @Return: Result<Boolean>
+      * @Description: 创建司机人脸模型
+      */
     @Operation(summary = "创建司机人脸模型")
     @PostMapping("/creatDriverFaceModel")
     public Result<Boolean> creatDriverFaceModel(@RequestBody DriverFaceModelForm driverFaceModelForm){
