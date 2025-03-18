@@ -23,10 +23,17 @@ public class MapController {
     @Autowired
     private MapService mapService;
 
+     /*
+      * @Title: calculateDrivingLine
+      * @Author: pyzxW
+      * @Date: 2025-03-18 15:36:05
+      * @Params:
+      * @Return: null
+      * @Description: 计算驾驶线路
+      */
     @Operation(summary = "计算驾驶线路")
     @PostMapping("/calculateDrivingLine")
-    public Result<DrivingLineVo> calculateDrivingLine(@RequestBody CalculateDrivingLineForm
-                                                                  calculateDrivingLineForm) {
+    public Result<DrivingLineVo> calculateDrivingLine(@RequestBody CalculateDrivingLineForm calculateDrivingLineForm) {
         DrivingLineVo drivingLineVo = mapService.calculateDrivingLine(calculateDrivingLineForm);
         return Result.ok(drivingLineVo);
     }
