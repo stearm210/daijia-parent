@@ -74,7 +74,7 @@ public class MapServiceImpl implements MapService {
         //距离  6.583 == 6.58 / 6.59
         drivingLineVo.setDistance(route.getBigDecimal("distance")
                 .divide(new BigDecimal(1000))
-                .setScale(2, RoundingMode.HALF_UP));
+                .setScale(2, RoundingMode.HALF_UP));//小数点后面保留两位、、向上取整
         //路线
         drivingLineVo.setPolyline(route.getJSONArray("polyline"));
         return drivingLineVo;
