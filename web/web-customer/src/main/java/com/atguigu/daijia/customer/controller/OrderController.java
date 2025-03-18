@@ -32,13 +32,32 @@ import org.springframework.web.bind.annotation.*;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class OrderController {
 
-    @Operation(summary = "乘客端查找当前订单")
-    @GuiguLogin
-    @GetMapping("/searchCustomerCurrentOrder")
-    public Result<CurrentOrderInfoVo> searchCustomerCurrentOrder() {
-        Long customerId = AuthContextHolder.getUserId();
-        return Result.ok(orderService.searchCustomerCurrentOrder(customerId));
-    }
+     /*
+      * @Title: searchCustomerCurrentOrder
+      * @Author: pyzxW
+      * @Date: 2025-03-18 15:11:38
+      * @Params:
+      * @Return: null
+      * @Description: 乘客端订单操作
+      */
+
+     //TODO 后续完善，目前假设乘客当前没有订单
+     @Operation(summary = "查找乘客端当前订单")
+     @GuiguLogin
+     @GetMapping("/searchCustomerCurrentOrder")
+     public Result<CurrentOrderInfoVo> searchCustomerCurrentOrder() {
+         CurrentOrderInfoVo currentOrderInfoVo = new CurrentOrderInfoVo();
+         currentOrderInfoVo.setIsHasCurrentOrder(false);
+         return Result.ok(currentOrderInfoVo);
+     }
+
+//    @Operation(summary = "乘客端查找当前订单")
+//    @GuiguLogin
+//    @GetMapping("/searchCustomerCurrentOrder")
+//    public Result<CurrentOrderInfoVo> searchCustomerCurrentOrder() {
+//        Long customerId = AuthContextHolder.getUserId();
+//        return Result.ok(orderService.searchCustomerCurrentOrder(customerId));
+//    }
 
     @Autowired
     private OrderService orderService;
