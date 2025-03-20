@@ -14,6 +14,14 @@ public class DroolsConfig {
     // 制定规则文件的路径
     private static final String RULES_CUSTOMER_RULES_DRL = "rules/FeeRule.drl";
 
+     /*
+      * @Title: kieContainer
+      * @Author: pyzxW
+      * @Date: 2025-03-20 20:48:46
+      * @Params:
+      * @Return: null
+      * @Description: 对应配置类之操作
+      */
     @Bean
     public KieContainer kieContainer() {
         KieServices kieServices = KieServices.Factory.get();
