@@ -5,6 +5,14 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+ /*
+  * @Title:
+  * @Author: pyzxW
+  * @Date: 2025-03-21 20:11:59
+  * @Params:
+  * @Return: null
+  * @Description: 输出对象
+  */
 @Data
 public class FeeRuleResponse {
 
