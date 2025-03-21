@@ -24,32 +24,50 @@ public class FeeRuleServiceImpl implements FeeRuleService {
     @Autowired
     private KieContainer kieContainer;
 
-    //计算订单费用
+     /*
+      * @Title: calculateOrderFee
+      * @Author: pyzxW
+      * @Date: 2025-03-21 20:44:27
+      * @Params:
+      * @Return: null
+      * @Description: 计算里程费用
+      */
     @Override
     public FeeRuleResponseVo calculateOrderFee(FeeRuleRequestForm calculateOrderFeeForm) {
+        //1. 封装输入对象
 
-        //封装输入对象
-        FeeRuleRequest feeRuleRequest = new FeeRuleRequest();
-        feeRuleRequest.setDistance(calculateOrderFeeForm.getDistance());
-        Date startTime = calculateOrderFeeForm.getStartTime();
-        feeRuleRequest.setStartTime(new DateTime(startTime).toString("HH:mm:ss"));
-        feeRuleRequest.setWaitMinute(calculateOrderFeeForm.getWaitMinute());
+        //2.Drools使用
 
-        //Drools使用
-        KieSession kieSession = kieContainer.newKieSession();
-
-        //封装返回对象
-        FeeRuleResponse feeRuleResponse = new FeeRuleResponse();
-        kieSession.setGlobal("feeRuleResponse",feeRuleResponse);
-
-        kieSession.insert(feeRuleRequest);
-        kieSession.fireAllRules();
-        kieSession.dispose();
-
-        //封装数据到FeeRuleResponseVo返回
-        FeeRuleResponseVo feeRuleResponseVo = new FeeRuleResponseVo();
-        // feeRuleResponse -- feeRuleResponseVo
-        BeanUtils.copyProperties(feeRuleResponse,feeRuleResponseVo);
-        return feeRuleResponseVo;
+        //3.封装数据到FeeRuleResponseVo中返回
+        return null;
     }
+
+    //计算订单费用
+//    @Override
+//    public FeeRuleResponseVo calculateOrderFee(FeeRuleRequestForm calculateOrderFeeForm) {
+//
+//        //封装输入对象
+//        FeeRuleRequest feeRuleRequest = new FeeRuleRequest();
+//        feeRuleRequest.setDistance(calculateOrderFeeForm.getDistance());
+//        Date startTime = calculateOrderFeeForm.getStartTime();
+//        feeRuleRequest.setStartTime(new DateTime(startTime).toString("HH:mm:ss"));
+//        feeRuleRequest.setWaitMinute(calculateOrderFeeForm.getWaitMinute());
+//
+//        //Drools使用
+//        KieSession kieSession = kieContainer.newKieSession();
+//
+//        //封装返回对象
+//        FeeRuleResponse feeRuleResponse = new FeeRuleResponse();
+//        kieSession.setGlobal("feeRuleResponse",feeRuleResponse);
+//
+//        kieSession.insert(feeRuleRequest);
+//        kieSession.fireAllRules();
+//        kieSession.dispose();
+//
+//        //封装数据到FeeRuleResponseVo返回
+//        FeeRuleResponseVo feeRuleResponseVo = new FeeRuleResponseVo();
+//        // feeRuleResponse -- feeRuleResponseVo
+//        BeanUtils.copyProperties(feeRuleResponse,feeRuleResponseVo);
+//        return feeRuleResponseVo;
+//    }
 }
