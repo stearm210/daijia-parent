@@ -35,11 +35,34 @@ public class FeeRuleServiceImpl implements FeeRuleService {
     @Override
     public FeeRuleResponseVo calculateOrderFee(FeeRuleRequestForm calculateOrderFeeForm) {
         //1. 封装输入对象
+        FeeRuleRequest feeRuleRequest = new FeeRuleRequest();
+        //里程
+        feeRuleRequest.setDistance(calculateOrderFeeForm.getDistance());
+        //代驾时间
+        Date startTime = calculateOrderFeeForm.getStartTime();
+        feeRuleRequest.setStartTime(new DateTime(startTime).toString("HH:mm:ss"));
+        //等待时间
+        feeRuleRequest.setWaitMinute(calculateOrderFeeForm.getWaitMinute());
+
 
         //2.Drools使用
+        KieSession kieSession = kieContainer.newKieSession();
+        //封装返回对象
+        FeeRuleResponse feeRuleResponse = new FeeRuleResponse();
+        //设置全局变量
+        kieSession.setGlobal("feeRuleResponse",feeRuleResponse);
+        //插入对象
+        kieSession.insert(feeRuleRequest);
+        //触发对应规则
+        kieSession.fireAllRules();
+        //规则终止
+        kieSession.dispose();
+
 
         //3.封装数据到FeeRuleResponseVo中返回
-        return null;
+        FeeRuleResponseVo feeRuleResponseVo = new FeeRuleResponseVo();
+        BeanUtils.copyProperties(feeRuleResponse,feeRuleResponseVo);
+        return feeRuleResponseVo;
     }
 
     //计算订单费用
