@@ -70,6 +70,14 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private CustomerInfoFeignClient customerInfoFeignClient;
 
+     /*
+      * @Title: expectOrder
+      * @Author: pyzxW
+      * @Date: 2025-03-21 21:04:04
+      * @Params:
+      * @Return: null
+      * @Description: 预估订单数据
+      */
     //预估订单数据
     @Override
     public ExpectOrderVo expectOrder(ExpectOrderForm expectOrderForm) {
