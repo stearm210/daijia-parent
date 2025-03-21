@@ -82,20 +82,25 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public ExpectOrderVo expectOrder(ExpectOrderForm expectOrderForm) {
         //获取驾驶线路
+        //获取当前经纬度
         CalculateDrivingLineForm calculateDrivingLineForm = new CalculateDrivingLineForm();
         BeanUtils.copyProperties(expectOrderForm,calculateDrivingLineForm);
+        //之后调用腾讯地图进行计算
         Result<DrivingLineVo> drivingLineVoResult = mapFeignClient.calculateDrivingLine(calculateDrivingLineForm);
         DrivingLineVo drivingLineVo = drivingLineVoResult.getData();
 
         //获取订单费用
         FeeRuleRequestForm calculateOrderFeeForm = new FeeRuleRequestForm();
+        //设置订单对应的距离、代驾时间、等候时间
         calculateOrderFeeForm.setDistance(drivingLineVo.getDistance());
         calculateOrderFeeForm.setStartTime(new Date());
         calculateOrderFeeForm.setWaitMinute(0);
+        //远程调用rule规则，获取最终的结果
         Result<FeeRuleResponseVo> feeRuleResponseVoResult = feeRuleFeignClient.calculateOrderFee(calculateOrderFeeForm);
         FeeRuleResponseVo feeRuleResponseVo = feeRuleResponseVoResult.getData();
 
         //封装ExpectOrderVo
+        //得到对应的路线以及费用
         ExpectOrderVo expectOrderVo = new ExpectOrderVo();
         expectOrderVo.setDrivingLineVo(drivingLineVo);
         expectOrderVo.setFeeRuleResponseVo(feeRuleResponseVo);
