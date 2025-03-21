@@ -21,6 +21,14 @@ public class FeeRuleController {
     @Autowired
     private FeeRuleService feeRuleService;
 
+     /*
+      * @Title: calculateOrderFee
+      * @Author: pyzxW
+      * @Date: 2025-03-21 20:42:04
+      * @Params:
+      * @Return: null
+      * @Description: 计算订单的费用
+      */
     @Operation(summary = "计算订单费用")
     @PostMapping("/calculateOrderFee")
     public Result<FeeRuleResponseVo> calculateOrderFee(@RequestBody FeeRuleRequestForm calculateOrderFeeForm) {
