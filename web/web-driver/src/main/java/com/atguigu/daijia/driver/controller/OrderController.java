@@ -32,6 +32,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+     /*
+      * @Title: getOrderStatus
+      * @Author: pyzxW
+      * @Date: 2025-03-22 20:00:47
+      * @Params:
+      * @Return: null
+      * @Description: 查询订单状态
+      */
     @Operation(summary = "查询订单状态")
     @GuiguLogin
     @GetMapping("/getOrderStatus/{orderId}")

@@ -313,6 +313,14 @@ public class OrderServiceImpl implements OrderService {
         return orderInfoFeignClient.findDriverOrderPage(driverId,page,limit).getData();
     }
 
+     /*
+      * @Title: getOrderStatus
+      * @Author: pyzxW
+      * @Date: 2025-03-22 20:02:08
+      * @Params:
+      * @Return: null
+      * @Description: 查询订单状态
+      */
     @Override
     public Integer getOrderStatus(Long orderId) {
         return orderInfoFeignClient.getOrderStatus(orderId).getData();
