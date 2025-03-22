@@ -28,11 +28,24 @@ public class OrderInfoController {
     @Autowired
     private OrderInfoService orderInfoService;
 
+     /*
+      * @Title: saveOrderInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-22 19:28:25
+      * @Params:
+      * @Return: null
+      * @Description: 保存订单信息
+      */
     @Operation(summary = "保存订单信息")
     @PostMapping("/saveOrderInfo")
     public Result<Long> saveOrderInfo(@RequestBody OrderInfoForm orderInfoForm) {
         return Result.ok(orderInfoService.saveOrderInfo(orderInfoForm));
     }
+//    @Operation(summary = "保存订单信息")
+//    @PostMapping("/saveOrderInfo")
+//    public Result<Long> saveOrderInfo(@RequestBody OrderInfoForm orderInfoForm) {
+//        return Result.ok(orderInfoService.saveOrderInfo(orderInfoForm));
+//    }
 
     @Operation(summary = "根据订单id获取订单状态")
     @GetMapping("/getOrderStatus/{orderId}")
