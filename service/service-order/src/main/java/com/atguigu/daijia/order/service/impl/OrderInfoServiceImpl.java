@@ -134,8 +134,11 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     @Override
     public Integer getOrderStatus(Long orderId) {
         //sql语句： select status from order_info where id=?
+        //数据库查询语句
         LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+        //订单ID，比较是否相等
         wrapper.eq(OrderInfo::getId,orderId);
+        //查值
         wrapper.select(OrderInfo::getStatus);
         //调用mapper方法
         OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
