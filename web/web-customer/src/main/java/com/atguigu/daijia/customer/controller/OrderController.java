@@ -93,6 +93,14 @@ public class OrderController {
         return Result.ok(orderService.submitOrder(submitOrderForm));
     }
 
+     /*
+      * @Title: getOrderStatus
+      * @Author: pyzxW
+      * @Date: 2025-03-22 19:58:24
+      * @Params:
+      * @Return: null
+      * @Description: 查询订单状态
+      */
     @Operation(summary = "查询订单状态")
     @GuiguLogin
     @GetMapping("/getOrderStatus/{orderId}")
