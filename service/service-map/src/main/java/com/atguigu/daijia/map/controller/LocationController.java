@@ -32,6 +32,14 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
+     /*
+      * @Title: updateDriverLocation
+      * @Author: pyzxW
+      * @Date: 2025-03-22 20:27:10
+      * @Params:
+      * @Return: null
+      * @Description: 司机开启接单，更新司机位置信息
+      */
     //司机开启接单，更新司机位置信息
     @Operation(summary = "开启接单服务：更新司机经纬度位置")
     @PostMapping("/updateDriverLocation")
@@ -41,6 +49,14 @@ public class LocationController {
         return Result.ok(flag);
     }
 
+     /*
+      * @Title: removeDriverLocation
+      * @Author: pyzxW
+      * @Date: 2025-03-22 20:27:19
+      * @Params:
+      * @Return: null
+      * @Description: 司机关闭接单，删除司机位置信息
+      */
     //司机关闭接单，删除司机位置信息
     @Operation(summary = "关闭接单服务：删除司机经纬度位置")
     @DeleteMapping("/removeDriverLocation/{driverId}")
