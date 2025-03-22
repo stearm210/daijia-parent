@@ -108,6 +108,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     // //乘客下单
+     /*
+      * @Title: submitOrder
+      * @Author: pyzxW
+      * @Date: 2025-03-22 19:39:14
+      * @Params: [submitOrderForm]
+      * @Return: Long
+      * @Description: 乘客下单
+      */
     @Override
     public Long submitOrder(SubmitOrderForm submitOrderForm) {
         //1 重新计算驾驶线路

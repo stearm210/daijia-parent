@@ -77,6 +77,14 @@ public class OrderController {
         return Result.ok(orderService.expectOrder(expectOrderForm));
     }
 
+     /*
+      * @Title: submitOrder
+      * @Author: pyzxW
+      * @Date: 2025-03-22 19:38:39
+      * @Params:
+      * @Return: null
+      * @Description: 乘客下单
+      */
     @Operation(summary = "乘客下单")
     @GuiguLogin
     @PostMapping("/submitOrder")
