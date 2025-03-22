@@ -53,31 +53,54 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     private RedissonClient redissonClient;
 
     //乘客下单
+     /*
+      * @Title: saveOrderInfo
+      * @Author: pyzxW
+      * @Date: 2025-03-22 19:30:21
+      * @Params: [orderInfoForm]
+      * @Return: Long
+      * @Description: 乘客下单
+      */
     @Override
     public Long saveOrderInfo(OrderInfoForm orderInfoForm) {
-        //order_info添加订单数据
         OrderInfo orderInfo = new OrderInfo();
         BeanUtils.copyProperties(orderInfoForm,orderInfo);
-        //订单号
+        //订单号,生成唯一之订单号
         String orderNo = UUID.randomUUID().toString().replaceAll("-","");
         orderInfo.setOrderNo(orderNo);
         //订单状态
         orderInfo.setStatus(OrderStatus.WAITING_ACCEPT.getStatus());
         orderInfoMapper.insert(orderInfo);
 
-        //生成订单之后，发送延迟消息
-        this.sendDelayMessage(orderInfo.getId());
-
-        //记录日志
+        //日志记录，传入ID和状态
         this.log(orderInfo.getId(),orderInfo.getStatus());
-
-        //向redis添加标识
-        //接单标识，标识不存在了说明不在等待接单状态了
-        redisTemplate.opsForValue().set(RedisConstant.ORDER_ACCEPT_MARK,
-                "0", RedisConstant.ORDER_ACCEPT_MARK_EXPIRES_TIME, TimeUnit.MINUTES);
-
         return orderInfo.getId();
     }
+//    @Override
+//    public Long saveOrderInfo(OrderInfoForm orderInfoForm) {
+//        //order_info添加订单数据
+//        OrderInfo orderInfo = new OrderInfo();
+//        BeanUtils.copyProperties(orderInfoForm,orderInfo);
+//        //订单号
+//        String orderNo = UUID.randomUUID().toString().replaceAll("-","");
+//        orderInfo.setOrderNo(orderNo);
+//        //订单状态
+//        orderInfo.setStatus(OrderStatus.WAITING_ACCEPT.getStatus());
+//        orderInfoMapper.insert(orderInfo);
+//
+//        //生成订单之后，发送延迟消息
+//        this.sendDelayMessage(orderInfo.getId());
+//
+//        //记录日志
+//        this.log(orderInfo.getId(),orderInfo.getStatus());
+//
+//        //向redis添加标识
+//        //接单标识，标识不存在了说明不在等待接单状态了
+//        redisTemplate.opsForValue().set(RedisConstant.ORDER_ACCEPT_MARK,
+//                "0", RedisConstant.ORDER_ACCEPT_MARK_EXPIRES_TIME, TimeUnit.MINUTES);
+//
+//        return orderInfo.getId();
+//    }
 
     //生成订单之后，发送延迟消息
     private void sendDelayMessage(Long orderId) {
