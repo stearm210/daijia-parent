@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+/*
+* 封装位置相关的接口
+* */
+
 @Slf4j
 @Tag(name = "位置API接口管理")
 @RestController
