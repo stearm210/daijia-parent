@@ -146,7 +146,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         if(orderInfo == null) {
             return OrderStatus.NULL_ORDER.getStatus();
         }
-
+        //返回对应状态
         return orderInfo.getStatus();
     }
 
