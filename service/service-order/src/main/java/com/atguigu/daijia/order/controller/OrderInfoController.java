@@ -47,6 +47,14 @@ public class OrderInfoController {
 //        return Result.ok(orderInfoService.saveOrderInfo(orderInfoForm));
 //    }
 
+     /*
+      * @Title: getOrderStatus
+      * @Author: pyzxW
+      * @Date: 2025-03-22 19:48:23
+      * @Params:
+      * @Return: null
+      * @Description: 查询订单状态
+      */
     @Operation(summary = "根据订单id获取订单状态")
     @GetMapping("/getOrderStatus/{orderId}")
     public Result<Integer> getOrderStatus(@PathVariable Long orderId) {
