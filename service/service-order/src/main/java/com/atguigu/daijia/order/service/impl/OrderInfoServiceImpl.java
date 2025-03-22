@@ -122,6 +122,14 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
     }
 
+     /*
+      * @Title: getOrderStatus
+      * @Author: pyzxW
+      * @Date: 2025-03-22 19:49:07
+      * @Params:
+      * @Return: null
+      * @Description: 查询订单状态
+      */
     //根据订单id获取订单状态
     @Override
     public Integer getOrderStatus(Long orderId) {
