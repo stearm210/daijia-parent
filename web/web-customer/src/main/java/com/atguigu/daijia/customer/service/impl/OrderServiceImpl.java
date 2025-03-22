@@ -133,11 +133,15 @@ public class OrderServiceImpl implements OrderService {
         FeeRuleResponseVo feeRuleResponseVo = feeRuleResponseVoResult.getData();
 
         //封装数据
+        //订单信息
         OrderInfoForm orderInfoForm = new OrderInfoForm();
         BeanUtils.copyProperties(submitOrderForm,orderInfoForm);
+        //设置距离
         orderInfoForm.setExpectDistance(drivingLineVo.getDistance());
+        //设置金额
         orderInfoForm.setExpectAmount(feeRuleResponseVo.getTotalAmount());
         Result<Long> orderInfoResult = orderInfoFeignClient.saveOrderInfo(orderInfoForm);
+        //获取订单ID
         Long orderId = orderInfoResult.getData();
 
         //任务调度：查询附近可以接单司机
