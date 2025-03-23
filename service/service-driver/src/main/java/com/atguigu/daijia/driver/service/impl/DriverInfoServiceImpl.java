@@ -321,11 +321,22 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         return true;
     }
 
+     /*
+      * @Title: getDriverSet
+      * @Author: pyzxW
+      * @Date: 2025-03-23 19:53:58
+      * @Params:
+      * @Return: null
+      * @Description: 获取司机设置信息
+      */
     //获取司机设置信息
     @Override
     public DriverSet getDriverSet(Long driverId) {
+        //mybatis的查询条件
         LambdaQueryWrapper<DriverSet> wrapper = new LambdaQueryWrapper<>();
+        //比对id信息
         wrapper.eq(DriverSet::getDriverId,driverId);
+        //查询数据库中是否有该司机的设置信息
         DriverSet driverSet = driverSetMapper.selectOne(wrapper);
         return driverSet;
     }
