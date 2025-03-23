@@ -107,15 +107,70 @@ public class LocationServiceImpl implements LocationService {
     public List<NearByDriverVo> searchNearByDriver(SearchNearByDriverForm searchNearByDriverForm) {
         //搜索经纬度位置5公里以内的司机
         //1. 操作redis里面的geo函数
+        //创建point，经纬度位置
+        Point point = new Point(searchNearByDriverForm.getLongitude().doubleValue(), searchNearByDriverForm.getLatitude().doubleValue());
+
+        //定义5km范围内
+        Distance distance = new Distance(SystemConstant.NEARBY_DRIVER_RADIUS, RedisGeoCommands.DistanceUnit.KILOMETERS);
+
+        //创建circle对象，point  distance
+        Circle circle = new Circle(point, distance);
+        //定义GEO参数，设置返回结果包含内容
+        RedisGeoCommands.GeoRadiusCommandArgs args = RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs()
+                .includeDistance() //返回结果包含距离
+                .includeCoordinates() //包含坐标
+                .sortAscending(); //升序排序
+
+        //传入redis
+        GeoResults<RedisGeoCommands.GeoLocation<String>> result = redisTemplate.opsForGeo().radius(RedisConstant.DRIVER_GEO_LOCATION, circle, args);
+
 
         //2. 查询redis最终返回list集合
+        List<GeoResult<RedisGeoCommands.GeoLocation<String>>> content = result.getContent();
 
         //3. 对查询list集合进行处理
         // 遍历list集合，得到每个司机信息
         // 根据每个司机个性化设置信息判断
+        List<NearByDriverVo> list = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(content)){
+            //迭代器操作
+            Iterator<GeoResult<RedisGeoCommands.GeoLocation<String>>> iterator = content.iterator();
+            while (iterator.hasNext()){
+                GeoResult<RedisGeoCommands.GeoLocation<String>> item = iterator.next();
 
+                //获取司机id
+                Long driverId = Long.parseLong(item.getContent().getName());
+                //远程调用，获取司机的id的个性化设置信息
+                Result<DriverSet> driverSetResult = driverInfoFeignClient.getDriverSet(driverId);
+                DriverSet driverSet = driverSetResult.getData();
 
-        return null;
+                //判断订单里程
+                //如果不等于0 ，比如30，接单30公里代驾订单。
+                //接单距离 - 当前单子距离  < 0,不复合条件
+                // 30          35
+                BigDecimal orderDistance = driverSet.getOrderDistance();
+                //能接的订单最大距离-当前单子距离 < 0，不符合条件
+                if (orderDistance.doubleValue() != 0 && orderDistance.subtract(searchNearByDriverForm.getMileageDistance()).doubleValue() < 0){
+                    continue;
+                }
+
+                //判断接单里程 accept_distance
+                //当前接单距离。设置在当前位置的两公里内部接单
+                BigDecimal currentDistance = new BigDecimal(item.getDistance().getValue()).setScale(2, RoundingMode.HALF_UP);
+                BigDecimal acceptDistance = driverSet.getAcceptDistance();
+                if(acceptDistance.doubleValue() != 0
+                && acceptDistance.subtract(currentDistance).doubleValue() < 0) {
+                    continue;
+               }
+
+                //封装符合条件的数据
+                NearByDriverVo nearByDriverVo = new NearByDriverVo();
+                nearByDriverVo.setDriverId(driverId);
+                nearByDriverVo.setDistance(currentDistance);
+                list.add(nearByDriverVo);
+            }
+        }
+        return list;
     }
     /*
       * @Title: searchNearByDriver
