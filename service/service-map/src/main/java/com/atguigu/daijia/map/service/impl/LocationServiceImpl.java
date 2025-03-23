@@ -71,12 +71,9 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public Boolean updateDriverLocation(UpdateDriverLocationForm updateDriverLocationForm) {
         //把司机位置信息添加redis里面geo
-        Point point = new Point(updateDriverLocationForm.getLongitude().doubleValue(),
-                                updateDriverLocationForm.getLatitude().doubleValue());
+        Point point = new Point(updateDriverLocationForm.getLongitude().doubleValue(), updateDriverLocationForm.getLatitude().doubleValue());
         //添加到redis里面
-        redisTemplate.opsForGeo().add(RedisConstant.DRIVER_GEO_LOCATION,
-                                      point,
-                                      updateDriverLocationForm.getDriverId().toString());
+        redisTemplate.opsForGeo().add(RedisConstant.DRIVER_GEO_LOCATION, point, updateDriverLocationForm.getDriverId().toString());
         return true;
     }
 
@@ -93,6 +90,7 @@ public class LocationServiceImpl implements LocationService {
     public Boolean removeDriverLocation(Long driverId) {
         //主要在redis中删除信息
         redisTemplate.opsForGeo().remove(RedisConstant.DRIVER_GEO_LOCATION,driverId.toString());
+        //返回对应的状态
         return true;
     }
 
