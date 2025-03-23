@@ -27,6 +27,14 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private DriverInfoFeignClient driverInfoFeignClient;
 
+     /*
+      * @Title: updateDriverLocation
+      * @Author: pyzxW
+      * @Date: 2025-03-23 19:41:58
+      * @Params:  
+      * @Return: null
+      * @Description: 更新司机的位置信息
+      */
     //更新司机位置
     @Override
     public Boolean updateDriverLocation(UpdateDriverLocationForm updateDriverLocationForm) {
