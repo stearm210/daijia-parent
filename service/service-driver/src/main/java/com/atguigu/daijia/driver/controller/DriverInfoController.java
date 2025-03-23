@@ -111,6 +111,14 @@ public class DriverInfoController {
 //        return Result.ok(isSuccess);
 //    }
 
+     /*
+      * @Title: getDriverSet
+      * @Author: pyzxW
+      * @Date: 2025-03-23 19:50:51
+      * @Params:
+      * @Return: null
+      * @Description: 获取司机的个性化设置信息
+      */
     @Operation(summary = "获取司机设置信息")
     @GetMapping("/getDriverSet/{driverId}")
     public Result<DriverSet> getDriverSet(@PathVariable Long driverId) {
