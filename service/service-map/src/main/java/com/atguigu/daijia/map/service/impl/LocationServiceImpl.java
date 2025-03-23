@@ -80,6 +80,14 @@ public class LocationServiceImpl implements LocationService {
         return true;
     }
 
+     /*
+      * @Title: removeDriverLocation
+      * @Author: pyzxW
+      * @Date: 2025-03-23 19:29:01
+      * @Params:
+      * @Return: null
+      * @Description: 删除司机位置信息
+      */
     //删除司机位置信息
     @Override
     public Boolean removeDriverLocation(Long driverId) {
