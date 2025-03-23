@@ -91,6 +91,7 @@ public class LocationServiceImpl implements LocationService {
     //删除司机位置信息
     @Override
     public Boolean removeDriverLocation(Long driverId) {
+        //主要在redis中删除信息
         redisTemplate.opsForGeo().remove(RedisConstant.DRIVER_GEO_LOCATION,driverId.toString());
         return true;
     }
