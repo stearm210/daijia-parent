@@ -73,6 +73,7 @@ public class LocationServiceImpl implements LocationService {
         //把司机位置信息添加redis里面geo
         Point point = new Point(updateDriverLocationForm.getLongitude().doubleValue(), updateDriverLocationForm.getLatitude().doubleValue());
         //添加到redis里面
+        //添加参数：key、位置点、司机id
         redisTemplate.opsForGeo().add(RedisConstant.DRIVER_GEO_LOCATION, point, updateDriverLocationForm.getDriverId().toString());
         return true;
     }
