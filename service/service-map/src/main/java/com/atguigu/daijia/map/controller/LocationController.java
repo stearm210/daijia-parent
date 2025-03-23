@@ -64,6 +64,14 @@ public class LocationController {
         return Result.ok(locationService.removeDriverLocation(driverId));
     }
 
+     /*
+      * @Title: searchNearByDriver
+      * @Author: pyzxW
+      * @Date: 2025-03-23 20:28:20
+      * @Params:
+      * @Return: null
+      * @Description: 搜索附近满足条件的司机
+      */
     @Operation(summary = "搜索附近满足条件的司机")
     @PostMapping("/searchNearByDriver")
     public Result<List<NearByDriverVo>> searchNearByDriver(@RequestBody
