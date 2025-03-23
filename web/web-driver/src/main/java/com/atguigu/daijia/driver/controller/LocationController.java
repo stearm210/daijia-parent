@@ -28,6 +28,14 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
+     /*
+      * @Title: updateDriverLocation
+      * @Author: pyzxW
+      * @Date: 2025-03-23 19:40:19
+      * @Params:
+      * @Return: null
+      * @Description: 开启接单服务
+      */
     @Operation(summary = "开启接单服务：更新司机经纬度位置")
     @GuiguLogin
     @PostMapping("/updateDriverLocation")
