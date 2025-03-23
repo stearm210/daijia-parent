@@ -100,25 +100,21 @@ public class LocationServiceImpl implements LocationService {
         //搜索经纬度位置5公里以内的司机
         //1 操作redis里面geo
         //创建point，经纬度位置
-        Point point = new Point(searchNearByDriverForm.getLongitude().doubleValue(),
-                searchNearByDriverForm.getLatitude().doubleValue());
+        Point point = new Point(searchNearByDriverForm.getLongitude().doubleValue(), searchNearByDriverForm.getLatitude().doubleValue());
 
         //定义距离，5公里
-        Distance distance = new Distance(SystemConstant.NEARBY_DRIVER_RADIUS,
-                               RedisGeoCommands.DistanceUnit.KILOMETERS);
+        Distance distance = new Distance(SystemConstant.NEARBY_DRIVER_RADIUS, RedisGeoCommands.DistanceUnit.KILOMETERS);
 
         //创建circle对象，point  distance
         Circle circle = new Circle(point,distance);
 
         //定义GEO参数，设置返回结果包含内容
-        RedisGeoCommands.GeoRadiusCommandArgs args =
-                RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs()
+        RedisGeoCommands.GeoRadiusCommandArgs args = RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs()
                         .includeDistance()  //包含距离
                         .includeCoordinates() //包含坐标
                         .sortAscending(); //升序
 
-        GeoResults<RedisGeoCommands.GeoLocation<String>> result =
-                redisTemplate.opsForGeo().radius(RedisConstant.DRIVER_GEO_LOCATION, circle, args);
+        GeoResults<RedisGeoCommands.GeoLocation<String>> result = redisTemplate.opsForGeo().radius(RedisConstant.DRIVER_GEO_LOCATION, circle, args);
 
         //2 查询redis最终返回list集合
         List<GeoResult<RedisGeoCommands.GeoLocation<String>>> content = result.getContent();
