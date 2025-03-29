@@ -16,6 +16,7 @@ public class ServiceDispatchApplication {
         SpringApplication.run(ServiceDispatchApplication.class, args);
     }
 
+    //远程调用其他端的方法
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
