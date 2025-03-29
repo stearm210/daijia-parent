@@ -30,6 +30,7 @@ public class XxlJobClient {
     @Autowired
     private XxlJobClientConfig xxlJobClientConfig;
 
+    //客户端调用服务端中的方法
     @Autowired
     private RestTemplate restTemplate;
 
