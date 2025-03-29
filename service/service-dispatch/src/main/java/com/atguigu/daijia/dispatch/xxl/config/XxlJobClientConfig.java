@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
+//读取nacos中的配置中心中的值
 @ConfigurationProperties(prefix = "xxl.job.client")
 public class XxlJobClientConfig {
 
