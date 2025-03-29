@@ -15,6 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+ /*
+  * @Title: 调用调度中心中的方法
+  * @Author: pyzxW
+  * @Date: 2025-03-29 20:13:45
+  * @Params:
+  * @Return: null
+  * @Description: 执行器中的具体方法编写
+  */
 @Slf4j
 @Component
 public class XxlJobClient {
@@ -25,6 +33,14 @@ public class XxlJobClient {
     @Autowired
     private RestTemplate restTemplate;
 
+     /*
+      * @Title: addJob
+      * @Author: pyzxW
+      * @Date: 2025-03-29 20:14:04
+      * @Params:
+      * @Return: null
+      * @Description: 添加任务
+      */
     @SneakyThrows
     public Long addJob(String executorHandler, String param, String corn, String desc){
         XxlJobInfo xxlJobInfo = new XxlJobInfo();
