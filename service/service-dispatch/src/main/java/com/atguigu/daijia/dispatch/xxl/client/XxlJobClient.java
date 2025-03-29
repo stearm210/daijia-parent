@@ -163,7 +163,7 @@ public class XxlJobClient {
         //获取调度中心的请求路径
         String url = xxlJobClientConfig.getAddAndStartUrl();
 
-        //restTemplate进行请求
+        //restTemplate进行请求,注意要在启动类中配置对应的启动项
         //返回对应的请求
         ResponseEntity<JSONObject> response = restTemplate.postForEntity(url, request, JSONObject.class);
 
