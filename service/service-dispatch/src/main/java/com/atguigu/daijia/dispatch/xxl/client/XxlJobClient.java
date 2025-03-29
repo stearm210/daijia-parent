@@ -128,7 +128,16 @@ public class XxlJobClient {
         throw new GuiguException(ResultCodeEnum.DATA_ERROR);
     }
 
+     /*
+      * @Title: addAndStart
+      * @Author: pyzxW
+      * @Date: 2025-03-29 20:17:28
+      * @Params:
+      * @Return: null
+      * @Description: 添加并且启动任务,并且任务会启动一次
+      */
     public Long addAndStart(String executorHandler, String param, String corn, String desc) {
+        //创建对象
         XxlJobInfo xxlJobInfo = new XxlJobInfo();
         xxlJobInfo.setJobGroup(xxlJobClientConfig.getJobGroupId());
         xxlJobInfo.setJobDesc(desc);
@@ -144,12 +153,21 @@ public class XxlJobClient {
         xxlJobInfo.setExecutorTimeout(0);
         xxlJobInfo.setExecutorFailRetryCount(0);
 
+        //创建头信息
+        //创建请求
         HttpHeaders headers = new HttpHeaders();
+        //设置类型
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<XxlJobInfo> request = new HttpEntity<>(xxlJobInfo, headers);
 
+        //获取调度中心的请求路径
         String url = xxlJobClientConfig.getAddAndStartUrl();
+
+        //restTemplate进行请求
+        //返回对应的请求
         ResponseEntity<JSONObject> response = restTemplate.postForEntity(url, request, JSONObject.class);
+
+        //状态码
         if(response.getStatusCode().value() == 200 && response.getBody().getIntValue("code") == 200) {
             log.info("增加并开始执行xxl任务成功,返回信息:{}", response.getBody().toJSONString());
             //content为任务id
@@ -158,4 +176,34 @@ public class XxlJobClient {
         log.info("增加并开始执行xxl任务失败:{}", response.getBody().toJSONString());
         throw new GuiguException(ResultCodeEnum.DATA_ERROR);
     }
+//    public Long addAndStart(String executorHandler, String param, String corn, String desc) {
+//        XxlJobInfo xxlJobInfo = new XxlJobInfo();
+//        xxlJobInfo.setJobGroup(xxlJobClientConfig.getJobGroupId());
+//        xxlJobInfo.setJobDesc(desc);
+//        xxlJobInfo.setAuthor("qy");
+//        xxlJobInfo.setScheduleType("CRON");
+//        xxlJobInfo.setScheduleConf(corn);
+//        xxlJobInfo.setGlueType("BEAN");
+//        xxlJobInfo.setExecutorHandler(executorHandler);
+//        xxlJobInfo.setExecutorParam(param);
+//        xxlJobInfo.setExecutorRouteStrategy("FIRST");
+//        xxlJobInfo.setExecutorBlockStrategy("SERIAL_EXECUTION");
+//        xxlJobInfo.setMisfireStrategy("FIRE_ONCE_NOW");
+//        xxlJobInfo.setExecutorTimeout(0);
+//        xxlJobInfo.setExecutorFailRetryCount(0);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        HttpEntity<XxlJobInfo> request = new HttpEntity<>(xxlJobInfo, headers);
+//
+//        String url = xxlJobClientConfig.getAddAndStartUrl();
+//        ResponseEntity<JSONObject> response = restTemplate.postForEntity(url, request, JSONObject.class);
+//        if(response.getStatusCode().value() == 200 && response.getBody().getIntValue("code") == 200) {
+//            log.info("增加并开始执行xxl任务成功,返回信息:{}", response.getBody().toJSONString());
+//            //content为任务id
+//            return response.getBody().getLong("content");
+//        }
+//        log.info("增加并开始执行xxl任务失败:{}", response.getBody().toJSONString());
+//        throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+//    }
 }
