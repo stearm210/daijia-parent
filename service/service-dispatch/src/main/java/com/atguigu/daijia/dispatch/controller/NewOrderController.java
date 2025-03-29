@@ -23,6 +23,14 @@ public class NewOrderController {
     private NewOrderService newOrderService;
 
     //创建并启动任务调度方法
+     /*
+      * @Title: addAndStartTask
+      * @Author: pyzxW
+      * @Date: 2025-03-29 20:50:10
+      * @Params: [newOrderTaskVo]
+      * @Return: Result<Long>
+      * @Description: 创建并启动任务调度方法
+      */
     @Operation(summary = "添加并开始新订单任务调度")
     @PostMapping("/addAndStartTask")
     public Result<Long> addAndStartTask(@RequestBody NewOrderTaskVo newOrderTaskVo) {
