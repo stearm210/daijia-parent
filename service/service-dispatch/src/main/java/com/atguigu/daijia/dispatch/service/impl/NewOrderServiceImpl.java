@@ -44,6 +44,14 @@ public class NewOrderServiceImpl implements NewOrderService {
     private RedisTemplate redisTemplate;
 
     //创建并启动任务调度方法
+     /*
+      * @Title: addAndStartTask
+      * @Author: pyzxW
+      * @Date: 2025-03-29 20:50:53
+      * @Params: [newOrderTaskVo] 
+      * @Return: Long
+      * @Description: 模拟调度中心，创建并启动任务调度方法
+      */
     @Override
     public Long addAndStartTask(NewOrderTaskVo newOrderTaskVo) {
         //1 判断当前订单是否启动任务调度
