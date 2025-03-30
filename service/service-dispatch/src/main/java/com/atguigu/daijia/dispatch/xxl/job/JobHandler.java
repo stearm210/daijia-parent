@@ -32,6 +32,7 @@ public class JobHandler {
         XxlJobLog xxlJobLog = new XxlJobLog();
         //获取当前执行的jobid信息，存入临时变量中
         xxlJobLog.setJobId(XxlJobHelper.getJobId());
+        //运行时间
         long startTime = System.currentTimeMillis();
 
         try {
