@@ -50,6 +50,7 @@ public class JobHandler {
             long times = System.currentTimeMillis()- startTime;
             //TODO 完善long
             xxlJobLog.setTimes((int)times);
+            //插入表中
             xxlJobLogMapper.insert(xxlJobLog);
         }
     }
