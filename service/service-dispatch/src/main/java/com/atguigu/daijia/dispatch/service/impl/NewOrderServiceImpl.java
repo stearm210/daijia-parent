@@ -71,6 +71,7 @@ public class NewOrderServiceImpl implements NewOrderService {
             // String corn 执行cron表达式
             // String desc 描述信息
             //获得对应的jobid值
+            //每一分钟执行这个任务
             Long jobId = xxlJobClient.addAndStart("newOrderTaskHandler", "",
                     "0 0/1 * * * ?",
                     "新创建订单任务调度：" + newOrderTaskVo.getOrderId());
