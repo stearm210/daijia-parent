@@ -17,6 +17,14 @@ public class JobHandler {
     @Autowired
     private NewOrderService newOrderService;
 
+     /*
+      * @Title: newOrderTaskHandler
+      * @Author: pyzxW
+      * @Date: 2025-03-30 15:02:59
+      * @Params:
+      * @Return: null
+      * @Description: 日志信息记录
+      */
     @XxlJob("newOrderTaskHandler")
     public void newOrderTaskHandler() {
 
