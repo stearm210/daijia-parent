@@ -158,7 +158,7 @@ public class OrderServiceImpl implements OrderService {
         newOrderDispatchVo.setExpectTime(drivingLineVo.getDuration());
         newOrderDispatchVo.setFavourFee(orderInfoForm.getFavourFee());
         newOrderDispatchVo.setCreateTime(new Date());
-        //远程调用
+        //远程调用,添加任务
         Long jobId = newOrderFeignClient.addAndStartTask(newOrderDispatchVo).getData();
         //返回订单id
         return orderId;
