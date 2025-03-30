@@ -46,6 +46,7 @@ public class JobHandler {
             xxlJobLog.setError(e.getMessage());
             e.printStackTrace();
         } finally {
+            //记录对应的时间
             long times = System.currentTimeMillis()- startTime;
             //TODO 完善long
             xxlJobLog.setTimes((int)times);
