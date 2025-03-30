@@ -52,6 +52,14 @@ public class NewOrderController {
         return Result.ok(newOrderService.findNewOrderQueueData(driverId));
     }
 
+     /*
+      * @Title: clearNewOrderQueueData
+      * @Author: pyzxW
+      * @Date: 2025-03-30 19:40:17
+      * @Params:
+      * @Return: null
+      * @Description: 如果订单已经被司机接收，则清空redis队列
+      */
     @Operation(summary = "清空新订单队列数据")
     @GetMapping("/clearNewOrderQueueData/{driverId}")
     public Result<Boolean> clearNewOrderQueueData(@PathVariable Long driverId) {
