@@ -126,8 +126,16 @@ public class NewOrderServiceImpl implements NewOrderService {
     public void executeTask(long jobId) {
         //1.根据jobid查询数据库，当前任务是否已经创建
         //如果没有创建，不往下执行了
+        LambdaQueryWrapper<OrderJob> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(OrderJob::getJobId,jobId);
+        OrderJob orderJob = orderJobMapper.selectOne(wrapper);
+        if (orderJob == null){
+            //没有创建，不往下执行了
+            return;
+        }
 
         //2.查询订单状态，如果当前订单接单状态，继续执行。如果当前订单不是接单状态，停止任务调度
+
 
         //3.远程调用：搜索附近满足条件可以接单的司机
 
