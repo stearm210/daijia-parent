@@ -198,6 +198,33 @@ public class NewOrderServiceImpl implements NewOrderService {
         });
     }
 
+    /*
+     * @Title: findNewOrderQueueData
+     * @Author: pyzxW
+     * @Date: 2025-03-30 19:43:08
+     * @Params:
+     * @Return: null
+     * @Description: 获取最新订单
+     */
+    @Override
+    public List<NewOrderDataVo> findNewOrderQueueData(Long driverId) {
+        List<NewOrderDataVo> list = new ArrayList<>();
+        //生成key
+        String key = RedisConstant.DRIVER_ORDER_TEMP_LIST+driverId;
+        //在redis中查询数据，获取司机临时队列中的那些订单
+        Long size = redisTemplate.opsForList().size(key);
+        if (size > 0){
+            for (int i = 0; i < size; i++){
+                String content = (String) redisTemplate.opsForList().leftPop(key);
+                //得到的订单内容装换为vo类型，方便操作
+                NewOrderDataVo newOrderDataVo = JSONObject.parseObject(content, NewOrderDataVo.class);
+                list.add(newOrderDataVo);
+            }
+        }
+        return list;
+    }
+
+
 //    @Override
 //    public void executeTask(long jobId) {
 //        //1 根据jobid查询数据库，当前任务是否已经创建
@@ -269,20 +296,21 @@ public class NewOrderServiceImpl implements NewOrderService {
 //        });
 //    }
 
-    //获取最新订单
-    @Override
-    public List<NewOrderDataVo> findNewOrderQueueData(Long driverId) {
-        List<NewOrderDataVo> list = new ArrayList<>();
-        String key = RedisConstant.DRIVER_ORDER_TEMP_LIST + driverId;
-        long size = redisTemplate.opsForList().size(key);
-        if(size > 0) {
-            for(int i=0; i<size; i++) {
-                String content = (String)redisTemplate.opsForList().leftPop(key);
-                NewOrderDataVo newOrderDataVo = JSONObject.parseObject(content, NewOrderDataVo.class);
-                list.add(newOrderDataVo);
-            }
-        }
-        return list;
+
+
+//    @Override
+//    public List<NewOrderDataVo> findNewOrderQueueData(Long driverId) {
+//        List<NewOrderDataVo> list = new ArrayList<>();
+//        String key = RedisConstant.DRIVER_ORDER_TEMP_LIST + driverId;
+//        long size = redisTemplate.opsForList().size(key);
+//        if(size > 0) {
+//            for(int i=0; i<size; i++) {
+//                String content = (String)redisTemplate.opsForList().leftPop(key);
+//                NewOrderDataVo newOrderDataVo = JSONObject.parseObject(content, NewOrderDataVo.class);
+//                list.add(newOrderDataVo);
+//            }
+//        }
+//        return list;
 //        List<NewOrderDataVo> list = new ArrayList<>();
 //        String key = RedisConstant.DRIVER_ORDER_TEMP_LIST + driverId;
 //        Long size = redisTemplate.opsForList().size(key);
@@ -294,7 +322,7 @@ public class NewOrderServiceImpl implements NewOrderService {
 //            }
 //        }
 //        return list;
-    }
+//    }
 
     //清空队列数据
     @Override
