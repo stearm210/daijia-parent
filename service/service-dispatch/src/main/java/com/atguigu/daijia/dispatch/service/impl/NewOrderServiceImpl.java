@@ -176,7 +176,6 @@ public class NewOrderServiceImpl implements NewOrderService {
                 redisTemplate.expire(repeatKey, RedisConstant.DRIVER_ORDER_REPEAT_LIST_EXPIRES_TIME, TimeUnit.MINUTES);
 
                 //一个司机会面对多个订单，所以需要一个临时队列，存储订单信息
-                //新订单保存到司机的临时队列中去，在redis中使用list集合完成
                 //向这个vo对象中传入对应的参数信息
                 NewOrderDataVo newOrderDataVo = new NewOrderDataVo();
                 newOrderDataVo.setOrderId(newOrderTaskVo.getOrderId());
@@ -189,8 +188,13 @@ public class NewOrderServiceImpl implements NewOrderService {
                 newOrderDataVo.setDistance(driver.getDistance());
                 newOrderDataVo.setCreateTime(newOrderTaskVo.getCreateTime());
 
+                //新订单保存到司机的临时队列中去，在redis中使用list集合完成
                 String key = RedisConstant.DRIVER_ORDER_TEMP_LIST+driver.getDriverId();
+                //redis中放入对象数据
                 redisTemplate.opsForList().leftPush(key,JSONObject.toJSONString(newOrderDataVo));
+                //设置过期时间1分钟
+
+
             }
         });
     }
