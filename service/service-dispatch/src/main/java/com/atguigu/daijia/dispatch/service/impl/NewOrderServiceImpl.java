@@ -177,7 +177,20 @@ public class NewOrderServiceImpl implements NewOrderService {
 
                 //一个司机会面对多个订单，所以需要一个临时队列，存储订单信息
                 //新订单保存到司机的临时队列中去，在redis中使用list集合完成
+                //向这个vo对象中传入对应的参数信息
+                NewOrderDataVo newOrderDataVo = new NewOrderDataVo();
+                newOrderDataVo.setOrderId(newOrderTaskVo.getOrderId());
+                newOrderDataVo.setStartLocation(newOrderTaskVo.getStartLocation());
+                newOrderDataVo.setEndLocation(newOrderTaskVo.getEndLocation());
+                newOrderDataVo.setExpectAmount(newOrderTaskVo.getExpectAmount());
+                newOrderDataVo.setExpectDistance(newOrderTaskVo.getExpectDistance());
+                newOrderDataVo.setExpectTime(newOrderTaskVo.getExpectTime());
+                newOrderDataVo.setFavourFee(newOrderTaskVo.getFavourFee());
+                newOrderDataVo.setDistance(driver.getDistance());
+                newOrderDataVo.setCreateTime(newOrderTaskVo.getCreateTime());
 
+                String key = RedisConstant.DRIVER_ORDER_TEMP_LIST+driver.getDriverId();
+                redisTemplate.opsForList().leftPush(key,JSONObject.toJSONString(newOrderDataVo));
             }
         });
     }
