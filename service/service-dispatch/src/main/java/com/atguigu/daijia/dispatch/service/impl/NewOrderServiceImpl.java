@@ -193,8 +193,7 @@ public class NewOrderServiceImpl implements NewOrderService {
                 //redis中放入对象数据
                 redisTemplate.opsForList().leftPush(key,JSONObject.toJSONString(newOrderDataVo));
                 //设置过期时间1分钟
-
-
+                redisTemplate.expire(key, RedisConstant.DRIVER_ORDER_TEMP_LIST_EXPIRES_TIME, TimeUnit.MINUTES);
             }
         });
     }
