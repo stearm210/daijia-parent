@@ -47,6 +47,14 @@ public class OrderController {
         return Result.ok(orderService.getOrderStatus(orderId));
     }
 
+     /*
+      * @Title: findNewOrderQueueData
+      * @Author: pyzxW
+      * @Date: 2025-03-30 20:10:39
+      * @Params:
+      * @Return: null
+      * @Description: 查询司机新订单数据
+      */
     @Operation(summary = "查询司机新订单数据")
     @GuiguLogin
     @GetMapping("/findNewOrderQueueData")
