@@ -55,8 +55,37 @@ public class NewOrderServiceImpl implements NewOrderService {
     @Override
     public Long addAndStartTask(NewOrderTaskVo newOrderTaskVo) {
         //1.判断当前订单是否启动任务调度
+        //根据订单id查询
+        LambdaQueryWrapper<OrderJob> wrapper = new LambdaQueryWrapper<>();
+        //数据库中对比对应的信息
+        wrapper.eq(OrderJob::getOrderId,newOrderTaskVo.getOrderId());
+        //查到对应id的信息时则会返回一个对象，一个id对应一个任务
+        OrderJob orderJob = orderJobMapper.selectOne(wrapper);
 
-        return null;
+        //2.没有启动任务调度则直接进行操作
+        //模拟调度中心的操作
+        if(orderJob == null) {
+            //创建并启动任务调度
+            //String executorHandler 执行任务job方法
+            // String param
+            // String corn 执行cron表达式
+            // String desc 描述信息
+            //获得对应的jobid值
+            Long jobId = xxlJobClient.addAndStart("newOrderTaskHandler", "",
+                    "0 0/1 * * * ?",
+                    "新创建订单任务调度：" + newOrderTaskVo.getOrderId());
+
+            //记录任务调度信息
+            orderJob = new OrderJob();
+            //任务id
+            orderJob.setOrderId(newOrderTaskVo.getOrderId());
+            //工作id
+            orderJob.setJobId(jobId);
+            orderJob.setParameter(JSONObject.toJSONString(newOrderTaskVo));
+            //插入数据库
+            orderJobMapper.insert(orderJob);
+        }
+        return orderJob.getJobId();
     }
 
 //    @Override
