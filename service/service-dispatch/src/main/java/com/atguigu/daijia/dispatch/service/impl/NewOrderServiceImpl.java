@@ -152,6 +152,7 @@ public class NewOrderServiceImpl implements NewOrderService {
         }
 
         //3.远程调用：搜索附近满足条件可以接单的司机
+        //4.远程调用之后，获取满足可以接单的司机集合
         SearchNearByDriverForm searchNearByDriverForm = new SearchNearByDriverForm();
         searchNearByDriverForm.setLongitude(newOrderTaskVo.getStartPointLongitude());
         searchNearByDriverForm.setLatitude(newOrderTaskVo.getStartPointLatitude());
@@ -159,11 +160,26 @@ public class NewOrderServiceImpl implements NewOrderService {
         //远程调用，得到满足条件的司机列表
         List<NearByDriverVo> nearByDriverVoList = locationFeignClient.searchNearByDriver(searchNearByDriverForm).getData();
 
-        //4.远程调用之后，获取满足可以接单的司机集合
-
         //5.遍历司机集合，得到每个司机，为每个司机，创建一个临时队列，存储新订单信息
+        nearByDriverVoList.forEach(driver -> {
+            //把订单信息推送给满足条件的多个司机
+            //使用redis的set类型
+            //根据订单id生成key
+            String repeatKey = RedisConstant.DRIVER_ORDER_REPEAT_LIST+newOrderTaskVo.getOrderId();
+            //记录司机的id，防止重复计数
+            Boolean isMember = redisTemplate.opsForSet().isMember(repeatKey, driver.getDriverId());
+            //如果没有被推送？
+            if (!isMember){
+                //把订单信息推送给满足条件的多个司机
+                redisTemplate.opsForSet().add(repeatKey,driver.getDriverId());
+                //过期时间:15分钟，超过15分钟没有接单自动取消
+                redisTemplate.expire(repeatKey, RedisConstant.DRIVER_ORDER_REPEAT_LIST_EXPIRES_TIME, TimeUnit.MINUTES);
+            }
 
 
+
+
+        });
     }
 
 //    @Override
