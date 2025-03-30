@@ -174,11 +174,10 @@ public class NewOrderServiceImpl implements NewOrderService {
                 redisTemplate.opsForSet().add(repeatKey,driver.getDriverId());
                 //过期时间:15分钟，超过15分钟没有接单自动取消
                 redisTemplate.expire(repeatKey, RedisConstant.DRIVER_ORDER_REPEAT_LIST_EXPIRES_TIME, TimeUnit.MINUTES);
+
+                //新订单保存到司机的临时队列中去，在redis中使用list集合完成
+
             }
-
-
-
-
         });
     }
 
