@@ -38,7 +38,6 @@ public class JobHandler {
         try {
             //执行任务：搜索附近代驾司机
             newOrderService.executeTask(XxlJobHelper.getJobId());
-
             //成功状态
             xxlJobLog.setStatus(1);
         } catch (Exception e) {
