@@ -38,6 +38,14 @@ public class NewOrderController {
         return Result.ok(id);
     }
 
+     /*
+      * @Title: findNewOrderQueueData
+      * @Author: pyzxW
+      * @Date: 2025-03-30 19:39:46
+      * @Params:
+      * @Return: null
+      * @Description: 查询司机新订单数据
+      */
     @Operation(summary = "查询司机新订单数据")
     @GetMapping("/findNewOrderQueueData/{driverId}")
     public Result<List<NewOrderDataVo>> findNewOrderQueueData(@PathVariable Long driverId) {
