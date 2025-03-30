@@ -135,9 +135,29 @@ public class NewOrderServiceImpl implements NewOrderService {
         }
 
         //2.查询订单状态，如果当前订单接单状态，继续执行。如果当前订单不是接单状态，停止任务调度
+       //获取OrderJob里面的对象
+        //得到参数信息，当前订单的状态？
+        String jsonString = orderJob.getParameter();
+        //根据状态得到对应的vo
+        NewOrderTaskVo newOrderTaskVo = JSONObject.parseObject(jsonString, NewOrderTaskVo.class);
 
+        //获取订单id
+        Long orderId = newOrderTaskVo.getOrderId();
+        //得到对应的订单状态
+        Integer status = orderInfoFeignClient.getOrderStatus(orderId).getData();
+        if (status.intValue() != OrderStatus.WAITING_ACCEPT.getStatus().intValue()) {
+            //停止任务调度
+            xxlJobClient.stopJob(jobId);
+            return;
+        }
 
         //3.远程调用：搜索附近满足条件可以接单的司机
+        SearchNearByDriverForm searchNearByDriverForm = new SearchNearByDriverForm();
+        searchNearByDriverForm.setLongitude(newOrderTaskVo.getStartPointLongitude());
+        searchNearByDriverForm.setLatitude(newOrderTaskVo.getStartPointLatitude());
+        searchNearByDriverForm.setMileageDistance(newOrderTaskVo.getExpectDistance());
+        //远程调用，得到满足条件的司机列表
+        List<NearByDriverVo> nearByDriverVoList = locationFeignClient.searchNearByDriver(searchNearByDriverForm).getData();
 
         //4.远程调用之后，获取满足可以接单的司机集合
 
