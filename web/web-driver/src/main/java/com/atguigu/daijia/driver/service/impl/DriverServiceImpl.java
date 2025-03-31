@@ -168,7 +168,6 @@ public class DriverServiceImpl implements DriverService {
 
         //5.清空司机临时队列中的信息
         newOrderFeignClient.clearNewOrderQueueData(driverId);
-
         return true;
     }
 //    public Boolean startService(Long driverId) {
