@@ -425,7 +425,9 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
                     DriverFaceRecognition driverFaceRecognition = new DriverFaceRecognition();
                     //设置相关参数如数据库
                     driverFaceRecognition.setDriverId(driverFaceModelForm.getDriverId());
+                    //认证日期
                     driverFaceRecognition.setFaceDate(new Date());
+                    //插入表中
                     driverFaceRecognitionMapper.insert(driverFaceRecognition);
                     return true;
                 }
