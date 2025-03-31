@@ -123,6 +123,14 @@ public class DriverServiceImpl implements DriverService {
         return driverInfoFeignClient.isFaceRecognition(driverId).getData();
     }
 
+     /*
+      * @Title: verifyDriverFace
+      * @Author: pyzxW
+      * @Date: 2025-03-31 15:19:50
+      * @Params:
+      * @Return: null
+      * @Description: 人脸识别之远程调用
+      */
     //人脸识别
     @Override
     public Boolean verifyDriverFace(DriverFaceModelForm driverFaceModelForm) {
