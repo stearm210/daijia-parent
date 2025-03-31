@@ -397,8 +397,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
             // 实例化一个认证对象，入参需要传入腾讯云账户 SecretId 和 SecretKey，此处还需注意密钥对的保密
             // 代码泄露可能会导致 SecretId 和 SecretKey 泄露，并威胁账号下所有资源的安全性。以下代码示例仅供参考，建议采用更安全的方式来使用密钥，请参见：https://cloud.tencent.com/document/product/1278/85305
             // 密钥可前往官网控制台 https://console.cloud.tencent.com/cam/capi 进行获取
-            Credential cred = new Credential(tencentCloudProperties.getSecretId(),
-                    tencentCloudProperties.getSecretKey());
+            Credential cred = new Credential(tencentCloudProperties.getSecretId(), tencentCloudProperties.getSecretKey());
             // 实例化一个http选项，可选的，没有特殊需求可以跳过
             HttpProfile httpProfile = new HttpProfile();
             httpProfile.setEndpoint("iai.tencentcloudapi.com");
@@ -407,9 +406,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
             clientProfile.setHttpProfile(httpProfile);
 
             // 实例化要请求产品的client对象,clientProfile是可选的
-            IaiClient client = new IaiClient(cred,
-                                         tencentCloudProperties.getRegion(),
-                                         clientProfile);
+            IaiClient client = new IaiClient(cred, tencentCloudProperties.getRegion(), clientProfile);
             // 实例化一个请求对象,每个接口都会对应一个request对象
             VerifyFaceRequest req = new VerifyFaceRequest();
             //设置相关参数
@@ -422,8 +419,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
             System.out.println(AbstractModel.toJsonString(resp));
             if(resp.getIsMatch()) { //照片比对成功
                 //2 如果照片比对成功，静态活体检测
-                Boolean isSuccess = this.
-                        detectLiveFace(driverFaceModelForm.getImageBase64());
+                Boolean isSuccess = this.detectLiveFace(driverFaceModelForm.getImageBase64());
                 if(isSuccess) {//3 如果静态活体检测通过，添加数据到认证表里面
                     DriverFaceRecognition driverFaceRecognition = new DriverFaceRecognition();
                     driverFaceRecognition.setDriverId(driverFaceModelForm.getDriverId());
