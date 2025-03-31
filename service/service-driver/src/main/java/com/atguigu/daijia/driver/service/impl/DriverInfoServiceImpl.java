@@ -439,6 +439,8 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         throw new GuiguException(ResultCodeEnum.DATA_ERROR);
     }
 
+
+
     /*
      * @Title: detectLiveFace
      * @Author: pyzxW
@@ -496,6 +498,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         wrapper.eq(DriverSet::getDriverId,driverId);
         DriverSet driverSet = new DriverSet();
         driverSet.setServiceStatus(status);
+        //driverSet是数据库中需要修改的值
         driverSetMapper.update(driverSet,wrapper);
         return true;
     }
