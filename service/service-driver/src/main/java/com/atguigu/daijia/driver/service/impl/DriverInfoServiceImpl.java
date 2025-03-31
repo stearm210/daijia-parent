@@ -342,18 +342,44 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
     }
 
     ////判断司机当日是否进行过人脸识别
+     /*
+      * @Title: isFaceRecognition
+      * @Author: pyzxW
+      * @Date: 2025-03-31 14:40:12
+      * @Params: [driverId]
+      * @Return: Boolean
+      * @Description: 判断司机当日是否进行过人脸识别
+      */
     @Override
     public Boolean isFaceRecognition(Long driverId) {
-        //根据司机id + 当日日期进行查询
+        //根据司机id以及当日的日期进行查询
         LambdaQueryWrapper<DriverFaceRecognition> wrapper = new LambdaQueryWrapper<>();
+        //司机id判断
         wrapper.eq(DriverFaceRecognition::getDriverId,driverId);
-        // 年-月-日 格式
+        //获取当日的日期。注意年月日之排序
         wrapper.eq(DriverFaceRecognition::getFaceDate,new DateTime().toString("yyyy-MM-dd"));
-        //调用mapper方法
+        //调用mapper进行实现
+        //人脸识别次数
         Long count = driverFaceRecognitionMapper.selectCount(wrapper);
+//        driverFaceRecognitionMapper.selectOne(wrapper);
+//        driverFaceRecognitionMapper.selectById(wrapper);
 
         return count != 0;
     }
+
+    ////判断司机当日是否进行过人脸识别
+//    @Override
+//    public Boolean isFaceRecognition(Long driverId) {
+//        //根据司机id + 当日日期进行查询
+//        LambdaQueryWrapper<DriverFaceRecognition> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(DriverFaceRecognition::getDriverId,driverId);
+//        // 年-月-日 格式
+//        wrapper.eq(DriverFaceRecognition::getFaceDate,new DateTime().toString("yyyy-MM-dd"));
+//        //调用mapper方法
+//        Long count = driverFaceRecognitionMapper.selectCount(wrapper);
+//
+//        return count != 0;
+//    }
 
     //人脸识别
     @Override
