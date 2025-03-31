@@ -109,6 +109,14 @@ public class DriverServiceImpl implements DriverService {
         return booleanResult.getData();
     }
 
+     /*
+      * @Title: isFaceRecognition
+      * @Author: pyzxW
+      * @Date: 2025-03-31 14:49:19
+      * @Params:
+      * @Return: null
+      * @Description: 判断是否进行人脸识别
+      */
     //判断是否进行人脸识别
     @Override
     public Boolean isFaceRecognition(Long driverId) {
