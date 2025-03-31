@@ -481,6 +481,14 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
     }
 
     //更新接单状态
+     /*
+      * @Title: updateServiceStatus
+      * @Author: pyzxW
+      * @Date: 2025-03-31 15:25:59
+      * @Params: [driverId, status]
+      * @Return: Boolean
+      * @Description: 更新接单状态
+      */
     // update driver_set set status=? where driver_id=?
     @Override
     public Boolean updateServiceStatus(Long driverId, Integer status) {
