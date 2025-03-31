@@ -410,6 +410,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
             // 实例化一个请求对象,每个接口都会对应一个request对象
             VerifyFaceRequest req = new VerifyFaceRequest();
             //设置相关参数
+            //设置照片尺寸、个人之ID
             req.setImage(driverFaceModelForm.getImageBase64());
             req.setPersonId(String.valueOf(driverFaceModelForm.getDriverId()));
 
