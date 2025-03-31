@@ -116,6 +116,14 @@ public class DriverController {
     }
 
 
+     /*
+      * @Title: isFaceRecognition
+      * @Author: pyzxW
+      * @Date: 2025-03-31 14:48:45
+      * @Params:
+      * @Return: null
+      * @Description: 判断司机当日是否进行过人脸识别
+      */
     @Operation(summary = "判断司机当日是否进行过人脸识别")
     @GuiguLogin
     @GetMapping("/isFaceRecognition")
