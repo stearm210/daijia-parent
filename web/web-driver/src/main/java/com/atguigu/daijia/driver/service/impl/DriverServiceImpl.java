@@ -149,7 +149,11 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public Boolean startService(Long driverId){
         //1.判断完成认证
-
+        DriverLoginVo driverLoginVo = driverInfoFeignClient.getDriverLoginInfo(driverId).getData();
+        if(driverLoginVo.getAuthStatus() != 2) {
+            //表示认证没有完成
+            throw new GuiguException(ResultCodeEnum.AUTH_ERROR);
+        }
         //2.判断当日是否进行人脸识别
 
         //3.更新订单状态 1 开始接单
