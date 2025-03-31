@@ -155,12 +155,21 @@ public class DriverServiceImpl implements DriverService {
             throw new GuiguException(ResultCodeEnum.AUTH_ERROR);
         }
         //2.判断当日是否进行人脸识别
+        if(!driverInfoFeignClient.isFaceRecognition(driverId).getData()) {
+            //表示未进行人脸识别
+            throw new GuiguException(ResultCodeEnum.FACE_ERROR);
+        }
 
         //3.更新订单状态 1 开始接单
+        driverInfoFeignClient.updateServiceStatus(driverId,1);
 
         //4.删除redis中司机的位置信息
+        locationFeignClient.removeDriverLocation(driverId);
 
         //5.清空司机临时队列中的信息
+        newOrderFeignClient.clearNewOrderQueueData(driverId);
+
+        return true;
     }
 //    public Boolean startService(Long driverId) {
 //        //1 判断完成认证
