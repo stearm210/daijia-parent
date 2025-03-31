@@ -125,6 +125,14 @@ public class DriverInfoController {
         return Result.ok(driverInfoService.getDriverSet(driverId));
     }
 
+     /*
+      * @Title: isFaceRecognition
+      * @Author: pyzxW
+      * @Date: 2025-03-31 14:38:18
+      * @Params:  
+      * @Return: null
+      * @Description: 判断司机当日是否进行人脸识别
+      */
     @Operation(summary = "判断司机当日是否进行过人脸识别")
     @GetMapping("/isFaceRecognition/{driverId}")
     Result<Boolean> isFaceRecognition(@PathVariable("driverId") Long driverId) {
