@@ -140,6 +140,14 @@ public class DriverController {
         return Result.ok(driverService.verifyDriverFace(driverFaceModelForm));
     }
 
+     /*
+      * @Title: startService
+      * @Author: pyzxW
+      * @Date: 2025-03-31 15:32:00
+      * @Params:
+      * @Return: null
+      * @Description: 开启接单服务
+      */
     @Operation(summary = "开始接单服务")
     @GuiguLogin
     @GetMapping("/startService")
@@ -148,6 +156,14 @@ public class DriverController {
         return Result.ok(driverService.startService(driverId));
     }
 
+     /*
+      * @Title: stopService
+      * @Author: pyzxW
+      * @Date: 2025-03-31 15:32:29
+      * @Params:
+      * @Return: null
+      * @Description: 停止接单服务
+      */
     @Operation(summary = "停止接单服务")
     @GuiguLogin
     @GetMapping("/stopService")

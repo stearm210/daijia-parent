@@ -137,32 +137,55 @@ public class DriverServiceImpl implements DriverService {
         return driverInfoFeignClient.verifyDriverFace(driverFaceModelForm).getData();
     }
 
+     /*
+      * @Title: startService
+      * @Author: pyzxW
+      * @Date: 2025-03-31 15:32:51
+      * @Params:
+      * @Return: null
+      * @Description: 开始接单服务
+      */
     //开始接单服务
     @Override
-    public Boolean startService(Long driverId) {
-        //1 判断完成认证
-        DriverLoginVo driverLoginVo = driverInfoFeignClient.getDriverLoginInfo(driverId).getData();
-        if(driverLoginVo.getAuthStatus()!=2) {
-            throw new GuiguException(ResultCodeEnum.AUTH_ERROR);
-        }
+    public Boolean startService(Long driverId){
+        //1.判断完成认证
 
-        //2 判断当日是否人脸识别
-        Boolean isFace = driverInfoFeignClient.isFaceRecognition(driverId).getData();
-        if(!isFace) {
-            throw new GuiguException(ResultCodeEnum.FACE_ERROR);
-        }
+        //2.判断当日是否进行人脸识别
 
-        //3 更新订单状态 1 开始接单
-        driverInfoFeignClient.updateServiceStatus(driverId,1);
-
-        //4 删除redis司机位置信息
-        locationFeignClient.removeDriverLocation(driverId);
-
-        //5 清空司机临时队列数据
-        newOrderFeignClient.clearNewOrderQueueData(driverId);
-        return true;
+        //3.更新订单状态 1 开始接单
     }
+//    public Boolean startService(Long driverId) {
+//        //1 判断完成认证
+//        DriverLoginVo driverLoginVo = driverInfoFeignClient.getDriverLoginInfo(driverId).getData();
+//        if(driverLoginVo.getAuthStatus()!=2) {
+//            throw new GuiguException(ResultCodeEnum.AUTH_ERROR);
+//        }
+//
+//        //2 判断当日是否人脸识别
+//        Boolean isFace = driverInfoFeignClient.isFaceRecognition(driverId).getData();
+//        if(!isFace) {
+//            throw new GuiguException(ResultCodeEnum.FACE_ERROR);
+//        }
+//
+//        //3 更新订单状态 1 开始接单
+//        driverInfoFeignClient.updateServiceStatus(driverId,1);
+//
+//        //4 删除redis司机位置信息
+//        locationFeignClient.removeDriverLocation(driverId);
+//
+//        //5 清空司机临时队列数据
+//        newOrderFeignClient.clearNewOrderQueueData(driverId);
+//        return true;
+//    }
 
+     /*
+      * @Title: stopService
+      * @Author: pyzxW
+      * @Date: 2025-03-31 15:32:59
+      * @Params:
+      * @Return: null
+      * @Description: 停止接单服务
+      */
     //停止接单服务
     @Override
     public Boolean stopService(Long driverId) {
