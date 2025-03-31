@@ -423,6 +423,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
                 Boolean isSuccess = this.detectLiveFace(driverFaceModelForm.getImageBase64());
                 if(isSuccess) {//3 如果静态活体检测通过，添加数据到认证表里面
                     DriverFaceRecognition driverFaceRecognition = new DriverFaceRecognition();
+                    //设置相关参数如数据库
                     driverFaceRecognition.setDriverId(driverFaceModelForm.getDriverId());
                     driverFaceRecognition.setFaceDate(new Date());
                     driverFaceRecognitionMapper.insert(driverFaceRecognition);
