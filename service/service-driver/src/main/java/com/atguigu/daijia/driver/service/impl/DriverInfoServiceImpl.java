@@ -361,8 +361,8 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         //调用mapper进行实现
         //人脸识别次数
         Long count = driverFaceRecognitionMapper.selectCount(wrapper);
-//        driverFaceRecognitionMapper.selectOne(wrapper);
-//        driverFaceRecognitionMapper.selectById(wrapper);
+//        driverFaceRecognitionMapper.selectOne(wrapper);用于条件查询单条记录。
+//        driverFaceRecognitionMapper.selectById(wrapper);selectById 方法的参数为主键值,主键值查询
 
         return count != 0;
     }
