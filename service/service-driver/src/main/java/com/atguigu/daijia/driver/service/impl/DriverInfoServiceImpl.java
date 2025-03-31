@@ -381,6 +381,14 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
 //        return count != 0;
 //    }
 
+     /*
+      * @Title: verifyDriverFace
+      * @Author: pyzxW
+      * @Date: 2025-03-31 15:08:36
+      * @Params: [driverFaceModelForm]
+      * @Return: Boolean
+      * @Description: 简单人脸识别
+      */
     //人脸识别
     @Override
     public Boolean verifyDriverFace(DriverFaceModelForm driverFaceModelForm) {
