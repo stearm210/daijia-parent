@@ -153,6 +153,10 @@ public class DriverServiceImpl implements DriverService {
         //2.判断当日是否进行人脸识别
 
         //3.更新订单状态 1 开始接单
+
+        //4.删除redis中司机的位置信息
+
+        //5.清空司机临时队列中的信息
     }
 //    public Boolean startService(Long driverId) {
 //        //1 判断完成认证
