@@ -115,7 +115,6 @@ public class DriverController {
         return Result.ok(driverService.creatDriverFaceModel(driverFaceModelForm));
     }
 
-
      /*
       * @Title: isFaceRecognition
       * @Author: pyzxW
