@@ -163,6 +163,18 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     @Override
     public Boolean robNewOrder(Long driverId, Long orderId) {
         //判断订单是否存在，通过Redis，减少数据库压力
+        //之前保存订单时有在redis中对订单添加标识，方便判断是否有资格被抢单，同样也设置了过期时间
+        //设置if判断，如果没有这个表示，则认为订单已经被抢了，则直接返回抢单失败
+        if (!redisTemplate.hasKey(RedisConstant.ORDER_ACCEPT_MARK)){
+            //抢单失败
+            throw new GuiguException(ResultCodeEnum.COB_NEW_ORDER_FAIL);
+        }
+
+        //开始抢单
+        //修改order_info中的值为2，表示已经接单
+        //修改条件：订单id+司机id
+
+
 
 
         return null;
