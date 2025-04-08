@@ -178,6 +178,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         wrapper.eq(OrderInfo::getId,orderId);
         OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
         //设置orderinfo数据库中需要修改的值
+        orderInfo.setStatus(OrderStatus.ACCEPTED.getStatus());
         orderInfo.setDriverId(driverId);
         orderInfo.setAcceptTime(new Date());
         //调用方法修改
