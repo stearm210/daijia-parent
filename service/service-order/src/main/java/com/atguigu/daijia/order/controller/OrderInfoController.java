@@ -61,11 +61,20 @@ public class OrderInfoController {
         return Result.ok(orderInfoService.getOrderStatus(orderId));
     }
 
+     /*
+      * @Title: robNewOrder
+      * @Author: pyzxW
+      * @Date: 2025-04-08 13:49:08
+      * @Params:
+      * @Return: null
+      * @Description: 司机抢单接口
+      */
     @Operation(summary = "司机抢单")
     @GetMapping("/robNewOrder/{driverId}/{orderId}")
     public Result<Boolean> robNewOrder(@PathVariable Long driverId, @PathVariable Long orderId) {
         return Result.ok(orderInfoService.robNewOrder(driverId, orderId));
     }
+
 
     @Operation(summary = "乘客端查找当前订单")
     @GetMapping("/searchCustomerCurrentOrder/{customerId}")
