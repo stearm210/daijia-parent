@@ -21,6 +21,7 @@ import com.atguigu.daijia.order.mapper.OrderProfitsharingMapper;
 import com.atguigu.daijia.order.mapper.OrderStatusLogMapper;
 import com.atguigu.daijia.order.service.OrderInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -171,11 +172,16 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
 
         //开始抢单
-        //修改order_info中的值为2，表示已经接单
+        //修改order_info中的值为2，表示已经接单。司机id、司机接单时间
         //修改条件：订单id+司机id
-
-
-
+        LambdaUpdateWrapper<OrderInfo> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(OrderInfo::getId,orderId);
+        OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
+        //设置orderinfo数据库中需要修改的值
+        orderInfo.setDriverId(driverId);
+        orderInfo.setAcceptTime(new Date());
+        //调用方法修改
+        orderInfoMapper.updateById(orderInfo);
 
         return null;
     }
