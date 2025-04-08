@@ -181,9 +181,17 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderInfo.setDriverId(driverId);
         orderInfo.setAcceptTime(new Date());
         //调用方法修改
-        orderInfoMapper.updateById(orderInfo);
+        int rows = orderInfoMapper.updateById(orderInfo);
+        //影响行数
+        if (rows != 1){
+            //抢单失败
+            throw new GuiguException(ResultCodeEnum.COB_NEW_ORDER_FAIL);
+        }
 
-        return null;
+        //订单被抢到之后，则需要在redis数据库中删除抢单标识
+        redisTemplate.delete(RedisConstant.ORDER_ACCEPT_MARK);
+
+        return true;
     }
 //    public Boolean robNewOrder(Long driverId, Long orderId) {
 //        //判断订单是否存在，通过Redis，减少数据库压力
