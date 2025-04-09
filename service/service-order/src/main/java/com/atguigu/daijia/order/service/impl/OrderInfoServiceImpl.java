@@ -171,27 +171,48 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             throw new GuiguException(ResultCodeEnum.COB_NEW_ORDER_FAIL);
         }
 
-        //开始抢单
-        //修改order_info中的值为2，表示已经接单。司机id、司机接单时间
-        //修改条件：订单id+司机id
-        LambdaUpdateWrapper<OrderInfo> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(OrderInfo::getId,orderId);
-        OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
-        //设置orderinfo数据库中需要修改的值
-        orderInfo.setStatus(OrderStatus.ACCEPTED.getStatus());
-        orderInfo.setDriverId(driverId);
-        orderInfo.setAcceptTime(new Date());
-        //调用方法修改
-        int rows = orderInfoMapper.updateById(orderInfo);
-        //影响行数
-        if (rows != 1){
+        //创建锁
+        RLock lock = redissonClient.getLock(RedisConstant.ROB_NEW_ORDER_LOCK + orderId);
+
+        try {
+            //获取锁
+            boolean flag = lock.tryLock(RedisConstant.ROB_NEW_ORDER_LOCK_WAIT_TIME,RedisConstant.ROB_NEW_ORDER_LOCK_LEASE_TIME,TimeUnit.SECONDS);
+            if (flag){
+                //表示已经得到锁
+                if (!redisTemplate.hasKey(RedisConstant.ORDER_ACCEPT_MARK)){
+                    //抢单失败
+                    throw new GuiguException(ResultCodeEnum.COB_NEW_ORDER_FAIL);
+                }
+                //开始抢单
+                //修改order_info中的值为2，表示已经接单。司机id、司机接单时间
+                //修改条件：订单id+司机id
+                LambdaUpdateWrapper<OrderInfo> wrapper = new LambdaUpdateWrapper<>();
+                wrapper.eq(OrderInfo::getId,orderId);
+                OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
+                //设置orderinfo数据库中需要修改的值
+                orderInfo.setStatus(OrderStatus.ACCEPTED.getStatus());
+                orderInfo.setDriverId(driverId);
+                orderInfo.setAcceptTime(new Date());
+                //调用方法修改
+                int rows = orderInfoMapper.updateById(orderInfo);
+                //影响行数
+                if (rows != 1){
+                    //抢单失败
+                    throw new GuiguException(ResultCodeEnum.COB_NEW_ORDER_FAIL);
+                }
+
+                //订单被抢到之后，则需要在redis数据库中删除抢单标识
+                redisTemplate.delete(RedisConstant.ORDER_ACCEPT_MARK);
+            }
+        } catch (Exception e) {
             //抢单失败
             throw new GuiguException(ResultCodeEnum.COB_NEW_ORDER_FAIL);
+        }finally {
+            //释放
+            if (lock.isLocked()){
+                lock.unlock();
+            }
         }
-
-        //订单被抢到之后，则需要在redis数据库中删除抢单标识
-        redisTemplate.delete(RedisConstant.ORDER_ACCEPT_MARK);
-
         return true;
     }
 //    public Boolean robNewOrder(Long driverId, Long orderId) {
