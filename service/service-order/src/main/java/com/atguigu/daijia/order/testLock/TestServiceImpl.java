@@ -65,10 +65,12 @@ public class TestServiceImpl implements TestService{
     @Override
     public synchronized void testLock() {
         //从redis里面获取数据
-        //获取当前锁
+        //1.获取当前锁
 
 
+        //2.如果获取到锁，从redis获取数据 数据+1 放回redis里面
 
+        //3.释放锁
 
     }
 
