@@ -66,7 +66,7 @@ public class TestServiceImpl implements TestService{
     public synchronized void testLock() {
         //从redis里面获取数据
         //1.获取当前锁
-        //设置过期时间，到时间之后自动释放锁
+        //设置过期时间10s，到时间之后自动释放锁
         Boolean ifAbsent =
                 redisTemplate.opsForValue()
                         .setIfAbsent("lock", "lock",10, TimeUnit.SECONDS);
