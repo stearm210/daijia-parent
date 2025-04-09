@@ -56,7 +56,7 @@ public class TestServiceImpl implements TestService{
         redisTemplate.opsForValue().set("num", String.valueOf(++num));
 
         //4.释放锁
-
+        lock.unlock();
     }
 //    public void testLock()  {
 //
