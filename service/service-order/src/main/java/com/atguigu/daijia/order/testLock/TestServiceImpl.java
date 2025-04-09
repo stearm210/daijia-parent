@@ -33,16 +33,16 @@ public class TestServiceImpl implements TestService{
         lock.lock();
 
         //(2)获取到锁，锁过期时间10s
-        lock.lock(10,TimeUnit.SECONDS);
+        //lock.lock(10,TimeUnit.SECONDS);
 
-        //(3).如果获取到锁，从redis获取数据 数据+1 放回redis里面
+        //(3) 第一个参数获取锁等待时间
         //    第二个参数获取到锁，锁过期时间
-        try {
-            // true
-            boolean tryLock = lock.tryLock(30, 10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            // true
+//            boolean tryLock = lock.tryLock(30, 10, TimeUnit.SECONDS);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
 
         //3.编写业务代码
         //1.先从redis中通过key num获取值  key提前手动设置 num 初始值：0
