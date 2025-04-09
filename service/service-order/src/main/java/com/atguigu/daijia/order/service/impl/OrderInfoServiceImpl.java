@@ -171,6 +171,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             throw new GuiguException(ResultCodeEnum.COB_NEW_ORDER_FAIL);
         }
 
+        //使用分布式锁进行单的单独线程访问
         //创建锁
         RLock lock = redissonClient.getLock(RedisConstant.ROB_NEW_ORDER_LOCK + orderId);
 
@@ -179,6 +180,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             boolean flag = lock.tryLock(RedisConstant.ROB_NEW_ORDER_LOCK_WAIT_TIME,RedisConstant.ROB_NEW_ORDER_LOCK_LEASE_TIME,TimeUnit.SECONDS);
             if (flag){
                 //表示已经得到锁
+                //防止重复抢单
                 if (!redisTemplate.hasKey(RedisConstant.ORDER_ACCEPT_MARK)){
                     //抢单失败
                     throw new GuiguException(ResultCodeEnum.COB_NEW_ORDER_FAIL);
