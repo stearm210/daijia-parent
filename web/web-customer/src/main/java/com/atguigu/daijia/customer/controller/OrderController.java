@@ -41,14 +41,13 @@ public class OrderController {
       * @Description: 乘客端订单操作
       */
 
-     //TODO 后续完善，目前假设乘客当前没有订单
-     @Operation(summary = "查找乘客端当前订单")
+     //
+     @Operation(summary = "乘客端查找当前订单")
      @GuiguLogin
      @GetMapping("/searchCustomerCurrentOrder")
      public Result<CurrentOrderInfoVo> searchCustomerCurrentOrder() {
-         CurrentOrderInfoVo currentOrderInfoVo = new CurrentOrderInfoVo();
-         currentOrderInfoVo.setIsHasCurrentOrder(false);
-         return Result.ok(currentOrderInfoVo);
+         Long customerId = AuthContextHolder.getUserId();
+         return Result.ok(orderService.searchCustomerCurrentOrder(customerId));
      }
 
 //    @Operation(summary = "乘客端查找当前订单")
