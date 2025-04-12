@@ -336,6 +336,14 @@ public class OrderServiceImpl implements OrderService {
         return orderInfoFeignClient.robNewOrder(driverId,orderId).getData();
     }
 
+     /*
+      * @Title: searchDriverCurrentOrder
+      * @Author: pyzxW
+      * @Date: 2025-04-12 15:45:07
+      * @Params:  
+      * @Return: null
+      * @Description: 司机端查询当前订单
+      */
     @Override
     public CurrentOrderInfoVo searchDriverCurrentOrder(Long driverId) {
         return orderInfoFeignClient.searchDriverCurrentOrder(driverId).getData();
