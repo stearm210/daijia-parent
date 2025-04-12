@@ -193,6 +193,14 @@ public class OrderServiceImpl implements OrderService {
         return orderInfoFeignClient.searchCustomerCurrentOrder(customerId).getData();
     }
 
+     /*
+      * @Title: getOrderInfo
+      * @Author: pyzxW
+      * @Date: 2025-04-12 16:26:56
+      * @Params:
+      * @Return: null
+      * @Description: 根据订单id获取订单信息
+      */
     @Override
     public OrderInfoVo getOrderInfo(Long orderId, Long customerId) {
         OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderId).getData();
