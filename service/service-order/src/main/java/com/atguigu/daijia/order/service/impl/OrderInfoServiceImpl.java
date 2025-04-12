@@ -267,15 +267,24 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 //        return true;
 //    }
 
+     /*
+      * @Title: searchCustomerCurrentOrder
+      * @Author: pyzxW
+      * @Date: 2025-04-12 15:08:04
+      * @Params:
+      * @Return: null
+      * @Description: 乘客端查找当前的订单
+      */
     //乘客端查找当前订单
     @Override
     public CurrentOrderInfoVo searchCustomerCurrentOrder(Long customerId) {
         //封装条件
-        //乘客id
+        //查询乘客id
         LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+        //判等。
         wrapper.eq(OrderInfo::getCustomerId,customerId);
 
-        //各种状态
+        //各种状态值
         Integer[] statusArray = {
                 OrderStatus.ACCEPTED.getStatus(),
                 OrderStatus.DRIVER_ARRIVED.getStatus(),
@@ -286,24 +295,60 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         };
         wrapper.in(OrderInfo::getStatus,statusArray);
 
-        //获取最新一条记录
+        //获取最新的一条记录
         wrapper.orderByDesc(OrderInfo::getId);
         wrapper.last(" limit 1");
 
         //调用方法
         OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
-
-        //封装到CurrentOrderInfoVo
+        //封装到vo对象中
         CurrentOrderInfoVo currentOrderInfoVo = new CurrentOrderInfoVo();
-        if(orderInfo != null) {
+        if (orderInfo != null){
             currentOrderInfoVo.setOrderId(orderInfo.getId());
             currentOrderInfoVo.setStatus(orderInfo.getStatus());
             currentOrderInfoVo.setIsHasCurrentOrder(true);
         } else {
+            //这里表示当前没有订单
             currentOrderInfoVo.setIsHasCurrentOrder(false);
         }
+
         return currentOrderInfoVo;
     }
+//    public CurrentOrderInfoVo searchCustomerCurrentOrder(Long customerId) {
+//        //封装条件
+//        //乘客id
+//        LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(OrderInfo::getCustomerId,customerId);
+//
+//        //各种状态
+//        Integer[] statusArray = {
+//                OrderStatus.ACCEPTED.getStatus(),
+//                OrderStatus.DRIVER_ARRIVED.getStatus(),
+//                OrderStatus.UPDATE_CART_INFO.getStatus(),
+//                OrderStatus.START_SERVICE.getStatus(),
+//                OrderStatus.END_SERVICE.getStatus(),
+//                OrderStatus.UNPAID.getStatus()
+//        };
+//        wrapper.in(OrderInfo::getStatus,statusArray);
+//
+//        //获取最新一条记录
+//        wrapper.orderByDesc(OrderInfo::getId);
+//        wrapper.last(" limit 1");
+//
+//        //调用方法
+//        OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
+//
+//        //封装到CurrentOrderInfoVo
+//        CurrentOrderInfoVo currentOrderInfoVo = new CurrentOrderInfoVo();
+//        if(orderInfo != null) {
+//            currentOrderInfoVo.setOrderId(orderInfo.getId());
+//            currentOrderInfoVo.setStatus(orderInfo.getStatus());
+//            currentOrderInfoVo.setIsHasCurrentOrder(true);
+//        } else {
+//            currentOrderInfoVo.setIsHasCurrentOrder(false);
+//        }
+//        return currentOrderInfoVo;
+//    }
 
     //司机端查找当前订单
     @Override
