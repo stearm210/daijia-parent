@@ -104,6 +104,14 @@ public class OrderInfoController {
         return Result.ok(orderInfoService.searchDriverCurrentOrder(driverId));
     }
 
+     /*
+      * @Title: getOrderInfo
+      * @Author: pyzxW
+      * @Date: 2025-04-12 16:04:12
+      * @Params:
+      * @Return: null
+      * @Description: 根据订单id获取订单信息
+      */
     @Operation(summary = "根据订单id获取订单信息")
     @GetMapping("/getOrderInfo/{orderId}")
     public Result<OrderInfo> getOrderInfo(@PathVariable Long orderId) {
