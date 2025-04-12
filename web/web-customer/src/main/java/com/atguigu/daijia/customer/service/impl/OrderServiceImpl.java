@@ -179,6 +179,14 @@ public class OrderServiceImpl implements OrderService {
         return integerResult.getData();
     }
 
+     /*
+      * @Title: searchCustomerCurrentOrder
+      * @Author: pyzxW
+      * @Date: 2025-04-12 15:33:18
+      * @Params:
+      * @Return: null
+      * @Description: 乘客查找当前订单
+      */
     //乘客查找当前订单
     @Override
     public CurrentOrderInfoVo searchCustomerCurrentOrder(Long customerId) {
