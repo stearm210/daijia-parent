@@ -76,6 +76,14 @@ public class OrderInfoController {
     }
 
 
+     /*
+      * @Title: searchCustomerCurrentOrder
+      * @Author: pyzxW
+      * @Date: 2025-04-12 15:06:46
+      * @Params:
+      * @Return: null
+      * @Description: 乘客端查找当前订单
+      */
     @Operation(summary = "乘客端查找当前订单")
     @GetMapping("/searchCustomerCurrentOrder/{customerId}")
     public Result<CurrentOrderInfoVo> searchCustomerCurrentOrder(@PathVariable Long customerId) {
