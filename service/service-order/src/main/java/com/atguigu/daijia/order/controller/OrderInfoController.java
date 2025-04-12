@@ -90,6 +90,14 @@ public class OrderInfoController {
         return Result.ok(orderInfoService.searchCustomerCurrentOrder(customerId));
     }
 
+     /*
+      * @Title: searchDriverCurrentOrder
+      * @Author: pyzxW
+      * @Date: 2025-04-12 15:35:12
+      * @Params:
+      * @Return: null
+      * @Description: 司机端查找当前订单
+      */
     @Operation(summary = "司机端查找当前订单")
     @GetMapping("/searchDriverCurrentOrder/{driverId}")
     public Result<CurrentOrderInfoVo> searchDriverCurrentOrder(@PathVariable Long driverId) {
