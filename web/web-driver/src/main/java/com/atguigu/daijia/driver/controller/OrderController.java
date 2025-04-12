@@ -103,6 +103,14 @@ public class OrderController {
         return Result.ok(orderService.getOrderInfo(orderId, driverId));
     }
 
+     /*
+      * @Title: calculateDrivingLine
+      * @Author: pyzxW
+      * @Date: 2025-04-12 16:42:45
+      * @Params:
+      * @Return: null
+      * @Description: 计算最佳驾驶线路
+      */
     @Operation(summary = "计算最佳驾驶线路")
     @GuiguLogin
     @PostMapping("/calculateDrivingLine")
