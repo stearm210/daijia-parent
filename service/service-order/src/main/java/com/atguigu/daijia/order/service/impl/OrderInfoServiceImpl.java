@@ -278,6 +278,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     //乘客端查找当前订单
     @Override
     public CurrentOrderInfoVo searchCustomerCurrentOrder(Long customerId) {
+        //CurrentOrderInfoVo中有订单的对应信息，这些信息使用vo进行封装，同时使用订单id可以进行查询
         //封装条件
         //查询乘客id
         LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
