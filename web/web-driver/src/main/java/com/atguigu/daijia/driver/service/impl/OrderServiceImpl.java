@@ -349,9 +349,19 @@ public class OrderServiceImpl implements OrderService {
         return orderInfoFeignClient.searchDriverCurrentOrder(driverId).getData();
     }
 
+     /*
+      * @Title: getOrderInfo
+      * @Author: pyzxW
+      * @Date: 2025-04-12 16:10:56
+      * @Params:
+      * @Return: null
+      * @Description: 根据订单id获取订单信息
+      */
     @Override
     public OrderInfoVo getOrderInfo(Long orderId, Long driverId) {
         OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderId).getData();
+
+        //判断是否存在司机id
         if(orderInfo.getDriverId() != driverId) {
             throw new GuiguException(ResultCodeEnum.ILLEGAL_REQUEST);
         }
