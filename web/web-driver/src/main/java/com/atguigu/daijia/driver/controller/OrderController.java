@@ -87,6 +87,14 @@ public class OrderController {
         return Result.ok(orderService.searchDriverCurrentOrder(driverId));
     }
 
+     /*
+      * @Title: getOrderInfo
+      * @Author: pyzxW
+      * @Date: 2025-04-12 16:09:55
+      * @Params:
+      * @Return: null
+      * @Description: 获取订单账单详细信息
+      */
     @Operation(summary = "获取订单账单详细信息")
     @GuiguLogin
     @GetMapping("/getOrderInfo/{orderId}")
