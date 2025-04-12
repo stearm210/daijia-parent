@@ -364,7 +364,9 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     public CurrentOrderInfoVo searchDriverCurrentOrder(Long driverId) {
         //封装条件
         LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+        //查询订单数据库，查找订单对应的司机id
         wrapper.eq(OrderInfo::getDriverId,driverId);
+        //对应的状态
         Integer[] statusArray = {
                 OrderStatus.ACCEPTED.getStatus(),
                 OrderStatus.DRIVER_ARRIVED.getStatus(),
@@ -373,8 +375,9 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
                 OrderStatus.END_SERVICE.getStatus()
         };
         wrapper.in(OrderInfo::getStatus,statusArray);
+        //降序排列
         wrapper.orderByDesc(OrderInfo::getId);
-        wrapper.last(" limit 1");
+        wrapper.last(" limit 1");//获取最新的一条
         OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
         //封装到vo
         CurrentOrderInfoVo currentOrderInfoVo = new CurrentOrderInfoVo();
@@ -387,6 +390,32 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
         return currentOrderInfoVo;
     }
+//    public CurrentOrderInfoVo searchDriverCurrentOrder(Long driverId) {
+//        //封装条件
+//        LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(OrderInfo::getDriverId,driverId);
+//        Integer[] statusArray = {
+//                OrderStatus.ACCEPTED.getStatus(),
+//                OrderStatus.DRIVER_ARRIVED.getStatus(),
+//                OrderStatus.UPDATE_CART_INFO.getStatus(),
+//                OrderStatus.START_SERVICE.getStatus(),
+//                OrderStatus.END_SERVICE.getStatus()
+//        };
+//        wrapper.in(OrderInfo::getStatus,statusArray);
+//        wrapper.orderByDesc(OrderInfo::getId);
+//        wrapper.last(" limit 1");
+//        OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
+//        //封装到vo
+//        CurrentOrderInfoVo currentOrderInfoVo = new CurrentOrderInfoVo();
+//        if(null != orderInfo) {
+//            currentOrderInfoVo.setStatus(orderInfo.getStatus());
+//            currentOrderInfoVo.setOrderId(orderInfo.getId());
+//            currentOrderInfoVo.setIsHasCurrentOrder(true);
+//        } else {
+//            currentOrderInfoVo.setIsHasCurrentOrder(false);
+//        }
+//        return currentOrderInfoVo;
+//    }
 
     //司机到达起始点
     @Override
