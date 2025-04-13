@@ -279,8 +279,17 @@ public class LocationServiceImpl implements LocationService {
         return true;
     }
 
+     /*
+      * @Title: getCacheOrderLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:20:43
+      * @Params:  
+      * @Return: null
+      * @Description: 乘客获取订单经纬度位置
+      */
     @Override
     public OrderLocationVo getCacheOrderLocation(Long orderId) {
+        //key为之前司机赶往代驾起始点之更新订单位置缓存key
         String key = RedisConstant.UPDATE_ORDER_LOCATION + orderId;
         OrderLocationVo orderLocationVo = (OrderLocationVo)redisTemplate.opsForValue().get(key);
         return orderLocationVo;
