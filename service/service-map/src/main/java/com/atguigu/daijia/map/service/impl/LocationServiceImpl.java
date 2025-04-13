@@ -268,6 +268,7 @@ public class LocationServiceImpl implements LocationService {
     public Boolean updateOrderLocationToCache(UpdateOrderLocationForm updateOrderLocationForm) {
 
         OrderLocationVo orderLocationVo = new OrderLocationVo();
+        //获取经纬度信息，并且将其写入redis中
         orderLocationVo.setLongitude(updateOrderLocationForm.getLongitude());
         orderLocationVo.setLatitude(updateOrderLocationForm.getLatitude());
 
