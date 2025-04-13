@@ -160,7 +160,15 @@ public class DriverInfoController {
         return Result.ok(driverInfoService.updateServiceStatus(driverId, status));
     }
 
-
+     /*
+      * @Title: getDriverInfoOrder
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:03:06
+      * @Params:
+      * @Return: null
+      * @Description: 获取司机基本信息
+      * 主要是用于司机前往代驾地点之司机基本信息之呈现
+      */
     @Operation(summary = "获取司机基本信息")
     @GetMapping("/getDriverInfo/{driverId}")
     public Result<DriverInfoVo> getDriverInfoOrder(@PathVariable Long driverId) {
