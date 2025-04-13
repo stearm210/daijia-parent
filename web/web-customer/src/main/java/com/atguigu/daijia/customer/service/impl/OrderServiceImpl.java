@@ -259,6 +259,14 @@ public class OrderServiceImpl implements OrderService {
 //        return driverInfoFeignClient.getDriverInfo(orderInfo.getDriverId()).getData();
 //    }
 
+     /*
+      * @Title: getCacheOrderLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:24:07
+      * @Params:
+      * @Return: null
+      * @Description: 乘客端查看对应的经纬度信息
+      */
     @Override
     public OrderLocationVo getCacheOrderLocation(Long orderId) {
         return locationFeignClient.getCacheOrderLocation(orderId).getData();
