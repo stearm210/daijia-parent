@@ -45,6 +45,14 @@ public class LocationController {
         return Result.ok(locationService.updateDriverLocation(updateDriverLocationForm));
     }
 
+     /*
+      * @Title: updateOrderLocationToCache
+      * @Author: pyzxW
+      * @Date: 2025-04-13 15:56:53
+      * @Params:
+      * @Return: null
+      * @Description: 司机前往代驾地点之更新位置到redis
+      */
     @Operation(summary = "司机赶往代驾起始点：更新订单位置到Redis缓存")
     @GuiguLogin
     @PostMapping("/updateOrderLocationToCache")
