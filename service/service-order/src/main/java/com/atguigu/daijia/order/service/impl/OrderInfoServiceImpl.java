@@ -419,26 +419,53 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 //        return currentOrderInfoVo;
 //    }
 
+     /*
+      * @Title: driverArriveStartLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:42:56
+      * @Params:
+      * @Return: null
+      * @Description: 司机到达起始点
+      */
     //司机到达起始点
     @Override
     public Boolean driverArriveStartLocation(Long orderId, Long driverId) {
-        // 更新订单状态和到达时间，条件：orderId + driverId
+        //更新订单状态和到达时间，条件：
         LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+        //查询订单与司机
         wrapper.eq(OrderInfo::getId,orderId);
         wrapper.eq(OrderInfo::getDriverId,driverId);
-
         OrderInfo orderInfo = new OrderInfo();
+        /// 司机到达
         orderInfo.setStatus(OrderStatus.DRIVER_ARRIVED.getStatus());
+        //到达时间
         orderInfo.setArriveTime(new Date());
-
-        int rows = orderInfoMapper.update(orderInfo, wrapper);
-
+        int rows = orderInfoMapper.update(orderInfo,wrapper);
+        //判断是否在数据库中影响
         if(rows == 1) {
             return true;
         } else {
             throw new GuiguException(ResultCodeEnum.UPDATE_ERROR);
         }
     }
+//    public Boolean driverArriveStartLocation(Long orderId, Long driverId) {
+//        // 更新订单状态和到达时间，条件：orderId + driverId
+//        LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(OrderInfo::getId,orderId);
+//        wrapper.eq(OrderInfo::getDriverId,driverId);
+//
+//        OrderInfo orderInfo = new OrderInfo();
+//        orderInfo.setStatus(OrderStatus.DRIVER_ARRIVED.getStatus());
+//        orderInfo.setArriveTime(new Date());
+//
+//        int rows = orderInfoMapper.update(orderInfo, wrapper);
+//
+//        if(rows == 1) {
+//            return true;
+//        } else {
+//            throw new GuiguException(ResultCodeEnum.UPDATE_ERROR);
+//        }
+//    }
 
     @Override
     public Boolean updateOrderCart(UpdateOrderCartForm updateOrderCartForm) {

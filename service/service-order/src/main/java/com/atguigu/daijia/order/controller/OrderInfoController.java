@@ -118,6 +118,14 @@ public class OrderInfoController {
         return Result.ok(orderInfoService.getById(orderId));
     }
 
+     /*
+      * @Title: driverArriveStartLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:42:17
+      * @Params:
+      * @Return: null
+      * @Description: 司机到达起始点
+      */
     @Operation(summary = "司机到达起始点")
     @GetMapping("/driverArriveStartLocation/{orderId}/{driverId}")
     public Result<Boolean> driverArriveStartLocation(@PathVariable Long orderId, @PathVariable Long driverId) {
