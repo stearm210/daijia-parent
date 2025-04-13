@@ -146,6 +146,14 @@ public class OrderController {
         return Result.ok(orderService.getCacheOrderLocation(orderId));
     }
 
+     /*
+      * @Title: calculateDrivingLine
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:28:48
+      * @Params:  
+      * @Return: null
+      * @Description: 乘客端显示司机之位置,计算最佳驾驶线路
+      */
     @Operation(summary = "计算最佳驾驶线路")
     @GuiguLogin
     @PostMapping("/calculateDrivingLine")
