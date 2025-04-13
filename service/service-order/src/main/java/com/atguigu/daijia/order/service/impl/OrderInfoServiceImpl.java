@@ -487,6 +487,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         BeanUtils.copyProperties(updateOrderCartForm,orderInfo);
         orderInfo.setStatus(OrderStatus.UPDATE_CART_INFO.getStatus());
 
+        //update中的两个参数分别为 修改后的值  +  条件
         int rows = orderInfoMapper.update(orderInfo, wrapper);
         if(rows == 1) {
             return true;
