@@ -467,12 +467,22 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 //        }
 //    }
 
+     /*
+      * @Title: updateOrderCart
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:53:28
+      * @Params:
+      * @Return: null
+      * @Description: 更新车辆的信息
+      */
     @Override
     public Boolean updateOrderCart(UpdateOrderCartForm updateOrderCartForm) {
+        //封装对应的条件，订单的id以及司机的id
         LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(OrderInfo::getId,updateOrderCartForm.getOrderId());
         wrapper.eq(OrderInfo::getDriverId,updateOrderCartForm.getDriverId());
 
+        //设置订单的状态
         OrderInfo orderInfo = new OrderInfo();
         BeanUtils.copyProperties(updateOrderCartForm,orderInfo);
         orderInfo.setStatus(OrderStatus.UPDATE_CART_INFO.getStatus());
