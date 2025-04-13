@@ -503,6 +503,14 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         return true;
     }
 
+     /*
+      * @Title: getDriverInfoOrder
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:03:57
+      * @Params:
+      * @Return: null
+      * @Description: 主要是用于司机前往代驾地点之司机基本信息之呈现
+      */
     //获取司机基本信息
     @Override
     public DriverInfoVo getDriverInfoOrder(Long driverId) {
@@ -513,6 +521,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         DriverInfoVo driverInfoVo = new DriverInfoVo();
         BeanUtils.copyProperties(driverInfo,driverInfoVo);
 
+        //由于DriverInfoVo中没有司机的驾龄，因此需要进行计算
         //计算驾龄
         //获取当前年
         int currentYear = new DateTime().getYear();
