@@ -272,6 +272,8 @@ public class LocationServiceImpl implements LocationService {
         orderLocationVo.setLongitude(updateOrderLocationForm.getLongitude());
         orderLocationVo.setLatitude(updateOrderLocationForm.getLatitude());
 
+        //设置key
+        //由订单id进行redis标签设置，方便后期删除
         String key = RedisConstant.UPDATE_ORDER_LOCATION + updateOrderLocationForm.getOrderId();
         redisTemplate.opsForValue().set(key,orderLocationVo);
         return true;
