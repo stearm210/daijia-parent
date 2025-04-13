@@ -272,6 +272,14 @@ public class OrderServiceImpl implements OrderService {
         return locationFeignClient.getCacheOrderLocation(orderId).getData();
     }
 
+     /*
+      * @Title: calculateDrivingLine
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:29:28
+      * @Params:
+      * @Return: null
+      * @Description: 乘客端显示司机之位置,计算最佳驾驶线路
+      */
     @Override
     public DrivingLineVo calculateDrivingLine(CalculateDrivingLineForm calculateDrivingLineForm) {
         return mapFeignClient.calculateDrivingLine(calculateDrivingLineForm).getData();
