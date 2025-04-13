@@ -527,6 +527,7 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         int currentYear = new DateTime().getYear();
         //获取驾驶证初次领证日期
         //driver_license_issue_date
+        //只考虑年份进行计算
         int firstYear = new DateTime(driverInfo.getDriverLicenseIssueDate()).getYear();
         int driverLicenseAge = currentYear - firstYear;
         driverInfoVo.setDriverLicenseAge(driverLicenseAge);
