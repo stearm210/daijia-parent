@@ -230,16 +230,34 @@ public class OrderServiceImpl implements OrderService {
         return orderInfoVo;
     }
 
+     /*
+      * @Title: getDriverInfo
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:14:33
+      * @Params:
+      * @Return: null
+      * @Description: 根据订单的id查询司机的基本信息
+      */
     @Override
     public DriverInfoVo getDriverInfo(Long orderId, Long customerId) {
         //根据订单id获取订单信息
         OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderId).getData();
         if(orderInfo.getCustomerId() != customerId) {
+            //判断是否是当前乘客之订单
             throw new GuiguException(ResultCodeEnum.DATA_ERROR);
         }
-
+        //远程调用司机信息接口
         return driverInfoFeignClient.getDriverInfo(orderInfo.getDriverId()).getData();
     }
+//    public DriverInfoVo getDriverInfo(Long orderId, Long customerId) {
+//        //根据订单id获取订单信息
+//        OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderId).getData();
+//        if(orderInfo.getCustomerId() != customerId) {
+//            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+//        }
+//
+//        return driverInfoFeignClient.getDriverInfo(orderInfo.getDriverId()).getData();
+//    }
 
     @Override
     public OrderLocationVo getCacheOrderLocation(Long orderId) {

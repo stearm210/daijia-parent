@@ -115,6 +115,14 @@ public class OrderController {
         return Result.ok(orderService.getOrderInfo(orderId, customerId));
     }
 
+     /*
+      * @Title: getDriverInfo
+      * @Author: pyzxW
+      * @Date: 2025-04-13 16:13:41
+      * @Params:
+      * @Return: null
+      * @Description: 乘客查看司机的驾龄
+      */
     @Operation(summary = "根据订单id获取司机基本信息")
     @GuiguLogin
     @GetMapping("/getDriverInfo/{orderId}")
