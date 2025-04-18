@@ -108,6 +108,14 @@ public class LocationController {
     }
 
     //批量保存代驾服务订单位置
+     /*
+      * @Title: saveOrderServiceLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-18 17:09:53
+      * @Params: [orderLocationServiceFormList]
+      * @Return: Result<Boolean>
+      * @Description: 批量保存代驾服务订单位置
+      */
     @PostMapping("/saveOrderServiceLocation")
     public Result<Boolean> saveOrderServiceLocation(@RequestBody List<OrderServiceLocationForm> orderLocationServiceFormList) {
         return Result.ok(locationService.saveOrderServiceLocation(orderLocationServiceFormList));
