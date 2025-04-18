@@ -308,6 +308,7 @@ public class LocationServiceImpl implements LocationService {
         List<OrderServiceLocation> list = new ArrayList<>();
         //使用mongdb的方法进行保存
         //集合之遍历，将集合中的数据进行批量保存
+        //list中的数据转换成对象再存到list中，更加方便
         orderLocationServiceFormList.forEach(orderServiceLocationForm->{
             //orderServiceLocationForm --> OrderServiceLocation 对象装换
             OrderServiceLocation orderServiceLocation = new OrderServiceLocation();
