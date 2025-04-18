@@ -25,12 +25,16 @@ public class FileController {
     private FileService fileService;
 
     //文件上传接口
+    /*
+    * 暂时返回图片的url，防止报错
+    * */
     @Operation(summary = "上传")
     //@GuiguLogin
     @PostMapping("/upload")
-    public Result<CosUploadVo> upload(@RequestPart("file") MultipartFile file, @RequestParam(name = "path",defaultValue = "auth") String path){
+    public Result<String> upload(@RequestPart("file") MultipartFile file, @RequestParam(name = "path",defaultValue = "auth") String path){
         CosUploadVo cosUploadVo = cosService.uploadFile(file, path);
-        return Result.ok(cosUploadVo);
+        String showUrl = cosUploadVo.getShowUrl();
+        return Result.ok(showUrl);
     }
 
     //实际写法
