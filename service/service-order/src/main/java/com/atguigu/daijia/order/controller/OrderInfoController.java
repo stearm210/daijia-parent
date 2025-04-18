@@ -147,11 +147,24 @@ public class OrderInfoController {
     }
 
     //开始代驾服务
+     /*
+      * @Title: startDriver
+      * @Author: pyzxW
+      * @Date: 2025-04-18 16:49:27
+      * @Params: [startDriveForm]
+      * @Return: Result<Boolean>
+      * @Description: 开始代驾服务
+      */
     @PostMapping("/startDrive")
     public Result<Boolean> startDriver(@RequestBody StartDriveForm startDriveForm) {
         Boolean flag = orderInfoService.startDriver(startDriveForm);
         return Result.ok(flag);
     }
+//    @PostMapping("/startDrive")
+//    public Result<Boolean> startDriver(@RequestBody StartDriveForm startDriveForm) {
+//        Boolean flag = orderInfoService.startDriver(startDriveForm);
+//        return Result.ok(flag);
+//    }
 
     @Operation(summary = "根据时间段获取订单数")
     @GetMapping("/getOrderNumByTime/{startTime}/{endTime}")
