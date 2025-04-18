@@ -496,25 +496,54 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
     }
 
+     /*
+      * @Title: startDriver
+      * @Author: pyzxW
+      * @Date: 2025-04-18 16:49:53
+      * @Params:
+      * @Return: null
+      * @Description: 开始代驾服务
+      */
     //开始代驾服务
     @Override
-    public Boolean startDriver(StartDriveForm startDriveForm) {
-        //根据订单id  +  司机id  更新订单状态  和 开始代驾时间
+    public Boolean startDriver(StartDriveForm startDriveForm){
+        //1. 根据订单id  +  司机id  更新订单状态  和 开
         LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+        //根据两个id来确认订单
         wrapper.eq(OrderInfo::getId,startDriveForm.getOrderId());
         wrapper.eq(OrderInfo::getDriverId,startDriveForm.getDriverId());
 
         OrderInfo orderInfo = new OrderInfo();
+        //开始服务之状态值
         orderInfo.setStatus(OrderStatus.START_SERVICE.getStatus());
         orderInfo.setStartServiceTime(new Date());
 
+        //判断是否在数据库中进行更改
         int rows = orderInfoMapper.update(orderInfo, wrapper);
         if(rows == 1) {
             return true;
         } else {
+            //失败则抛出自定义异常
             throw new GuiguException(ResultCodeEnum.UPDATE_ERROR);
         }
     }
+//    public Boolean startDriver(StartDriveForm startDriveForm) {
+//        //根据订单id  +  司机id  更新订单状态  和 开始代驾时间
+//        LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(OrderInfo::getId,startDriveForm.getOrderId());
+//        wrapper.eq(OrderInfo::getDriverId,startDriveForm.getDriverId());
+//
+//        OrderInfo orderInfo = new OrderInfo();
+//        orderInfo.setStatus(OrderStatus.START_SERVICE.getStatus());
+//        orderInfo.setStartServiceTime(new Date());
+//
+//        int rows = orderInfoMapper.update(orderInfo, wrapper);
+//        if(rows == 1) {
+//            return true;
+//        } else {
+//            throw new GuiguException(ResultCodeEnum.UPDATE_ERROR);
+//        }
+//    }
 
     @Override
     public Long getOrderNumByTime(String startTime, String endTime) {
