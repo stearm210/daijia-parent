@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
   * @Date: 2025-04-19 15:50:39
   * @Params:
   * @Return: null
-  * @Description: 创建配置类，读取minio值
+  * @Description: mino之配置信息
   */
 @Configuration
 @ConfigurationProperties(prefix="minio") //读取节点
