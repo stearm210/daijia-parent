@@ -69,6 +69,7 @@ public class CiServiceImpl implements CiService {
       */
     @Override
     public TextAuditingVo textAuditing(String content) {
+        //内容为空，则不需要审核
         if(!StringUtils.hasText(content)) {
             TextAuditingVo textAuditingVo = new TextAuditingVo();
             textAuditingVo.setResult("0");
