@@ -83,6 +83,7 @@ public class CosServiceImpl implements CosService {
          if(!imageAuditing) {
              //删除违规图片
              cosClient.deleteObject(tencentCloudProperties.getBucketPrivate(),uploadPath);
+             //图片审核不通过之后抛出异常
              throw new GuiguException(ResultCodeEnum.IMAGE_AUDITION_FAIL);
          }
 
