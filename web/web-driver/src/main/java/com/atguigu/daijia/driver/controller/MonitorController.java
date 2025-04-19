@@ -23,6 +23,14 @@ public class MonitorController {
     @Autowired
     private MonitorService monitorService;
 
+     /*
+      * @Title: upload
+      * @Author: pyzxW
+      * @Date: 2025-04-19 16:54:36
+      * @Params:  
+      * @Return: null
+      * @Description: 上传录音文件
+      */
     @Operation(summary = "上传录音")
     @PostMapping("/upload")
     public Result<Boolean> upload(@RequestParam("file") MultipartFile file,

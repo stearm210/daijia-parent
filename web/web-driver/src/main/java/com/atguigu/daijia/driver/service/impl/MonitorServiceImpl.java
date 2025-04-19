@@ -44,12 +44,14 @@ public class MonitorServiceImpl implements MonitorService {
         orderMonitorRecord.setFileUrl(url);
         //录音之文本内容
         orderMonitorRecord.setContent(orderMonitorForm.getContent());
+
+
         //增加文本审核
         TextAuditingVo textAuditingVo =
                 ciFeignClient.textAuditing(orderMonitorForm.getContent()).getData();
         orderMonitorRecord.setResult(textAuditingVo.getResult());
         orderMonitorRecord.setKeywords(textAuditingVo.getKeywords());
-
+        //文本审核操作
         orderMonitorFeignClient.saveMonitorRecord(orderMonitorRecord);
         return true;
     }
