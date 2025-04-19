@@ -50,7 +50,7 @@ public class MonitorServiceImpl implements MonitorService {
         TextAuditingVo textAuditingVo =
                 ciFeignClient.textAuditing(orderMonitorForm.getContent()).getData();
         orderMonitorRecord.setResult(textAuditingVo.getResult());
-        orderMonitorRecord.setKeywords(textAuditingVo.getKeywords());
+        orderMonitorRecord.setKeywords(textAuditingVo.getKeywords());//违规之关键字
         //文本审核操作
         orderMonitorFeignClient.saveMonitorRecord(orderMonitorRecord);
         return true;
