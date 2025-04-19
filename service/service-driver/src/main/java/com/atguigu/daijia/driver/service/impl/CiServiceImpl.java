@@ -22,6 +22,14 @@ public class CiServiceImpl implements CiService {
     @Autowired
     private TencentCloudProperties tencentCloudProperties;
 
+     /*
+      * @Title: imageAuditing
+      * @Author: pyzxW
+      * @Date: 2025-04-19 16:37:50
+      * @Params:  
+      * @Return: null
+      * @Description: 图片审核
+      */
     //图片审核
     @Override
     public Boolean imageAuditing(String path) {
