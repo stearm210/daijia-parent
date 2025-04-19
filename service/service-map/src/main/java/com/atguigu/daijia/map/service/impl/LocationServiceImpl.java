@@ -358,7 +358,7 @@ public class LocationServiceImpl implements LocationService {
         //根据创建时间降序排列
         //最终获取最新的一条数据
         //使用mongdb的查询条件
-        Query query = new Query();
+        Query query = new Query();//mongdb查询
         query.addCriteria(Criteria.where("orderId").is(orderId));
         //排序操作
         query.with(Sort.by(Sort.Order.desc("createTime")));
