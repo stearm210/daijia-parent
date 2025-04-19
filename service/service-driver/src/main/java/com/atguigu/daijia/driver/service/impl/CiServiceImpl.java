@@ -47,6 +47,7 @@ public class CiServiceImpl implements CiService {
         COSClient client = this.getCosClient();
         ImageAuditingResponse response = client.imageAuditing(request);
         client.shutdown();
+        //审核的结果
         //用于返回该审核场景的审核结果，返回值：0：正常。1：确认为当前场景的违规内容。2：疑似为当前场景的违规内容。
         if (!response.getPornInfo().getHitFlag().equals("0")
                 || !response.getAdsInfo().getHitFlag().equals("0")
