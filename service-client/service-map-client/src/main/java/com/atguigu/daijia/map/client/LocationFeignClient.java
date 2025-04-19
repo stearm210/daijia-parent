@@ -66,6 +66,14 @@ public interface LocationFeignClient {
      * @param orderId
      * @return
      */
+     /*
+      * @Title: getOrderServiceLastLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-19 15:29:08
+      * @Params: [orderId]
+      * @Return: Result<OrderServiceLastLocationVo>
+      * @Description: 获取订单服务最后一个位置信息
+      */
     @GetMapping("/map/location/getOrderServiceLastLocation/{orderId}")
     Result<OrderServiceLastLocationVo> getOrderServiceLastLocation(@PathVariable Long orderId);
 
