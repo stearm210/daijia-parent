@@ -285,6 +285,14 @@ public class OrderServiceImpl implements OrderService {
         return mapFeignClient.calculateDrivingLine(calculateDrivingLineForm).getData();
     }
 
+     /*
+      * @Title: getOrderServiceLastLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-19 15:30:19
+      * @Params:
+      * @Return: null
+      * @Description: 获取订单服务最后一个位置信息
+      */
     @Override
     public OrderServiceLastLocationVo getOrderServiceLastLocation(Long orderId) {
         return locationFeignClient.getOrderServiceLastLocation(orderId).getData();

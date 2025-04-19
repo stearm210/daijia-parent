@@ -161,6 +161,14 @@ public class OrderController {
         return Result.ok(orderService.calculateDrivingLine(calculateDrivingLineForm));
     }
 
+     /*
+      * @Title: getOrderServiceLastLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-19 15:30:04
+      * @Params:
+      * @Return: null
+      * @Description: 获取订单服务最后一个位置信息
+      */
     @Operation(summary = "代驾服务：获取订单服务最后一个位置信息")
     @GuiguLogin
     @GetMapping("/getOrderServiceLastLocation/{orderId}")
