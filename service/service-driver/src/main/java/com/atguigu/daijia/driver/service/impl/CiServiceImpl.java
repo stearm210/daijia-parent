@@ -91,7 +91,7 @@ public class CiServiceImpl implements CiService {
         //3.调用接口,获取任务响应对象
         TextAuditingResponse response = cosClient.createAuditingTextJobs(request);
         AuditingJobsDetail detail = response.getJobsDetail();
-        TextAuditingVo textAuditingVo = new TextAuditingVo();
+        TextAuditingVo textAuditingVo = new TextAuditingVo();//危险关键字的类
         if ("Success".equals(detail.getState())) {
             //检测结果: 0（审核正常），1 （判定为违规敏感文件），2（疑似敏感，建议人工复核）。
             String result = detail.getResult();
