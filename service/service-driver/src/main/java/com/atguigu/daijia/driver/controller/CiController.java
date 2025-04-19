@@ -22,6 +22,14 @@ public class CiController {
     @Autowired
     private CiService ciService;
 
+     /*
+      * @Title: textAuditing
+      * @Author: pyzxW
+      * @Date: 2025-04-19 16:47:23
+      * @Params:  
+      * @Return: null
+      * @Description: 文本审核
+      */
     @Operation(summary = "文本审核")
     @PostMapping("/textAuditing")
     public Result<TextAuditingVo> textAuditing(@RequestBody String content) {
