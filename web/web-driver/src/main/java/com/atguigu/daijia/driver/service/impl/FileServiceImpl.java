@@ -67,6 +67,7 @@ public class FileServiceImpl implements FileService {
             //返回对应值上传文件的路径
 
         } catch (Exception e) {
+            //失败则抛出数据异常
             throw new GuiguException(ResultCodeEnum.DATA_ERROR);
         }
     }
