@@ -343,23 +343,51 @@ public class LocationServiceImpl implements LocationService {
 //        return true;
 //    }
 
+     /*
+      * @Title: getOrderServiceLastLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-19 15:20:49
+      * @Params:
+      * @Return: null
+      * @Description: 获取司机的最后位置信息
+      */
     @Override
     public OrderServiceLastLocationVo getOrderServiceLastLocation(Long orderId) {
-        //查询MongoDB
-        //查询条件 ：orderId
+        //查询mongdb//
+        //查询条件为：orderid
         //根据创建时间降序排列
-        //最新一条数据
+        //最终获取最新的一条数据
+        //使用mongdb的查询条件
         Query query = new Query();
         query.addCriteria(Criteria.where("orderId").is(orderId));
+        //排序操作
         query.with(Sort.by(Sort.Order.desc("createTime")));
-        query.limit(1);
+        query.limit(1);//取一条数据
 
-        OrderServiceLocation orderServiceLocation =
-                mongoTemplate.findOne(query, OrderServiceLocation.class);
+        OrderServiceLocation orderServiceLocation = mongoTemplate.findOne(query, OrderServiceLocation.class);
+
+        //查完之后进行封装
         OrderServiceLastLocationVo orderServiceLastLocationVo = new OrderServiceLastLocationVo();
         BeanUtils.copyProperties(orderServiceLocation,orderServiceLastLocationVo);
+
         return orderServiceLastLocationVo;
     }
+//    public OrderServiceLastLocationVo getOrderServiceLastLocation(Long orderId) {
+//        //查询MongoDB
+//        //查询条件 ：orderId
+//        //根据创建时间降序排列
+//        //最新一条数据
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("orderId").is(orderId));
+//        query.with(Sort.by(Sort.Order.desc("createTime")));
+//        query.limit(1);
+//
+//        OrderServiceLocation orderServiceLocation =
+//                mongoTemplate.findOne(query, OrderServiceLocation.class);
+//        OrderServiceLastLocationVo orderServiceLastLocationVo = new OrderServiceLastLocationVo();
+//        BeanUtils.copyProperties(orderServiceLocation,orderServiceLastLocationVo);
+//        return orderServiceLastLocationVo;
+//    }
 
     @Override
     public BigDecimal calculateOrderRealDistance(Long orderId) {
