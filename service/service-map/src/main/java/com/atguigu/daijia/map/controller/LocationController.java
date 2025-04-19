@@ -121,6 +121,14 @@ public class LocationController {
         return Result.ok(locationService.saveOrderServiceLocation(orderLocationServiceFormList));
     }
 
+     /*
+      * @Title: getOrderServiceLastLocation
+      * @Author: pyzxW
+      * @Date: 2025-04-19 15:19:38
+      * @Params:
+      * @Return: null
+      * @Description: 获取司机的最后位置信息
+      */
     @Operation(summary = "代驾服务：获取订单服务最后一个位置信息")
     @GetMapping("/getOrderServiceLastLocation/{orderId}")
     public Result<OrderServiceLastLocationVo> getOrderServiceLastLocation(@PathVariable Long orderId) {
