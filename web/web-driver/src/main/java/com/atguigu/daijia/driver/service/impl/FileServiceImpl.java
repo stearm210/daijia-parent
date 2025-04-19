@@ -25,6 +25,14 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private MinioProperties minioProperties;
 
+     /*
+      * @Title: upload
+      * @Author: pyzxW
+      * @Date: 2025-04-19 15:53:29
+      * @Params:
+      * @Return: null
+      * @Description: 上传接口，文件上传
+      */
     @Override
     public String upload(MultipartFile file) {
         try {
