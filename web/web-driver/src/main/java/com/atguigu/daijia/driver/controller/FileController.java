@@ -28,21 +28,21 @@ public class FileController {
     /*
     * 暂时返回图片的url，防止报错
     * */
-    @Operation(summary = "上传")
-    //@GuiguLogin
-    @PostMapping("/upload")
-    public Result<String> upload(@RequestPart("file") MultipartFile file, @RequestParam(name = "path",defaultValue = "auth") String path){
-        CosUploadVo cosUploadVo = cosService.uploadFile(file, path);
-        String showUrl = cosUploadVo.getShowUrl();
-        return Result.ok(showUrl);
-    }
+//    @Operation(summary = "上传")
+//    //@GuiguLogin
+//    @PostMapping("/upload")
+//    public Result<String> upload(@RequestPart("file") MultipartFile file, @RequestParam(name = "path",defaultValue = "auth") String path){
+//        CosUploadVo cosUploadVo = cosService.uploadFile(file, path);
+//        String showUrl = cosUploadVo.getShowUrl();
+//        return Result.ok(showUrl);
+//    }
 
     //实际写法
-//    @Operation(summary = "上传")
-//    @PostMapping("/upload")
-//    public Result<String> upload(@RequestPart("file") MultipartFile file) {
-//        String url = fileService.upload(file);
-//        return Result.ok(url);
-//    }
+    @Operation(summary = "上传")
+    @PostMapping("/upload")
+    public Result<String> upload(@RequestPart("file") MultipartFile file) {
+        String url = fileService.upload(file);
+        return Result.ok(url);
+    }
 
 }
