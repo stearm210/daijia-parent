@@ -45,11 +45,11 @@ public class CosServiceImpl implements CosService {
       * @Return: null
       * @Description: 腾讯云上传操作
       */
+    //文件之上传操作,增加审核操作
      @Override
      public CosUploadVo upload(MultipartFile file, String path) {
          //获取cosClient对象
          COSClient cosClient = this.getCosClient();
-
          //文件上传
          //元数据信息
          ObjectMetadata meta = new ObjectMetadata();
@@ -61,6 +61,7 @@ public class CosServiceImpl implements CosService {
          String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")); //文件后缀名
          String uploadPath = "/driver/" + path + "/" + UUID.randomUUID().toString().replaceAll("-", "") + fileType;
          // 01.jpg
+         //这里生成的是随机的文件路径
          // /driver/auth/0o98754.jpg
          PutObjectRequest putObjectRequest = null;
          try {
@@ -77,6 +78,14 @@ public class CosServiceImpl implements CosService {
          PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest); //上传文件
          cosClient.shutdown();
 
+         //图片审核
+         Boolean imageAuditing = ciService.imageAuditing(uploadPath);
+         if(!imageAuditing) {
+             //删除违规图片
+             cosClient.deleteObject(tencentCloudProperties.getBucketPrivate(),uploadPath);
+             throw new GuiguException(ResultCodeEnum.IMAGE_AUDITION_FAIL);
+         }
+
          //返回vo对象
          CosUploadVo cosUploadVo = new CosUploadVo();
          cosUploadVo.setUrl(uploadPath);
@@ -85,54 +94,48 @@ public class CosServiceImpl implements CosService {
          cosUploadVo.setShowUrl(imageUrl);
          return cosUploadVo;
      }
-//    @Override
-//    public CosUploadVo upload(MultipartFile file, String path) {
-//        //获取cosClient对象
-//        COSClient cosClient = this.getCosClient();
-//        //文件上传
-//        //元数据信息
-//        ObjectMetadata meta = new ObjectMetadata();
-//        meta.setContentLength(file.getSize());
-//        meta.setContentEncoding("UTF-8");
-//        meta.setContentType(file.getContentType());
+
+//     @Override
+//     public CosUploadVo upload(MultipartFile file, String path) {
+//         //获取cosClient对象
+//         COSClient cosClient = this.getCosClient();
 //
-//        //向存储桶中保存文件
-//        String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")); //文件后缀名
-//        String uploadPath = "/driver/" + path + "/" + UUID.randomUUID().toString().replaceAll("-", "") + fileType;
-//        // 01.jpg
-//        //这里生成的是随机的文件路径
-//        // /driver/auth/0o98754.jpg
-//        PutObjectRequest putObjectRequest = null;
-//        try {
-//            //1 bucket名称
-//            //2
-//            putObjectRequest = new PutObjectRequest(tencentCloudProperties.getBucketPrivate(),
-//                    uploadPath,
-//                    file.getInputStream(),
-//                    meta);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        putObjectRequest.setStorageClass(StorageClass.Standard);
-//        PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest); //上传文件
-//        cosClient.shutdown();
+//         //文件上传
+//         //元数据信息
+//         ObjectMetadata meta = new ObjectMetadata();
+//         meta.setContentLength(file.getSize());
+//         meta.setContentEncoding("UTF-8");
+//         meta.setContentType(file.getContentType());
 //
-//        //图片审核
-//        Boolean imageAuditing = ciService.imageAuditing(uploadPath);
-//        if(!imageAuditing) {
-//            //删除违规图片
-//            cosClient.deleteObject(tencentCloudProperties.getBucketPrivate(),uploadPath);
-//            throw new GuiguException(ResultCodeEnum.IMAGE_AUDITION_FAIL);
-//        }
+//         //向存储桶中保存文件
+//         String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")); //文件后缀名
+//         String uploadPath = "/driver/" + path + "/" + UUID.randomUUID().toString().replaceAll("-", "") + fileType;
+//         // 01.jpg
+//         // /driver/auth/0o98754.jpg
+//         PutObjectRequest putObjectRequest = null;
+//         try {
+//             //1 bucket名称
+//             //2
+//             putObjectRequest = new PutObjectRequest(tencentCloudProperties.getBucketPrivate(),
+//                     uploadPath,
+//                     file.getInputStream(),
+//                     meta);
+//         } catch (IOException e) {
+//             throw new RuntimeException(e);
+//         }
+//         putObjectRequest.setStorageClass(StorageClass.Standard);
+//         PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest); //上传文件
+//         cosClient.shutdown();
 //
-//        //返回vo对象
-//        CosUploadVo cosUploadVo = new CosUploadVo();
-//        cosUploadVo.setUrl(uploadPath);
-//        //图片临时访问url，回显使用
-//        String imageUrl = this.getImageUrl(uploadPath);
-//        cosUploadVo.setShowUrl(imageUrl);
-//        return cosUploadVo;
-//    }
+//         //返回vo对象
+//         CosUploadVo cosUploadVo = new CosUploadVo();
+//         cosUploadVo.setUrl(uploadPath);
+//         //图片临时访问url，回显使用
+//         String imageUrl = this.getImageUrl(uploadPath);
+//         cosUploadVo.setShowUrl(imageUrl);
+//         return cosUploadVo;
+//     }
+
 
      /*
       * @Title: getCosClient
