@@ -51,6 +51,7 @@ public class FileServiceImpl implements FileService {
             }
 
             // 设置存储对象名称
+            //得到上传的文件之名称
             String extFileName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             String fileName = new SimpleDateFormat("yyyyMMdd")
                     .format(new Date()) + "/" + UUID.randomUUID().toString().replace("-" , "") + "." + extFileName;
@@ -63,6 +64,7 @@ public class FileServiceImpl implements FileService {
             minioClient.putObject(putObjectArgs) ;
 
             return minioProperties.getEndpointUrl() + "/" + minioProperties.getBucketName() + "/" + fileName ;
+            //返回对应值上传文件的路径
 
         } catch (Exception e) {
             throw new GuiguException(ResultCodeEnum.DATA_ERROR);
