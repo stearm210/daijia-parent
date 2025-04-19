@@ -18,6 +18,14 @@ public class OrderMonitorController {
     @Autowired
     private OrderMonitorService orderMonitorService;
 
+     /*
+      * @Title: saveMonitorRecord
+      * @Author: pyzxW
+      * @Date: 2025-04-19 16:15:44
+      * @Params:
+      * @Return: null
+      * @Description: 保存订单监控记录数据
+      */
     @Operation(summary = "保存订单监控记录数据")
     @PostMapping("/saveOrderMonitorRecord")
     public Result<Boolean> saveMonitorRecord(@RequestBody OrderMonitorRecord orderMonitorRecord) {

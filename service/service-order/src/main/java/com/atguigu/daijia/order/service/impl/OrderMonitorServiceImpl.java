@@ -16,8 +16,17 @@ public class OrderMonitorServiceImpl extends ServiceImpl<OrderMonitorMapper, Ord
     @Autowired
     private OrderMonitorRecordRepository orderMonitorRecordRepository;
 
+     /*
+      * @Title: saveOrderMonitorRecord
+      * @Author: pyzxW
+      * @Date: 2025-04-19 16:16:26
+      * @Params:
+      * @Return: null
+      * @Description: 保存订单监控记录数据
+      */
     @Override
     public Boolean saveOrderMonitorRecord(OrderMonitorRecord orderMonitorRecord) {
+        //进过mongdb的形式进行保存
         orderMonitorRecordRepository.save(orderMonitorRecord);
         return true;
     }

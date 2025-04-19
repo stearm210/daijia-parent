@@ -26,6 +26,14 @@ public class MonitorServiceImpl implements MonitorService {
     @Autowired
     private CiFeignClient ciFeignClient;
 
+     /*
+      * @Title: upload
+      * @Author: pyzxW
+      * @Date: 2025-04-19 16:19:27
+      * @Params:
+      * @Return: null
+      * @Description: 上传文件的方法
+      */
     @Override
     public Boolean upload(MultipartFile file, OrderMonitorForm orderMonitorForm) {
         //上传文件
