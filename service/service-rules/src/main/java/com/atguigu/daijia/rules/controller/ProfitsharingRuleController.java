@@ -21,6 +21,14 @@ public class ProfitsharingRuleController {
     @Autowired
     private ProfitsharingRuleService profitsharingRuleService;
 
+     /*
+      * @Title: calculateOrderProfitsharingFee
+      * @Author: pyzxW
+      * @Date: 2025-04-21 17:30:35
+      * @Params:
+      * @Return: null
+      * @Description: 计算系统分账费用
+      */
     @Operation(summary = "计算系统分账费用")
     @PostMapping("/calculateOrderProfitsharingFee")
     public Result<ProfitsharingRuleResponseVo> calculateOrderProfitsharingFee(@RequestBody ProfitsharingRuleRequestForm profitsharingRuleRequestForm) {

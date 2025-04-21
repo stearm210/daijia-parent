@@ -23,6 +23,14 @@ public class ProfitsharingRuleServiceImpl implements ProfitsharingRuleService {
 
     private static final String RULES_CUSTOMER_RULES_DRL = "rules/ProfitsharingRule.drl";
 
+     /*
+      * @Title: calculateOrderProfitsharingFee
+      * @Author: pyzxW
+      * @Date: 2025-04-21 17:32:12
+      * @Params:
+      * @Return: null
+      * @Description: 计算系统分账费用
+      */
     @Override
     public ProfitsharingRuleResponseVo calculateOrderProfitsharingFee(ProfitsharingRuleRequestForm profitsharingRuleRequestForm) {
         //传入参数对象封装
