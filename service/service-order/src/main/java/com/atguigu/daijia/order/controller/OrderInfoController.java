@@ -166,6 +166,14 @@ public class OrderInfoController {
 //        return Result.ok(flag);
 //    }
 
+     /*
+      * @Title: getOrderNumByTime
+      * @Author: pyzxW
+      * @Date: 2025-04-21 16:55:48
+      * @Params:
+      * @Return: null
+      * @Description: 订单之数量查询
+      */
     @Operation(summary = "根据时间段获取订单数")
     @GetMapping("/getOrderNumByTime/{startTime}/{endTime}")
     public Result<Long> getOrderNumByTime(@PathVariable String startTime, @PathVariable String endTime) {
