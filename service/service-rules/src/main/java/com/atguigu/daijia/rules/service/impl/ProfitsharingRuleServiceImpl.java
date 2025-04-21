@@ -35,7 +35,9 @@ public class ProfitsharingRuleServiceImpl implements ProfitsharingRuleService {
     public ProfitsharingRuleResponseVo calculateOrderProfitsharingFee(ProfitsharingRuleRequestForm profitsharingRuleRequestForm) {
         //传入参数对象封装
         ProfitsharingRuleRequest profitsharingRuleRequest = new ProfitsharingRuleRequest();
+        //订单的金额
         profitsharingRuleRequest.setOrderAmount(profitsharingRuleRequestForm.getOrderAmount());
+        //订单的数量
         profitsharingRuleRequest.setOrderNum(profitsharingRuleRequestForm.getOrderNum());
 
         //创建kieSession
