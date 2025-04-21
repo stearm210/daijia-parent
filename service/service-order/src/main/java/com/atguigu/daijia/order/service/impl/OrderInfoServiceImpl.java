@@ -545,6 +545,14 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 //        }
 //    }
 
+     /*
+      * @Title: getOrderNumByTime
+      * @Author: pyzxW
+      * @Date: 2025-04-21 16:56:24
+      * @Params:
+      * @Return: null
+      * @Description: 根据时间查询订单数量
+      */
     @Override
     public Long getOrderNumByTime(String startTime, String endTime) {
        // 09 <= time < 10   <= time1  <    11
