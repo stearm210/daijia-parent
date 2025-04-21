@@ -15,6 +15,14 @@ public class LocationUtil {
      * @参数 [lat1, lng1, lat2, lng2]
      * @返回值 double
      **/
+     /*
+      * @Title: getDistance
+      * @Author: pyzxW
+      * @Date: 2025-04-21 15:23:53
+      * @Params: [lat1, lng1, lat2, lng2]
+      * @Return: double
+      * @Description: 经纬度获取距离，单位为米
+      */
     public static double getDistance(double lat1, double lng1, double lat2,
                                      double lng2) {
         double radLat1 = rad(lat1);
