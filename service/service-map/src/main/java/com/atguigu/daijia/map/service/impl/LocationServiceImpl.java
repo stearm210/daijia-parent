@@ -431,11 +431,8 @@ public class LocationServiceImpl implements LocationService {
                 realDistance += distance;
             }
         }
-
-
         //3 返回最终计算的实际距离
-
-        return null;
+        return new BigDecimal(realDistance);
     }
 }
 //    public BigDecimal calculateOrderRealDistance(Long orderId) {
