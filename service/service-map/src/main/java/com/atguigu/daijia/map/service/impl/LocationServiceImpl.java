@@ -389,6 +389,14 @@ public class LocationServiceImpl implements LocationService {
 //        return orderServiceLastLocationVo;
 //    }
 
+     /*
+      * @Title: calculateOrderRealDistance
+      * @Author: pyzxW
+      * @Date: 2025-04-21 15:25:57
+      * @Params:
+      * @Return: null
+      * @Description: 计算实际的里程数
+      */
     @Override
     public BigDecimal calculateOrderRealDistance(Long orderId) {
         //1 根据订单id获取代驾订单位置信息，根据创建时间排序（升序）
