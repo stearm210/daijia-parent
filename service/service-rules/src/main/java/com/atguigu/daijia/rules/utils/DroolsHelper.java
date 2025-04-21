@@ -12,6 +12,14 @@ public class DroolsHelper {
 
     private static final String RULES_CUSTOMER_RULES_DRL = "rules/FeeRule.drl";
 
+     /*
+      * @Title: loadForRule
+      * @Author: pyzxW
+      * @Date: 2025-04-21 16:42:53
+      * @Params:
+      * @Return: null
+      * @Description: 代驾之奖励规则
+      */
     public static KieSession loadForRule(String drlStr) {
         KieServices kieServices = KieServices.Factory.get();
 
