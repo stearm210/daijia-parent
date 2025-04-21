@@ -45,13 +45,16 @@ public class ProfitsharingRuleServiceImpl implements ProfitsharingRuleService {
 
         //封装返回对象
         ProfitsharingRuleResponse profitsharingRuleResponse = new ProfitsharingRuleResponse();
+        //规则文件中定义的全局变量
         kieSession.setGlobal("profitsharingRuleResponse",profitsharingRuleResponse);
 
         //触发规则，返回vo对象
         kieSession.insert(profitsharingRuleRequest);
-        kieSession.fireAllRules();
+        kieSession.fireAllRules();//触发规则
+
         kieSession.dispose();
 
+        //设置对应值
         ProfitsharingRuleResponseVo profitsharingRuleResponseVo = new ProfitsharingRuleResponseVo();
         BeanUtils.copyProperties(profitsharingRuleResponse,profitsharingRuleResponseVo);
 
