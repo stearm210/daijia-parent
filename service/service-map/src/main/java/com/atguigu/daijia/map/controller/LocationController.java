@@ -135,6 +135,14 @@ public class LocationController {
         return Result.ok(locationService.getOrderServiceLastLocation(orderId));
     }
 
+     /*
+      * @Title: calculateOrderRealDistance
+      * @Author: pyzxW
+      * @Date: 2025-04-21 15:25:06
+      * @Params:
+      * @Return: null
+      * @Description: 计算实际的里程数
+      */
     @Operation(summary = "代驾服务：计算订单实际里程")
     @GetMapping("/calculateOrderRealDistance/{orderId}")
     public Result<BigDecimal> calculateOrderRealDistance(@PathVariable Long orderId) {
