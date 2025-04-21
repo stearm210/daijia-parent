@@ -48,6 +48,7 @@ public class RewardRuleServiceImpl implements RewardRuleService {
         kieSession.dispose();
 
         //封装RewardRuleResponseVo
+        //塞进对应的奖励金额
         RewardRuleResponseVo rewardRuleResponseVo = new RewardRuleResponseVo();
         rewardRuleResponseVo.setRewardAmount(rewardRuleResponse.getRewardAmount());
         return rewardRuleResponseVo;
