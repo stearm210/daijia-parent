@@ -19,6 +19,14 @@ public class RewardRuleServiceImpl implements RewardRuleService {
 
     private static final String RULES_CUSTOMER_RULES_DRL = "rules/RewardRule.drl";
 
+     /*
+      * @Title: calculateOrderRewardFee
+      * @Author: pyzxW
+      * @Date: 2025-04-21 16:44:49
+      * @Params:
+      * @Return: null
+      * @Description: 订单之奖励规则
+      */
     @Override
     public RewardRuleResponseVo calculateOrderRewardFee(RewardRuleRequestForm rewardRuleRequestForm) {
         //封装传入参数对象
