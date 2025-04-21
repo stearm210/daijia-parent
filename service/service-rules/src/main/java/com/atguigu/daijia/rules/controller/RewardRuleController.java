@@ -21,6 +21,14 @@ public class RewardRuleController {
     @Autowired
     private RewardRuleService rewardRuleService;
 
+     /*
+      * @Title: calculateOrderRewardFee
+      * @Author: pyzxW
+      * @Date: 2025-04-21 16:43:59
+      * @Params:
+      * @Return: null
+      * @Description: 订单之奖励规则
+      */
     @Operation(summary = "计算订单奖励费用")
     @PostMapping("/calculateOrderRewardFee")
     public Result<RewardRuleResponseVo>
