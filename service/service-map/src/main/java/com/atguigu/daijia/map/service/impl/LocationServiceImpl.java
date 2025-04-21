@@ -410,12 +410,27 @@ public class LocationServiceImpl implements LocationService {
 //        Sort sort = Sort.by(Sort.Direction.ASC, "createTime");
 //        List<OrderServiceLocation> list = orderServiceLocationRepository.findAll(example, sort);
 
-        //第二种方式，使用MongoRepository
-
+        //第二种方式，使用MongoRepository只需要按照规则 在MongoRepository把查询方法创建出来就可以了
+        //1 查询方法名称，以get || find || read 开头
+        //2 后面查询字段名称，满足驼峰式命名
+        //3 字段查询条件添加关键字，比如is，equals，like
+        List<OrderServiceLocation> list = orderServiceLocationRepository.findByOrderIdOrderByCreateTimeAsc(orderId);
 
         //2 第一步查询返回订单位置信息List集合
         //把List集合进行遍历，得到每个位置的信息，计算两个位置的距离
         //将计算所有的距离进行相加操作
+        double realDistance = 0;//实际的距离
+        if (!CollectionUtils.isEmpty(list)) {
+            for (int i = 0, size = list.size() - 1; i < size; i++) {
+                OrderServiceLocation location1 = list.get(i);
+                OrderServiceLocation location2 = list.get(i + 1);
+
+                //计算两个位置的距离
+                double distance = LocationUtil.getDistance(location1.getLatitude().doubleValue(), location1.getLongitude().doubleValue(), location2.getLatitude().doubleValue(), location2.getLongitude().doubleValue());
+                //实际的距离
+                realDistance += distance;
+            }
+        }
 
 
         //3 返回最终计算的实际距离
