@@ -627,8 +627,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             throw new GuiguException(ResultCodeEnum.UPDATE_ERROR);
         }
 
-
-        return null;
+        return true;
     }
 //    public Boolean endDrive(UpdateOrderBillForm updateOrderBillForm) {
 //        //1 更新订单信息
