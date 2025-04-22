@@ -105,6 +105,14 @@ public interface OrderInfoFeignClient {
     @GetMapping("/order/info/getOrderNumByTime/{startTime}/{endTime}")
     Result<Long> getOrderNumByTime(@PathVariable("startTime") String startTime, @PathVariable("endTime") String endTime);
 
+     /*
+      * @Title:
+      * @Author: pyzxW
+      * @Date: 2025-04-22 15:23:43
+      * @Params:
+      * @Return: null
+      * @Description: 结束代驾服务更新订单账单
+      */
     /**
      * 结束代驾服务更新订单账单
      * @param updateOrderBillForm
