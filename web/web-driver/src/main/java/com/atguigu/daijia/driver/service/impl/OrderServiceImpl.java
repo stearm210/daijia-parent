@@ -74,6 +74,14 @@ public class OrderServiceImpl implements OrderService {
         return orderInfoFeignClient.sendOrderBillInfo(orderId, driverId).getData();
     }
 
+     /*
+      * @Title: endDrive
+      * @Author: pyzxW
+      * @Date: 2025-04-22 15:24:58
+      * @Params:
+      * @Return: null
+      * @Description: 结束代驾之更新订单账单
+      */
     @Override
     public Boolean endDrive(OrderFeeForm orderFeeForm) {
         //1 根据orderId获取订单信息，判断当前订单是否司机接单
