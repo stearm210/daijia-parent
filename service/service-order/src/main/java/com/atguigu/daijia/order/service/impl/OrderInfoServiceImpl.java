@@ -577,45 +577,62 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     @Autowired
     private OrderProfitsharingMapper orderProfitsharingMapper;
 
+     /*
+      * @Title: endDrive
+      * @Author: pyzxW
+      * @Date: 2025-04-22 14:54:54
+      * @Params:
+      * @Return: null
+      * @Description: 结束代驾之更新订单信息
+      */
     @Override
     public Boolean endDrive(UpdateOrderBillForm updateOrderBillForm) {
-        //1 更新订单信息
-        // update order_info set ..... where id=? and driver_id=?
+        //1.更新订单信息
+        //update order_info set???
         LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+        //数据库中查出id和传来的参数中的id进行比较，是否相等？
         wrapper.eq(OrderInfo::getId,updateOrderBillForm.getOrderId());
-        wrapper.eq(OrderInfo::getDriverId,updateOrderBillForm.getDriverId());
 
-        OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setStatus(OrderStatus.END_SERVICE.getStatus());
-        orderInfo.setRealAmount(updateOrderBillForm.getTotalAmount());
-        orderInfo.setFavourFee(updateOrderBillForm.getFavourFee());
-        orderInfo.setRealDistance(updateOrderBillForm.getRealDistance());
-        orderInfo.setEndServiceTime(new Date());
-
-        int rows = orderInfoMapper.update(orderInfo, wrapper);
-
-        if(rows == 1) {
-            //添加账单数据
-            OrderBill orderBill = new OrderBill();
-            BeanUtils.copyProperties(updateOrderBillForm,orderBill);
-            orderBill.setOrderId(updateOrderBillForm.getOrderId());
-            orderBill.setPayAmount(updateOrderBillForm.getTotalAmount());
-            orderBillMapper.insert(orderBill);
-
-            //添加分账信息
-            OrderProfitsharing orderProfitsharing = new OrderProfitsharing();
-            BeanUtils.copyProperties(updateOrderBillForm, orderProfitsharing);
-            orderProfitsharing.setOrderId(updateOrderBillForm.getOrderId());
-            //TODO
-            orderProfitsharing.setRuleId(new Date().getTime());
-            orderProfitsharing.setStatus(1);
-            orderProfitsharingMapper.insert(orderProfitsharing);
-
-        } else {
-            throw new GuiguException(ResultCodeEnum.UPDATE_ERROR);
-        }
-        return true;
+        return null;
     }
+//    public Boolean endDrive(UpdateOrderBillForm updateOrderBillForm) {
+//        //1 更新订单信息
+//        // update order_info set ..... where id=? and driver_id=?
+//        LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(OrderInfo::getId,updateOrderBillForm.getOrderId());
+//        wrapper.eq(OrderInfo::getDriverId,updateOrderBillForm.getDriverId());
+//
+//        OrderInfo orderInfo = new OrderInfo();
+//        orderInfo.setStatus(OrderStatus.END_SERVICE.getStatus());
+//        orderInfo.setRealAmount(updateOrderBillForm.getTotalAmount());
+//        orderInfo.setFavourFee(updateOrderBillForm.getFavourFee());
+//        orderInfo.setRealDistance(updateOrderBillForm.getRealDistance());
+//        orderInfo.setEndServiceTime(new Date());
+//
+//        int rows = orderInfoMapper.update(orderInfo, wrapper);
+//
+//        if(rows == 1) {
+//            //添加账单数据
+//            OrderBill orderBill = new OrderBill();
+//            BeanUtils.copyProperties(updateOrderBillForm,orderBill);
+//            orderBill.setOrderId(updateOrderBillForm.getOrderId());
+//            orderBill.setPayAmount(updateOrderBillForm.getTotalAmount());
+//            orderBillMapper.insert(orderBill);
+//
+//            //添加分账信息
+//            OrderProfitsharing orderProfitsharing = new OrderProfitsharing();
+//            BeanUtils.copyProperties(updateOrderBillForm, orderProfitsharing);
+//            orderProfitsharing.setOrderId(updateOrderBillForm.getOrderId());
+//            //TODO
+//            orderProfitsharing.setRuleId(new Date().getTime());
+//            orderProfitsharing.setStatus(1);
+//            orderProfitsharingMapper.insert(orderProfitsharing);
+//
+//        } else {
+//            throw new GuiguException(ResultCodeEnum.UPDATE_ERROR);
+//        }
+//        return true;
+//    }
 
     //获取乘客订单分页列表
     @Override
