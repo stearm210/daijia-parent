@@ -40,6 +40,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -84,93 +85,134 @@ public class OrderServiceImpl implements OrderService {
       */
     @Override
     public Boolean endDrive(OrderFeeForm orderFeeForm) {
-        //1 根据orderId获取订单信息，判断当前订单是否司机接单
+        //1.根据orderid获取订单信息，判断当前订单是否司机接单
         OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderFeeForm.getOrderId()).getData();
         if(orderInfo.getDriverId() != orderFeeForm.getDriverId()) {
+            //错误的接单
             throw new GuiguException(ResultCodeEnum.ILLEGAL_REQUEST);
         }
 
-        //防止刷
-        OrderServiceLastLocationVo orderServiceLastLocationVo = locationFeignClient.getOrderServiceLastLocation(orderFeeForm.getOrderId()).getData();
+        //2.计算订单实际里程
+        BigDecimal realDistance = locationFeignClient.calculateOrderRealDistance(orderFeeForm.getOrderId()).getData();
 
-        //司机当前位置 距离 结束代驾位置
-        double distance = LocationUtil.getDistance(orderInfo.getEndPointLatitude().doubleValue(),
-                orderInfo.getEndPointLongitude().doubleValue(),
-                orderServiceLastLocationVo.getLatitude().doubleValue(),
-                orderServiceLastLocationVo.getLongitude().doubleValue());
-//        if(distance > SystemConstant.DRIVER_END_LOCATION_DISTION) {
-//            throw new GuiguException(ResultCodeEnum.DRIVER_END_LOCATION_DISTION_ERROR);
-//        }
-
-
-        //2 计算订单实际里程
-        BigDecimal realDistance =
-                locationFeignClient.calculateOrderRealDistance(orderFeeForm.getOrderId()).getData();
-        //3 计算代驾实际费用
-        //远程调用，计算代驾费用
-        //封装FeeRuleRequestForm
+        //3.计算代驾实际的费用
+        //远程调用
         FeeRuleRequestForm feeRuleRequestForm = new FeeRuleRequestForm();
+        //设置距离
         feeRuleRequestForm.setDistance(realDistance);
+        //设置开始时间
         feeRuleRequestForm.setStartTime(orderInfo.getStartServiceTime());
 
-        //计算司机到达代驾开始位置时间
-        //orderInfo.getArriveTime() - orderInfo.getAcceptTime()
+        //计算司机到代驾开始位置时间
+        //orderInfo.getAcceptTime() - orderInfo.getAcceptTime();
         // 分钟 = 毫秒 / 1000 * 60
-        Integer waitMinute =
-                Math.abs((int)((orderInfo.getArriveTime().getTime()-orderInfo.getAcceptTime().getTime())/(1000 * 60)));
-        feeRuleRequestForm.setWaitMinute(waitMinute);
-        //远程调用 代驾费用
+        Integer waitMinute = Math.abs((int)((orderInfo.getArriveTime().getTime()-orderInfo.getAcceptTime().getTime())/(1000 * 60)));
+
+
+        feeRuleRequestForm.setWaitMinute(0);
+
         FeeRuleResponseVo feeRuleResponseVo = feeRuleFeignClient.calculateOrderFee(feeRuleRequestForm).getData();
         //实际费用 = 代驾费用 + 其他费用（停车费）
-        BigDecimal totalAmount =
-                feeRuleResponseVo.getTotalAmount().add(orderFeeForm.getTollFee())
-                        .add(orderFeeForm.getParkingFee())
-                        .add(orderFeeForm.getOtherFee())
-                        .add(orderInfo.getFavourFee());
-        feeRuleResponseVo.setTotalAmount(totalAmount);
 
-        //4 计算系统奖励
-        String startTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 00:00:00";
-        String endTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 23:59:59";
-        Long orderNum = orderInfoFeignClient.getOrderNumByTime(startTime, endTime).getData();
-        //4.2.封装参数
-        RewardRuleRequestForm rewardRuleRequestForm = new RewardRuleRequestForm();
-        rewardRuleRequestForm.setStartTime(orderInfo.getStartServiceTime());
-        rewardRuleRequestForm.setOrderNum(orderNum);
+        //4.计算系统奖励
 
-        RewardRuleResponseVo rewardRuleResponseVo = rewardRuleFeignClient.calculateOrderRewardFee(rewardRuleRequestForm).getData();
+        //5.计算系统分账费用
 
-        //5 计算分账信息
-        ProfitsharingRuleRequestForm profitsharingRuleRequestForm = new ProfitsharingRuleRequestForm();
-        profitsharingRuleRequestForm.setOrderAmount(feeRuleResponseVo.getTotalAmount());
-        profitsharingRuleRequestForm.setOrderNum(orderNum);
+        //6.封装实体类，结束代驾更新订单，添加账单和分账信息
 
-        ProfitsharingRuleResponseVo profitsharingRuleResponseVo = profitsharingRuleFeignClient.calculateOrderProfitsharingFee(profitsharingRuleRequestForm).getData();
 
-        //6 封装实体类，结束代驾更新订单，添加账单和分账信息
-        UpdateOrderBillForm updateOrderBillForm = new UpdateOrderBillForm();
-        updateOrderBillForm.setOrderId(orderFeeForm.getOrderId());
-        updateOrderBillForm.setDriverId(orderFeeForm.getDriverId());
-        //路桥费、停车费、其他费用
-        updateOrderBillForm.setTollFee(orderFeeForm.getTollFee());
-        updateOrderBillForm.setParkingFee(orderFeeForm.getParkingFee());
-        updateOrderBillForm.setOtherFee(orderFeeForm.getOtherFee());
-        //乘客好处费
-        updateOrderBillForm.setFavourFee(orderInfo.getFavourFee());
 
-        //实际里程
-        updateOrderBillForm.setRealDistance(realDistance);
-        //订单奖励信息
-        BeanUtils.copyProperties(rewardRuleResponseVo, updateOrderBillForm);
-        //代驾费用信息
-        BeanUtils.copyProperties(feeRuleResponseVo, updateOrderBillForm);
-        //分账相关信息
-        BeanUtils.copyProperties(profitsharingRuleResponseVo, updateOrderBillForm);
-        updateOrderBillForm.setProfitsharingRuleId(profitsharingRuleResponseVo.getProfitsharingRuleId());
-        orderInfoFeignClient.endDrive(updateOrderBillForm);
 
-        return true;
+        return null;
     }
+//    public Boolean endDrive(OrderFeeForm orderFeeForm) {
+//        //1 根据orderId获取订单信息，判断当前订单是否司机接单
+//        OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderFeeForm.getOrderId()).getData();
+//        if(orderInfo.getDriverId() != orderFeeForm.getDriverId()) {
+//            throw new GuiguException(ResultCodeEnum.ILLEGAL_REQUEST);
+//        }
+//
+//        //防止刷
+//        OrderServiceLastLocationVo orderServiceLastLocationVo = locationFeignClient.getOrderServiceLastLocation(orderFeeForm.getOrderId()).getData();
+//
+//        //司机当前位置 距离 结束代驾位置
+//        double distance = LocationUtil.getDistance(orderInfo.getEndPointLatitude().doubleValue(),
+//                orderInfo.getEndPointLongitude().doubleValue(),
+//                orderServiceLastLocationVo.getLatitude().doubleValue(),
+//                orderServiceLastLocationVo.getLongitude().doubleValue());
+////        if(distance > SystemConstant.DRIVER_END_LOCATION_DISTION) {
+////            throw new GuiguException(ResultCodeEnum.DRIVER_END_LOCATION_DISTION_ERROR);
+////        }
+//
+//
+//        //2 计算订单实际里程
+//        BigDecimal realDistance =
+//                locationFeignClient.calculateOrderRealDistance(orderFeeForm.getOrderId()).getData();
+//        //3 计算代驾实际费用
+//        //远程调用，计算代驾费用
+//        //封装FeeRuleRequestForm
+//        FeeRuleRequestForm feeRuleRequestForm = new FeeRuleRequestForm();
+//        feeRuleRequestForm.setDistance(realDistance);
+//        feeRuleRequestForm.setStartTime(orderInfo.getStartServiceTime());
+//
+//        //计算司机到达代驾开始位置时间
+//        //orderInfo.getArriveTime() - orderInfo.getAcceptTime()
+//        // 分钟 = 毫秒 / 1000 * 60
+//        Integer waitMinute =
+//                Math.abs((int)((orderInfo.getArriveTime().getTime()-orderInfo.getAcceptTime().getTime())/(1000 * 60)));
+//        feeRuleRequestForm.setWaitMinute(waitMinute);
+//        //远程调用 代驾费用
+//        FeeRuleResponseVo feeRuleResponseVo = feeRuleFeignClient.calculateOrderFee(feeRuleRequestForm).getData();
+//        //实际费用 = 代驾费用 + 其他费用（停车费）
+//        BigDecimal totalAmount =
+//                feeRuleResponseVo.getTotalAmount().add(orderFeeForm.getTollFee())
+//                        .add(orderFeeForm.getParkingFee())
+//                        .add(orderFeeForm.getOtherFee())
+//                        .add(orderInfo.getFavourFee());
+//        feeRuleResponseVo.setTotalAmount(totalAmount);
+//
+//        //4 计算系统奖励
+//        String startTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 00:00:00";
+//        String endTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 23:59:59";
+//        Long orderNum = orderInfoFeignClient.getOrderNumByTime(startTime, endTime).getData();
+//        //4.2.封装参数
+//        RewardRuleRequestForm rewardRuleRequestForm = new RewardRuleRequestForm();
+//        rewardRuleRequestForm.setStartTime(orderInfo.getStartServiceTime());
+//        rewardRuleRequestForm.setOrderNum(orderNum);
+//
+//        RewardRuleResponseVo rewardRuleResponseVo = rewardRuleFeignClient.calculateOrderRewardFee(rewardRuleRequestForm).getData();
+//
+//        //5 计算分账信息
+//        ProfitsharingRuleRequestForm profitsharingRuleRequestForm = new ProfitsharingRuleRequestForm();
+//        profitsharingRuleRequestForm.setOrderAmount(feeRuleResponseVo.getTotalAmount());
+//        profitsharingRuleRequestForm.setOrderNum(orderNum);
+//
+//        ProfitsharingRuleResponseVo profitsharingRuleResponseVo = profitsharingRuleFeignClient.calculateOrderProfitsharingFee(profitsharingRuleRequestForm).getData();
+//
+//        //6 封装实体类，结束代驾更新订单，添加账单和分账信息
+//        UpdateOrderBillForm updateOrderBillForm = new UpdateOrderBillForm();
+//        updateOrderBillForm.setOrderId(orderFeeForm.getOrderId());
+//        updateOrderBillForm.setDriverId(orderFeeForm.getDriverId());
+//        //路桥费、停车费、其他费用
+//        updateOrderBillForm.setTollFee(orderFeeForm.getTollFee());
+//        updateOrderBillForm.setParkingFee(orderFeeForm.getParkingFee());
+//        updateOrderBillForm.setOtherFee(orderFeeForm.getOtherFee());
+//        //乘客好处费
+//        updateOrderBillForm.setFavourFee(orderInfo.getFavourFee());
+//
+//        //实际里程
+//        updateOrderBillForm.setRealDistance(realDistance);
+//        //订单奖励信息
+//        BeanUtils.copyProperties(rewardRuleResponseVo, updateOrderBillForm);
+//        //代驾费用信息
+//        BeanUtils.copyProperties(feeRuleResponseVo, updateOrderBillForm);
+//        //分账相关信息
+//        BeanUtils.copyProperties(profitsharingRuleResponseVo, updateOrderBillForm);
+//        updateOrderBillForm.setProfitsharingRuleId(profitsharingRuleResponseVo.getProfitsharingRuleId());
+//        orderInfoFeignClient.endDrive(updateOrderBillForm);
+//
+//        return true;
+//    }
 
 
     //使用多线程CompletableFuture实现
