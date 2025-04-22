@@ -592,6 +592,16 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
         //数据库中查出id和传来的参数中的id进行比较，是否相等？
         wrapper.eq(OrderInfo::getId,updateOrderBillForm.getOrderId());
+        wrapper.eq(OrderInfo::getDriverId,updateOrderBillForm.getDriverId());
+
+        OrderInfo orderInfo = new OrderInfo();
+        //订单状态
+        orderInfo.setStatus(OrderStatus.END_SERVICE.getStatus());
+        orderInfo.setRealAmount(updateOrderBillForm.getTotalAmount());//实际的金额
+        orderInfo.setFavourFee(updateOrderBillForm.getFavourFee());//好处费
+        orderInfo.setRealDistance(updateOrderBillForm.getRealDistance());//真实距离
+        orderInfo.setEndServiceTime(new Date());//服务结束时间
+
 
         return null;
     }
