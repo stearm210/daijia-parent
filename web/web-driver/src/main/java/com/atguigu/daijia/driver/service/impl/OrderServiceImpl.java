@@ -143,18 +143,22 @@ public class OrderServiceImpl implements OrderService {
         updateOrderBillForm.setOtherFee(orderFeeForm.getOtherFee());
         //乘客好处费
         updateOrderBillForm.setFavourFee(orderInfo.getFavourFee());
-
         //实际里程
         updateOrderBillForm.setRealDistance(realDistance);
+
+        /*
+        * 设置数据库表合并
+        * */
         //订单奖励信息
         BeanUtils.copyProperties(rewardRuleResponseVo, updateOrderBillForm);
         //代驾费用信息
         BeanUtils.copyProperties(feeRuleResponseVo, updateOrderBillForm);
         //分账相关信息
         BeanUtils.copyProperties(profitsharingRuleResponseVo, updateOrderBillForm);
+
+
         updateOrderBillForm.setProfitsharingRuleId(profitsharingRuleResponseVo.getProfitsharingRuleId());
         orderInfoFeignClient.endDrive(updateOrderBillForm);
-
         return true;
     }
 //    public Boolean endDrive(OrderFeeForm orderFeeForm) {
