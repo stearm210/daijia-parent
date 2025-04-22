@@ -123,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
         RewardRuleRequestForm rewardRuleRequestForm = new RewardRuleRequestForm();
         rewardRuleRequestForm.setStartTime(orderInfo.getStartServiceTime());
         rewardRuleRequestForm.setOrderNum(orderNum);
-
+        //远程调用
         RewardRuleResponseVo rewardRuleResponseVo = rewardRuleFeignClient.calculateOrderRewardFee(rewardRuleRequestForm).getData();
 
         //5.计算系统分账费用
