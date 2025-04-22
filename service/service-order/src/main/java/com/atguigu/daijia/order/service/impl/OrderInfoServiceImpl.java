@@ -602,6 +602,31 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderInfo.setRealDistance(updateOrderBillForm.getRealDistance());//真实距离
         orderInfo.setEndServiceTime(new Date());//服务结束时间
 
+        //调用mapper执行更新操作
+        int rows = orderInfoMapper.update(orderInfo, wrapper);
+        if (rows == 1){
+            //更新成功
+            //添加账单数据
+            OrderBill orderBill = new OrderBill();
+            BeanUtils.copyProperties(updateOrderBillForm,orderBill);
+            orderBill.setOrderId(updateOrderBillForm.getOrderId());
+            orderBill.setPayAmount(updateOrderBillForm.getTotalAmount());
+            //调用mapper执行插入操作
+            orderBillMapper.insert(orderBill);
+
+            //添加分账信息
+            OrderProfitsharing orderProfitsharing = new OrderProfitsharing();
+            BeanUtils.copyProperties(updateOrderBillForm, orderProfitsharing);
+            orderProfitsharing.setOrderId(updateOrderBillForm.getOrderId());
+            orderProfitsharing.setRuleId(updateOrderBillForm.getProfitsharingRuleId());
+            orderProfitsharing.setStatus(1);
+            orderProfitsharingMapper.insert(orderProfitsharing);
+
+        } else {
+            //抛出异常
+            throw new GuiguException(ResultCodeEnum.UPDATE_ERROR);
+        }
+
 
         return null;
     }
