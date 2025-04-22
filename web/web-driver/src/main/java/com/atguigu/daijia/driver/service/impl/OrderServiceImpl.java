@@ -130,7 +130,6 @@ public class OrderServiceImpl implements OrderService {
         ProfitsharingRuleRequestForm profitsharingRuleRequestForm = new ProfitsharingRuleRequestForm();
         profitsharingRuleRequestForm.setOrderAmount(feeRuleResponseVo.getTotalAmount());
         profitsharingRuleRequestForm.setOrderNum(orderNum);
-
         //远程调用操作
         ProfitsharingRuleResponseVo profitsharingRuleResponseVo = profitsharingRuleFeignClient.calculateOrderProfitsharingFee(profitsharingRuleRequestForm).getData();
 
