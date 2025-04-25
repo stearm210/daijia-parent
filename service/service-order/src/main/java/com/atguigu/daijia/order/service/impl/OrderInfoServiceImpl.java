@@ -679,7 +679,9 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     //获取乘客订单分页列表
     @Override
     public PageVo findCustomerOrderPage(Page<OrderInfo> pageParam, Long customerId) {
+        //查询分页信息
         IPage<OrderListVo> pageInfo =  orderInfoMapper.selectCustomerOrderPage(pageParam,customerId);
+        //返回对应的结果。返回对应的VO对象
         return new PageVo<>(pageInfo.getRecords(),pageInfo.getPages(),pageInfo.getTotal());
     }
 
