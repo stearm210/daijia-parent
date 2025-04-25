@@ -496,26 +496,39 @@ public class OrderServiceImpl implements OrderService {
       * @Description: 司机到达代驾起始地点
       */
     //司机到达代驾起始地点
+    //判断司机是否刷单？
     @Override
     public Boolean driverArriveStartLocation(Long orderId, Long driverId) {
         //判断
         // orderInfo有代驾开始位置
         OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderId).getData();
 
-        //司机当前位置
+        //司机之当前位置
         OrderLocationVo orderLocationVo = locationFeignClient.getCacheOrderLocation(orderId).getData();
 
-        //司机当前位置 和 代驾开始位置距离
-        double distance = LocationUtil.getDistance(orderInfo.getStartPointLatitude().doubleValue(),
-                orderInfo.getStartPointLongitude().doubleValue(),
-                orderLocationVo.getLatitude().doubleValue(),
-                orderLocationVo.getLongitude().doubleValue());
-        if(distance > SystemConstant.DRIVER_START_LOCATION_DISTION) {
-            throw new GuiguException(ResultCodeEnum.DRIVER_START_LOCATION_DISTION_ERROR);
-        }
+        //判断司机的当前位置与代驾之开始位置是否相同？
 
-        return orderInfoFeignClient.driverArriveStartLocation(orderId,driverId).getData();
+        return null;
     }
+//    public Boolean driverArriveStartLocation(Long orderId, Long driverId) {
+//        //判断
+//        // orderInfo有代驾开始位置
+//        OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderId).getData();
+//
+//        //司机当前位置
+//        OrderLocationVo orderLocationVo = locationFeignClient.getCacheOrderLocation(orderId).getData();
+//
+//        //司机当前位置 和 代驾开始位置距离
+//        double distance = LocationUtil.getDistance(orderInfo.getStartPointLatitude().doubleValue(),
+//                orderInfo.getStartPointLongitude().doubleValue(),
+//                orderLocationVo.getLatitude().doubleValue(),
+//                orderLocationVo.getLongitude().doubleValue());
+//        if(distance > SystemConstant.DRIVER_START_LOCATION_DISTION) {
+//            throw new GuiguException(ResultCodeEnum.DRIVER_START_LOCATION_DISTION_ERROR);
+//        }
+//
+//        return orderInfoFeignClient.driverArriveStartLocation(orderId,driverId).getData();
+//    }
 
      /*
       * @Title: updateOrderCart
