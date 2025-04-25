@@ -194,11 +194,17 @@ public class OrderInfoController {
         return Result.ok(orderInfoService.endDrive(updateOrderBillForm));
     }
 
+     /*
+      * @Title: findCustomerOrderPage
+      * @Author: pyzxW
+      * @Date: 2025-04-25 15:14:13
+      * @Params:
+      * @Return: null
+      * @Description: 获取乘客订单分页列表
+      */
     @Operation(summary = "获取乘客订单分页列表")
     @GetMapping("/findCustomerOrderPage/{customerId}/{page}/{limit}")
-    public Result<PageVo> findCustomerOrderPage(@PathVariable Long customerId,
-                                                @PathVariable Long page,
-                                                @PathVariable Long limit) {
+    public Result<PageVo> findCustomerOrderPage(@PathVariable Long customerId, @PathVariable Long page, @PathVariable Long limit){
         //创建page对象
         Page<OrderInfo> pageParam = new Page<>(page,limit);
         //调用service方法实现分页条件查询
@@ -207,6 +213,7 @@ public class OrderInfoController {
         pageVo.setLimit(limit);
         return Result.ok(pageVo);
     }
+
 
     @Operation(summary = "获取司机订单分页列表")
     @GetMapping("/findDriverOrderPage/{driverId}/{page}/{limit}")
