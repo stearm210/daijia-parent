@@ -682,6 +682,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         //查询分页信息
         IPage<OrderListVo> pageInfo =  orderInfoMapper.selectCustomerOrderPage(pageParam,customerId);
         //返回对应的结果。返回对应的VO对象
+        //返回信息、总页数、总记录数
         return new PageVo<>(pageInfo.getRecords(),pageInfo.getPages(),pageInfo.getTotal());
     }
 
