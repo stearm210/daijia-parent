@@ -677,6 +677,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
       * @Description: 获取乘客订单分页列表
       */
     //获取乘客订单分页列表
+    //订单之分页查询，建议在mapper中进行编写，更加方便
     @Override
     public PageVo findCustomerOrderPage(Page<OrderInfo> pageParam, Long customerId) {
         //查询分页信息
