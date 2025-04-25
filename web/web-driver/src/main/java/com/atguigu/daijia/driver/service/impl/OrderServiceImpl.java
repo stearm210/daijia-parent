@@ -507,8 +507,15 @@ public class OrderServiceImpl implements OrderService {
         OrderLocationVo orderLocationVo = locationFeignClient.getCacheOrderLocation(orderId).getData();
 
         //判断司机的当前位置与代驾之开始位置是否相同？
+        double distance = LocationUtil.getDistance(orderInfo.getStartPointLatitude().doubleValue(), orderInfo.getStartPointLongitude().doubleValue(), orderLocationVo.getLatitude().doubleValue(), orderLocationVo.getLongitude().doubleValue());
 
-        return null;
+        //暂时没有到达位置
+        if(distance > SystemConstant.DRIVER_START_LOCATION_DISTION) {
+            //无法开始服务
+            throw new GuiguException(ResultCodeEnum.DRIVER_START_LOCATION_DISTION_ERROR);
+        }
+
+        return orderInfoFeignClient.driverArriveStartLocation(orderId,driverId).getData();
     }
 //    public Boolean driverArriveStartLocation(Long orderId, Long driverId) {
 //        //判断
