@@ -96,6 +96,16 @@ public class OrderServiceImpl implements OrderService {
         //获得最后一次位置
         OrderServiceLastLocationVo orderServiceLastLocationVo = locationFeignClient.getOrderServiceLastLocation(orderFeeForm.getOrderId()).getData();
 
+        //司机当前位置、距离、结束代驾的位置
+        double distance = LocationUtil.getDistance(orderInfo.getEndPointLatitude().doubleValue(),
+                orderInfo.getEndPointLongitude().doubleValue(),
+                orderServiceLastLocationVo.getLatitude().doubleValue(),
+                orderServiceLastLocationVo.getLongitude().doubleValue());
+        //判断不在允许的范围内
+        if(distance > SystemConstant.DRIVER_END_LOCATION_DISTION) {
+            //弹出报错
+            throw new GuiguException(ResultCodeEnum.DRIVER_END_LOCATION_DISTION_ERROR);
+        }
 
 
         //2.计算订单实际里程
