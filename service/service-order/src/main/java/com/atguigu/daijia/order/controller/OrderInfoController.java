@@ -207,12 +207,21 @@ public class OrderInfoController {
     public Result<PageVo> findCustomerOrderPage(@PathVariable Long customerId, @PathVariable Long page, @PathVariable Long limit){
         //创建page对象
         Page<OrderInfo> pageParam = new Page<>(page,limit);
-        //调用service方法实现分页条件查询
-        PageVo pageVo = orderInfoService.findCustomerOrderPage(pageParam,customerId);
+        //调用service方法进行分页条件查询
+        PageVo pageVo = orderInfoService.findCustomerOrderPage(pageParam, customerId);
         pageVo.setPage(page);
         pageVo.setLimit(limit);
         return Result.ok(pageVo);
     }
+//    public Result<PageVo> findCustomerOrderPage(@PathVariable Long customerId, @PathVariable Long page, @PathVariable Long limit){
+//        //创建page对象
+//        Page<OrderInfo> pageParam = new Page<>(page,limit);
+//        //调用service方法实现分页条件查询
+//        PageVo pageVo = orderInfoService.findCustomerOrderPage(pageParam,customerId);
+//        pageVo.setPage(page);
+//        pageVo.setLimit(limit);
+//        return Result.ok(pageVo);
+//    }
 
 
     @Operation(summary = "获取司机订单分页列表")
