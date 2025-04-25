@@ -209,6 +209,7 @@ public class OrderInfoController {
         Page<OrderInfo> pageParam = new Page<>(page,limit);
         //调用service方法进行分页条件查询
         PageVo pageVo = orderInfoService.findCustomerOrderPage(pageParam, customerId);
+        //获得对应的页码标签和页码限制
         pageVo.setPage(page);
         pageVo.setLimit(limit);
         return Result.ok(pageVo);
