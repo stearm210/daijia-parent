@@ -837,7 +837,6 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderStatusLogMapper.insert(orderStatusLog);
     }
 
-
     //司机抢单：乐观锁方案解决并发问题
     public Boolean robNewOrder1(Long driverId, Long orderId) {
         //判断订单是否存在，通过Redis，减少数据库压力
