@@ -316,6 +316,7 @@ public class OrderServiceImpl implements OrderService {
         });
 
         //3 计算代驾实际费用
+        //多线程中的并发执行（上面的执行结果对下面有着显著的影响）
         CompletableFuture<FeeRuleResponseVo> feeRuleResponseVoCompletableFuture =
                 realDistanceCompletableFuture.thenApplyAsync((realDistance) -> {
             //远程调用，计算代驾费用
