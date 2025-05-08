@@ -284,6 +284,7 @@ public class OrderServiceImpl implements OrderService {
         });
 
         //防止刷单
+        //使用.supplyAsync实现
         CompletableFuture<OrderServiceLastLocationVo> orderServiceLastLocationVoCompletableFuture = CompletableFuture.supplyAsync(() -> {
             OrderServiceLastLocationVo orderServiceLastLocationVo = locationFeignClient.getOrderServiceLastLocation(orderFeeForm.getOrderId()).getData();
             return orderServiceLastLocationVo;
