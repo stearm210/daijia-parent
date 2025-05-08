@@ -274,6 +274,7 @@ public class OrderServiceImpl implements OrderService {
     public Boolean endDriveThread(OrderFeeForm orderFeeForm) {
         //多线程方式实现
         //1 根据orderId获取订单信息，判断当前订单是否司机接单
+        //使用.supplyAsync实现
         CompletableFuture<OrderInfo> orderInfoCompletableFuture = CompletableFuture.supplyAsync(() -> {
             OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderFeeForm.getOrderId()).getData();
             if (orderInfo.getDriverId() != orderFeeForm.getDriverId()) {
