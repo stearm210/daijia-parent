@@ -251,6 +251,14 @@ public class OrderInfoController {
         return Result.ok(pageVo);
     }
 
+     /*
+      * @Title: getOrderBillInfo
+      * @Author: pyzxW
+      * @Date: 2025-05-08 20:39:13
+      * @Params:
+      * @Return: null
+      * @Description: 获取对应账单信息
+      */
     @Operation(summary = "根据订单id获取实际账单信息")
     @GetMapping("/getOrderBillInfo/{orderId}")
     public Result<OrderBillVo> getOrderBillInfo(@PathVariable Long orderId) {
