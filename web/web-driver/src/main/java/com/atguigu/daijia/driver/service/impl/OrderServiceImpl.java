@@ -290,13 +290,11 @@ public class OrderServiceImpl implements OrderService {
             return orderServiceLastLocationVo;
         });
 
-        //上面两个合并
-        CompletableFuture.allOf(orderInfoCompletableFuture,
-                orderServiceLastLocationVoCompletableFuture).join();
+        //上面两个线程合并
+        CompletableFuture.allOf(orderInfoCompletableFuture, orderServiceLastLocationVoCompletableFuture).join();
 
         //获取两个线程执行结果
         OrderInfo orderInfo = orderInfoCompletableFuture.get();
-
         OrderServiceLastLocationVo orderServiceLastLocationVo = orderServiceLastLocationVoCompletableFuture.get();
 
         //司机当前位置 距离 结束代驾位置
