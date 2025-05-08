@@ -269,6 +269,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     //使用多线程CompletableFuture实现
+    //使用多线程方式实现
     @SneakyThrows
     public Boolean endDriveThread(OrderFeeForm orderFeeForm) {
 
