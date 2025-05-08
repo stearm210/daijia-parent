@@ -468,7 +468,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderInfoVo getOrderInfo(Long orderId, Long driverId) {
         OrderInfo orderInfo = orderInfoFeignClient.getOrderInfo(orderId).getData();
-
         //判断是否存在司机id
         if(orderInfo.getDriverId() != driverId) {
             throw new GuiguException(ResultCodeEnum.ILLEGAL_REQUEST);
@@ -481,7 +480,6 @@ public class OrderServiceImpl implements OrderService {
         if(orderInfo.getStatus() >= OrderStatus.END_SERVICE.getStatus()) {
             //账单信息
             orderBillVo = orderInfoFeignClient.getOrderBillInfo(orderId).getData();
-
             //分账信息
             orderProfitsharingVo = orderInfoFeignClient.getOrderProfitsharing(orderId).getData();
         }
