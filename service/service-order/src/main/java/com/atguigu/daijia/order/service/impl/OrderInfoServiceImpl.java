@@ -725,6 +725,14 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         return orderBillVo;
     }
 
+     /*
+      * @Title: getOrderProfitsharing
+      * @Author: pyzxW
+      * @Date: 2025-05-08 20:43:01
+      * @Params:
+      * @Return: null
+      * @Description: 获取分账信息
+      */
     @Override
     public OrderProfitsharingVo getOrderProfitsharing(Long orderId) {
         LambdaQueryWrapper<OrderProfitsharing> wrapper = new LambdaQueryWrapper<>();
