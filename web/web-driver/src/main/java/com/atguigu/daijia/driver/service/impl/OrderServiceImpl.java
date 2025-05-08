@@ -344,6 +344,7 @@ public class OrderServiceImpl implements OrderService {
         });
 
         //4 计算系统奖励
+        //使用多线程
         CompletableFuture<Long> orderNumCompletableFuture = CompletableFuture.supplyAsync(() -> {
             String startTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 00:00:00";
             String endTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 24:00:00";
@@ -374,7 +375,7 @@ public class OrderServiceImpl implements OrderService {
                     return profitsharingRuleResponseVo;
                 });
 
-        //合并
+        //合并对应线程
         CompletableFuture.allOf(
                 orderInfoCompletableFuture,
                 realDistanceCompletableFuture,
