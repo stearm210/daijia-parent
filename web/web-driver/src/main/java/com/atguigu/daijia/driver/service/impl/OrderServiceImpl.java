@@ -484,6 +484,7 @@ public class OrderServiceImpl implements OrderService {
             orderProfitsharingVo = orderInfoFeignClient.getOrderProfitsharing(orderId).getData();
         }
 
+        //返回最终的大账单
         OrderInfoVo orderInfoVo = new OrderInfoVo();
         orderInfoVo.setOrderId(orderId);
         BeanUtils.copyProperties(orderInfo,orderInfoVo);
