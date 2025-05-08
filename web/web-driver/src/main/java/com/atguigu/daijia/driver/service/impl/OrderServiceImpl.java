@@ -308,6 +308,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //2 计算订单实际里程
+        //使用多线程
         CompletableFuture<BigDecimal> realDistanceCompletableFuture = CompletableFuture.supplyAsync(() -> {
             BigDecimal realDistance =
                     locationFeignClient.calculateOrderRealDistance(orderFeeForm.getOrderId()).getData();
