@@ -737,6 +737,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     public OrderProfitsharingVo getOrderProfitsharing(Long orderId) {
         LambdaQueryWrapper<OrderProfitsharing> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(OrderProfitsharing::getOrderId,orderId);
+        //一个订单只有一个分账信息
         OrderProfitsharing orderProfitsharing = orderProfitsharingMapper.selectOne(wrapper);
 
         OrderProfitsharingVo orderProfitsharingVo = new OrderProfitsharingVo();
