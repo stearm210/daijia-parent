@@ -705,10 +705,19 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         return new PageVo(pageInfo.getRecords(), pageInfo.getPages(), pageInfo.getTotal());
     }
 
+     /*
+      * @Title: getOrderBillInfo
+      * @Author: pyzxW
+      * @Date: 2025-05-08 20:41:13
+      * @Params:
+      * @Return: null
+      * @Description: Get bill information
+      */
     @Override
     public OrderBillVo getOrderBillInfo(Long orderId) {
         LambdaQueryWrapper<OrderBill> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(OrderBill::getOrderId,orderId);
+        //一个订单只有一个账单
         OrderBill orderBill = orderBillMapper.selectOne(wrapper);
 
         OrderBillVo orderBillVo = new OrderBillVo();
@@ -727,6 +736,14 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         return orderProfitsharingVo;
     }
 
+     /*
+      * @Title: sendOrderBillInfo
+      * @Author: pyzxW
+      * @Date: 2025-05-08 20:40:42
+      * @Params:
+      * @Return: null
+      * @Description:
+      */
     @Override
     public Boolean sendOrderBillInfo(Long orderId, Long driverId) {
         //更新订单信息
@@ -751,7 +768,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
       * @Date: 2025-05-08 20:39:51
       * @Params:
       * @Return: null
-      * @Description: Get bill information
+      * @Description:
       */
     @Override
     public OrderPayVo getOrderPayVo(String orderNo, Long customerId) {
