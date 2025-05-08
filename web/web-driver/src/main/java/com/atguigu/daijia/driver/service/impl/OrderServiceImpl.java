@@ -294,6 +294,7 @@ public class OrderServiceImpl implements OrderService {
         CompletableFuture.allOf(orderInfoCompletableFuture, orderServiceLastLocationVoCompletableFuture).join();
 
         //获取两个线程执行结果
+        //使用.get方法获取对应的结果
         OrderInfo orderInfo = orderInfoCompletableFuture.get();
         OrderServiceLastLocationVo orderServiceLastLocationVo = orderServiceLastLocationVoCompletableFuture.get();
 
