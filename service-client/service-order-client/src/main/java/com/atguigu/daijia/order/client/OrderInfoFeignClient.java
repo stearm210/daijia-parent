@@ -167,6 +167,14 @@ public interface OrderInfoFeignClient {
      * @param driverId
      * @return
      */
+     /*
+      * @Title: sendOrderBillInfo
+      * @Author: pyzxW
+      * @Date: 2025-05-09 19:21:19
+      * @Params: [orderId, driverId]
+      * @Return: Result<Boolean>
+      * @Description: 发送账单信息
+      */
     @GetMapping("/order/info/sendOrderBillInfo/{orderId}/{driverId}")
     Result<Boolean> sendOrderBillInfo(@PathVariable("orderId") Long orderId, @PathVariable("driverId") Long driverId);
 
