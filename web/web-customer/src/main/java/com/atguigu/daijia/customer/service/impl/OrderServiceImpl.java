@@ -218,6 +218,7 @@ public class OrderServiceImpl implements OrderService {
 
         //获取账单信息
         OrderBillVo orderBillVo = null;
+        //如果是属于代付款状态则执行
         if(orderInfo.getStatus() >= OrderStatus.UNPAID.getStatus()) {
             orderBillVo = orderInfoFeignClient.getOrderBillInfo(orderId).getData();
         }
