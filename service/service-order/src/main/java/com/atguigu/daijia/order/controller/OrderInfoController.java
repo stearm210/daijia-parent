@@ -271,6 +271,14 @@ public class OrderInfoController {
         return Result.ok(orderInfoService.getOrderProfitsharing(orderId));
     }
 
+     /*
+      * @Title: sendOrderBillInfo
+      * @Author: pyzxW
+      * @Date: 2025-05-09 19:15:06
+      * @Params:  
+      * @Return: null
+      * @Description: 发送账单信息
+      */
     @Operation(summary = "发送账单信息")
     @GetMapping("/sendOrderBillInfo/{orderId}/{driverId}")
     Result<Boolean> sendOrderBillInfo(@PathVariable Long orderId, @PathVariable Long driverId) {
