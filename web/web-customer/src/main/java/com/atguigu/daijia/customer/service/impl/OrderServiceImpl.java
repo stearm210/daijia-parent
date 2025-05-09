@@ -200,6 +200,7 @@ public class OrderServiceImpl implements OrderService {
       * @Params:
       * @Return: null
       * @Description: 根据订单id获取订单信息
+      * 司机发送对应的账单信息给乘客，乘客查看之后进行微信支付
       */
     @Override
     public OrderInfoVo getOrderInfo(Long orderId, Long customerId) {
@@ -226,6 +227,8 @@ public class OrderServiceImpl implements OrderService {
         OrderInfoVo orderInfoVo = new OrderInfoVo();
         orderInfoVo.setOrderId(orderId);
         BeanUtils.copyProperties(orderInfo,orderInfoVo);
+
+        //设置账单信息
         orderInfoVo.setOrderBillVo(orderBillVo);
         orderInfoVo.setDriverInfoVo(driverInfoVo);
         return orderInfoVo;
