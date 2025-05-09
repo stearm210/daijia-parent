@@ -184,19 +184,19 @@ public class OrderController {
       * @Return: null
       * @Description: 查询之订单分页信息
       */
-    @Operation(summary = "获取乘客订单分页列表")
-    @GuiguLogin
-    @GetMapping("findCustomerOrderPage/{page}/{limit}")
-    public Result<PageVo> findCustomerOrderPage(
-            @Parameter(name = "page", description = "当前页码", required = true)
-            @PathVariable Long page,
+     @Operation(summary = "获取乘客订单分页列表")
+     @GuiguLogin
+     @GetMapping("findCustomerOrderPage/{page}/{limit}")
+     public Result<PageVo> findCustomerOrderPage(
+             @Parameter(name = "page", description = "当前页码", required = true)
+             @PathVariable Long page,
 
-            @Parameter(name = "limit", description = "每页记录数", required = true)
-            @PathVariable Long limit) {
-        Long customerId = AuthContextHolder.getUserId();
-        PageVo pageVo = orderService.findCustomerOrderPage(customerId, page, limit);
-        return Result.ok(pageVo);
-    }
+             @Parameter(name = "limit", description = "每页记录数", required = true)
+             @PathVariable Long limit) {
+         Long customerId = AuthContextHolder.getUserId();
+         PageVo pageVo = orderService.findCustomerOrderPage(customerId, page, limit);
+         return Result.ok(pageVo);
+     }
 
     @Operation(summary = "创建微信支付")
     @GuiguLogin
