@@ -34,7 +34,7 @@
             info.create_time
         from order_info info
         where info.driver_id = #{driverId}
-        and info.is_deleted =0
+          and info.is_deleted =0
         order by info.create_time desc
     </select>
 
