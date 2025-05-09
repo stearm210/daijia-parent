@@ -85,7 +85,6 @@ public class OrderServiceImpl implements OrderService {
         //获取当前经纬度
         CalculateDrivingLineForm calculateDrivingLineForm = new CalculateDrivingLineForm();
         BeanUtils.copyProperties(expectOrderForm,calculateDrivingLineForm);
-        //之后调用腾讯地图进行计算
         Result<DrivingLineVo> drivingLineVoResult = mapFeignClient.calculateDrivingLine(calculateDrivingLineForm);
         DrivingLineVo drivingLineVo = drivingLineVoResult.getData();
 
