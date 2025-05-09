@@ -133,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
         //4.计算系统奖励
         //开始时间与结束时间
         String startTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 00:00:00";
-        String endTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 23:59:59";
+        String endTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 24:00:00";
         Long orderNum = orderInfoFeignClient.getOrderNumByTime(startTime, endTime).getData();
         //4.2.封装参数
         RewardRuleRequestForm rewardRuleRequestForm = new RewardRuleRequestForm();
@@ -347,7 +347,7 @@ public class OrderServiceImpl implements OrderService {
         //使用多线程
         CompletableFuture<Long> orderNumCompletableFuture = CompletableFuture.supplyAsync(() -> {
             String startTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 00:00:00";
-            String endTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 23:59:59";
+            String endTime = new DateTime(orderInfo.getStartServiceTime()).toString("yyyy-MM-dd") + " 24:00:00";
             Long orderNum = orderInfoFeignClient.getOrderNumByTime(startTime, endTime).getData();
             return orderNum;
         });
