@@ -12,13 +12,13 @@ import org.springframework.context.annotation.Configuration;
   * @Return: null
   * @Description: mino之配置信息
   */
-@Configuration
-@ConfigurationProperties(prefix="minio") //读取节点
-@Data
-public class MinioProperties {
+ @Configuration
+ @ConfigurationProperties(prefix="minio") //读取节点
+ @Data
+ public class MinioProperties {
 
-    private String endpointUrl;
-    private String accessKey;
-    private String secreKey;
-    private String bucketName;
-}
+     private String endpointUrl;
+     private String accessKey;
+     private String secreKey;
+     private String bucketName;
+ }
