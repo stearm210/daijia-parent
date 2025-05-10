@@ -33,42 +33,39 @@ public class FileServiceImpl implements FileService {
       * @Return: null
       * @Description: 上传接口，文件上传
       */
-    @Override
-    public String upload(MultipartFile file) {
-        try {
-            // 创建一个Minio的客户端对象
-            MinioClient minioClient = MinioClient.builder()
-                    .endpoint(minioProperties.getEndpointUrl())
-                    .credentials(minioProperties.getAccessKey(), minioProperties.getSecreKey())
-                    .build();
+     @Override
+     public String upload(MultipartFile file) {
+         try {
+             // 创建一个Minio的客户端对象
+             MinioClient minioClient = MinioClient.builder()
+                     .endpoint(minioProperties.getEndpointUrl())
+                     .credentials(minioProperties.getAccessKey(), minioProperties.getSecreKey())
+                     .build();
 
-            // 判断桶是否存在
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(minioProperties.getBucketName()).build());
-            if (!found) {       // 如果不存在，那么此时就创建一个新的桶
-                minioClient.makeBucket(MakeBucketArgs.builder().bucket(minioProperties.getBucketName()).build());
-            } else {  // 如果存在打印信息
-                System.out.println("Bucket 'daijia' already exists.");
-            }
+             // 判断桶是否存在
+             boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(minioProperties.getBucketName()).build());
+             if (!found) {       // 如果不存在，那么此时就创建一个新的桶
+                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(minioProperties.getBucketName()).build());
+             } else {  // 如果存在打印信息
+                 System.out.println("Bucket 'daijia' already exists.");
+             }
 
-            // 设置存储对象名称
-            //得到上传的文件之名称
-            String extFileName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            String fileName = new SimpleDateFormat("yyyyMMdd")
-                    .format(new Date()) + "/" + UUID.randomUUID().toString().replace("-" , "") + "." + extFileName;
+             // 设置存储对象名称
+             String extFileName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+             String fileName = new SimpleDateFormat("yyyyMMdd")
+                     .format(new Date()) + "/" + UUID.randomUUID().toString().replace("-" , "") + "." + extFileName;
 
-            PutObjectArgs putObjectArgs = PutObjectArgs.builder()
-                    .bucket(minioProperties.getBucketName())
-                    .stream(file.getInputStream(), file.getSize(), -1)
-                    .object(fileName)
-                    .build();
-            minioClient.putObject(putObjectArgs) ;
+             PutObjectArgs putObjectArgs = PutObjectArgs.builder()
+                     .bucket(minioProperties.getBucketName())
+                     .stream(file.getInputStream(), file.getSize(), -1)
+                     .object(fileName)
+                     .build();
+             minioClient.putObject(putObjectArgs) ;
 
-            return minioProperties.getEndpointUrl() + "/" + minioProperties.getBucketName() + "/" + fileName ;
-            //返回对应值上传文件的路径
+             return minioProperties.getEndpointUrl() + "/" + minioProperties.getBucketName() + "/" + fileName ;
 
-        } catch (Exception e) {
-            //失败则抛出数据异常
-            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
-        }
-    }
+         } catch (Exception e) {
+             throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+         }
+     }
 }
