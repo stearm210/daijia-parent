@@ -42,7 +42,6 @@ public class MonitorServiceImpl implements MonitorService {
         OrderMonitorRecord orderMonitorRecord = new OrderMonitorRecord();
         orderMonitorRecord.setOrderId(orderMonitorForm.getOrderId());
         orderMonitorRecord.setFileUrl(url);
-        //录音之文本内容
         orderMonitorRecord.setContent(orderMonitorForm.getContent());
 
 
