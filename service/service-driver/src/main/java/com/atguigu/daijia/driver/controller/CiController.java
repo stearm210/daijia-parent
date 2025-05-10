@@ -31,7 +31,7 @@ public class CiController {
       * @Description: 文本审核
       */
      @Operation(summary = "文本审核")
-     @PostMapping("/textAuditing")
+     @PostMapping("/ci/textAuditing")
      public Result<TextAuditingVo> textAuditing(@RequestBody String content) {
          return Result.ok(ciService.textAuditing(content));
      }
