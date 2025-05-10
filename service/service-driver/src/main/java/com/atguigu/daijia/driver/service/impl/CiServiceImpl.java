@@ -31,33 +31,32 @@ public class CiServiceImpl implements CiService {
       * @Description: 图片审核
       */
     //图片审核
-    @Override
-    public Boolean imageAuditing(String path) {
+     @Override
+     public Boolean imageAuditing(String path) {
 
-        //1.创建任务请求对象
-        ImageAuditingRequest request = new ImageAuditingRequest();
-        //2.添加请求参数 参数详情请见 API 接口文档
-        //2.1设置请求 bucket
-        request.setBucketName(tencentCloudProperties.getBucketPrivate());
-        //2.2设置审核策略 不传则为默认策略（预设）
-        //request.setBizType("");
-        //2.3设置 bucket 中的图片位置
-        request.setObjectKey(path);
-        //3.调用接口,获取任务响应对象
-        COSClient client = this.getCosClient();
-        ImageAuditingResponse response = client.imageAuditing(request);
-        client.shutdown();
-        //审核的结果
-        //用于返回该审核场景的审核结果，返回值：0：正常。1：确认为当前场景的违规内容。2：疑似为当前场景的违规内容。
-        if (!response.getPornInfo().getHitFlag().equals("0")
-                || !response.getAdsInfo().getHitFlag().equals("0")
-                || !response.getTerroristInfo().getHitFlag().equals("0")
-                || !response.getPoliticsInfo().getHitFlag().equals("0")
-        ) {
-            return false;
-        }
-        return true;
-    }
+         //1.创建任务请求对象
+         ImageAuditingRequest request = new ImageAuditingRequest();
+         //2.添加请求参数 参数详情请见 API 接口文档
+         //2.1设置请求 bucket
+         request.setBucketName(tencentCloudProperties.getBucketPrivate());
+         //2.2设置审核策略 不传则为默认策略（预设）
+         //request.setBizType("");
+         //2.3设置 bucket 中的图片位置
+         request.setObjectKey(path);
+         //3.调用接口,获取任务响应对象
+         COSClient client = this.getCosClient();
+         ImageAuditingResponse response = client.imageAuditing(request);
+         client.shutdown();
+         //用于返回该审核场景的审核结果，返回值：0：正常。1：确认为当前场景的违规内容。2：疑似为当前场景的违规内容。
+         if (!response.getPornInfo().getHitFlag().equals("0")
+                 || !response.getAdsInfo().getHitFlag().equals("0")
+                 || !response.getTerroristInfo().getHitFlag().equals("0")
+                 || !response.getPoliticsInfo().getHitFlag().equals("0")
+         ) {
+             return false;
+         }
+         return true;
+     }
 
      /*
       * @Title: textAuditing
