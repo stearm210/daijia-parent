@@ -296,10 +296,10 @@ public class OrderServiceImpl implements OrderService {
       * @Return: null
       * @Description: 获取订单服务最后一个位置信息
       */
-    @Override
-    public OrderServiceLastLocationVo getOrderServiceLastLocation(Long orderId) {
-        return locationFeignClient.getOrderServiceLastLocation(orderId).getData();
-    }
+     @Override
+     public OrderServiceLastLocationVo getOrderServiceLastLocation(Long orderId) {
+         return locationFeignClient.getOrderServiceLastLocation(orderId).getData();
+     }
 
     @Override
     public PageVo findCustomerOrderPage(Long customerId, Long page, Long limit) {

@@ -169,12 +169,12 @@ public class OrderController {
       * @Return: null
       * @Description: 获取订单服务最后一个位置信息
       */
-    @Operation(summary = "代驾服务：获取订单服务最后一个位置信息")
-    @GuiguLogin
-    @GetMapping("/getOrderServiceLastLocation/{orderId}")
-    public Result<OrderServiceLastLocationVo> getOrderServiceLastLocation(@PathVariable Long orderId) {
-        return Result.ok(orderService.getOrderServiceLastLocation(orderId));
-    }
+     @Operation(summary = "代驾服务：获取订单服务最后一个位置信息")
+     @GuiguLogin
+     @GetMapping("/getOrderServiceLastLocation/{orderId}")
+     public Result<OrderServiceLastLocationVo> getOrderServiceLastLocation(@PathVariable Long orderId) {
+         return Result.ok(orderService.getOrderServiceLastLocation(orderId));
+     }
 
      /*
       * @Title: findCustomerOrderPage
