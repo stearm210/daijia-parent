@@ -303,45 +303,23 @@ public class LocationServiceImpl implements LocationService {
       * @Return: null
       * @Description: 批量保存代驾服务订单位置
       */
-    @Override
-    public Boolean saveOrderServiceLocation(List<OrderServiceLocationForm> orderLocationServiceFormList) {
-        List<OrderServiceLocation> list = new ArrayList<>();
-        //使用mongdb的方法进行保存
-        //集合之遍历，将集合中的数据进行批量保存
-        //list中的数据转换成对象再存到list中，更加方便
-        orderLocationServiceFormList.forEach(orderServiceLocationForm->{
-            //orderServiceLocationForm --> OrderServiceLocation 对象装换
-            OrderServiceLocation orderServiceLocation = new OrderServiceLocation();
-            BeanUtils.copyProperties(orderServiceLocationForm,orderServiceLocation);
-            //设置id和创建时间，需要在mongdb中进行操作
-            orderServiceLocation.setId(ObjectId.get().toString());
-            orderServiceLocation.setCreateTime(new Date());
-
-            //新的集合进行保存
-            list.add(orderServiceLocation);
-        });
-        //批量添加操作-->mongdb中
-        orderServiceLocationRepository.saveAll(list);
-        return true;
-    }
-//    public Boolean saveOrderServiceLocation(List<OrderServiceLocationForm> orderLocationServiceFormList) {
-//
-//        List<OrderServiceLocation> list = new ArrayList<>();
-//        //OrderServiceLocation
-//        orderLocationServiceFormList.forEach(orderServiceLocationForm->{
-//            //orderServiceLocationForm -- OrderServiceLocation
-//            OrderServiceLocation orderServiceLocation = new OrderServiceLocation();
-//            BeanUtils.copyProperties(orderServiceLocationForm,orderServiceLocation);
-//            orderServiceLocation.setId(ObjectId.get().toString());
-//            orderServiceLocation.setCreateTime(new Date());
-//
-//            list.add(orderServiceLocation);
-//            //orderServiceLocationRepository.save(orderServiceLocation);
-//        });
-//        //批量添加到MongoDB
-//        orderServiceLocationRepository.saveAll(list);
-//        return true;
-//    }
+     @Override
+     public Boolean saveOrderServiceLocation(List<OrderServiceLocationForm> orderLocationServiceFormList) {
+         List<OrderServiceLocation> list = new ArrayList<>();
+         //OrderServiceLocation
+         orderLocationServiceFormList.forEach(orderServiceLocationForm->{
+             //orderServiceLocationForm -- OrderServiceLocation
+             OrderServiceLocation orderServiceLocation = new OrderServiceLocation();
+             BeanUtils.copyProperties(orderServiceLocationForm,orderServiceLocation);
+             orderServiceLocation.setId(ObjectId.get().toString());
+             orderServiceLocation.setCreateTime(new Date());
+             list.add(orderServiceLocation);
+             //orderServiceLocationRepository.save(orderServiceLocation);
+         });
+         //批量添加到MongoDB
+         orderServiceLocationRepository.saveAll(list);
+         return true;
+     }
 
      /*
       * @Title: getOrderServiceLastLocation
