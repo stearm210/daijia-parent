@@ -129,11 +129,11 @@ public class LocationController {
       * @Return: null
       * @Description: 获取司机的最后位置信息
       */
-    @Operation(summary = "代驾服务：获取订单服务最后一个位置信息")
-    @GetMapping("/getOrderServiceLastLocation/{orderId}")
-    public Result<OrderServiceLastLocationVo> getOrderServiceLastLocation(@PathVariable Long orderId) {
-        return Result.ok(locationService.getOrderServiceLastLocation(orderId));
-    }
+     @Operation(summary = "代驾服务：获取订单服务最后一个位置信息")
+     @GetMapping("/getOrderServiceLastLocation/{orderId}")
+     public Result<OrderServiceLastLocationVo> getOrderServiceLastLocation(@PathVariable Long orderId) {
+         return Result.ok(locationService.getOrderServiceLastLocation(orderId));
+     }
 
      /*
       * @Title: calculateOrderRealDistance
