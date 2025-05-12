@@ -81,6 +81,14 @@ public class CustomerInfoServiceImpl extends ServiceImpl<CustomerInfoMapper, Cus
         return customerInfo.getId();
     }
 
+     /*
+      * @Title: getCustomerInfo
+      * @Author: pyzxW
+      * @Date: 2025-05-12 15:47:44
+      * @Params:
+      * @Return: null
+      * @Description: 获取用户的信息
+      */
     //获取客户登录信息
     @Override
     public CustomerLoginVo getCustomerInfo(Long customerId) {
@@ -131,12 +139,26 @@ public class CustomerInfoServiceImpl extends ServiceImpl<CustomerInfoMapper, Cus
         }
     }
 
+     /*
+      * @Title: getCustomerOpenId
+      * @Author: pyzxW
+      * @Date: 2025-05-12 15:48:00
+      * @Params:
+      * @Return: null
+      * @Description: 获取客户的openid信息
+      */
     @Override
     public String getCustomerOpenId(Long customerId) {
+        //查询CustomerInfo库
         LambdaQueryWrapper<CustomerInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(CustomerInfo::getId,customerId);
         CustomerInfo customerInfo = customerInfoMapper.selectOne(wrapper);
         return customerInfo.getWxOpenId();
+
+//        LambdaQueryWrapper<CustomerInfo> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(CustomerInfo::getId,customerId);
+//        CustomerInfo customerInfo = customerInfoMapper.selectOne(wrapper);
+//        return customerInfo.getWxOpenId();
     }
 
 }
