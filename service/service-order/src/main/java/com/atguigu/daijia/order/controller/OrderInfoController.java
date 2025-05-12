@@ -275,6 +275,14 @@ public class OrderInfoController {
         return Result.ok(orderInfoService.sendOrderBillInfo(orderId, driverId));
     }
 
+     /*
+      * @Title: getOrderPayVo
+      * @Author: pyzxW
+      * @Date: 2025-05-12 15:59:31
+      * @Params:
+      * @Return: null
+      * @Description: 获取订单的支付信息
+      */
     @Operation(summary = "获取订单支付信息")
     @GetMapping("/getOrderPayVo/{orderNo}/{customerId}")
     public Result<OrderPayVo> getOrderPayVo(@PathVariable String orderNo, @PathVariable Long customerId) {

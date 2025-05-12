@@ -777,7 +777,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
       * @Date: 2025-05-08 20:39:51
       * @Params:
       * @Return: null
-      * @Description:
+      * @Description:获取支付订单的信息
       */
     @Override
     public OrderPayVo getOrderPayVo(String orderNo, Long customerId) {
