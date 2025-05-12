@@ -778,6 +778,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
       * @Params:
       * @Return: null
       * @Description:获取支付订单的信息
+      * 使用分页查询，查询语句在xml文件中进行实现
       */
     @Override
     public OrderPayVo getOrderPayVo(String orderNo, Long customerId) {
