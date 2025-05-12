@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.atguigu.daijia.order.mapper.OrderInfoMapper">
-
+<!-- 查询账单分页信息   -->
     <select id="selectOrderPayVo" resultType="com.atguigu.daijia.model.vo.order.OrderPayVo">
         select
             info.id as order_id,
