@@ -535,9 +535,19 @@ public class DriverInfoServiceImpl extends ServiceImpl<DriverInfoMapper, DriverI
         return driverInfoVo;
     }
 
+     /*
+      * @Title: getDriverOpenId
+      * @Author: pyzxW
+      * @Date: 2025-05-12 15:56:18
+      * @Params:
+      * @Return: null
+      * @Description: 获取司机的openid
+      */
     @Override
     public String getDriverOpenId(Long driverId) {
-        DriverInfo driverInfo = this.getOne(new LambdaQueryWrapper<DriverInfo>().eq(DriverInfo::getId, driverId).select(DriverInfo::getWxOpenId));
+        LambdaQueryWrapper<DriverInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(DriverInfo::getId,driverId);
+        DriverInfo driverInfo = driverInfoMapper.selectOne(wrapper);
         return driverInfo.getWxOpenId();
     }
 

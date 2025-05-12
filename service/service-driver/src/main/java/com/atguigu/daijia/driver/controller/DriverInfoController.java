@@ -175,6 +175,14 @@ public class DriverInfoController {
         return Result.ok(driverInfoService.getDriverInfoOrder(driverId));
     }
 
+     /*
+      * @Title: getDriverOpenId
+      * @Author: pyzxW
+      * @Date: 2025-05-12 15:55:38
+      * @Params:
+      * @Return: null
+      * @Description: 获取司机的openid
+      */
     @Operation(summary = "获取司机OpenId")
     @GetMapping("/getDriverOpenId/{driverId}")
     public Result<String> getDriverOpenId(@PathVariable Long driverId) {
