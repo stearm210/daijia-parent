@@ -781,12 +781,21 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
       */
     @Override
     public OrderPayVo getOrderPayVo(String orderNo, Long customerId) {
+        //查询了订单之分页信息，获取对应的信息放入vo中准备进行调用
         OrderPayVo orderPayVo = orderInfoMapper.selectOrderPayVo(orderNo,customerId);
         if(orderPayVo != null) {
             String content = orderPayVo.getStartLocation() + " 到 "+orderPayVo.getEndLocation();
             orderPayVo.setContent(content);
         }
         return orderPayVo;
+
+
+//        OrderPayVo orderPayVo = orderInfoMapper.selectOrderPayVo(orderNo,customerId);
+//        if(orderPayVo != null) {
+//            String content = orderPayVo.getStartLocation() + " 到 "+orderPayVo.getEndLocation();
+//            orderPayVo.setContent(content);
+//        }
+//        return orderPayVo;
     }
 
     @Override
